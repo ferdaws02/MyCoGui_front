@@ -127,8 +127,9 @@ export const tokens= (mode)=>({
 export const themeSettings =(mode)=>{
     const colors =tokens(mode);
     return{
-        palette:{
-            mode:mode,
+        
+            palette: {
+              mode: mode,
             ...colors(mode==='dark'
             ?{
                 primary:{
@@ -139,8 +140,8 @@ export const themeSettings =(mode)=>{
                 },
                 neutral:{
                     dark:colors.gray[700],
-                    main:colors.grey[500],
-                    light:colors.grey[100],
+                    main:colors.gray[500],
+                    light:colors.gray[100],
                 },
                 background :{
                     default: colors.primary[500],
@@ -154,17 +155,16 @@ export const themeSettings =(mode)=>{
                 },
                 neutral:{
                     dark:colors.gray[700],
-                    main:colors.grey[500],
-                    light:colors.grey[100],
+                    main:colors.gray[500],
+                    light:colors.gray[100],
                 },
                 background :{
                     default: "#fcfcfc",
                 },
-
-            }),
-            
-        },
-        typoography:{
+            }
+      ),
+    },
+        typography:{
             fontFamily:["Source Sans Pro","sans-serif"].join(","),
             fontSize:12,
             h1: { 
@@ -212,7 +212,7 @@ export const themeSettings =(mode)=>{
         }),
         []
     );
-    const theme =useMemo(()=>createTheme(themeSettings(mode)),[mood])
+    const theme =useMemo(()=>createTheme(themeSettings(mode)),[mode])
 
         return  [theme,colorMode];
 } 
