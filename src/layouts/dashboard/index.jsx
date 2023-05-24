@@ -1,6 +1,12 @@
-import { Dashboard } from "@mui/icons-material";
+//import { tokens } from "../../theme";
+//import {  useTheme } from "@mui/material";
+import React from 'react';
 
-const Dashboard =() =>{
-    return <div>Dashboard</div>
-}
+const Dashboard = () => {
+ // const theme = useTheme();
+ // const colors = tokens(theme.palette.mode);
+
+  return (<div> </div>);
+};
+
 export default Dashboard;
