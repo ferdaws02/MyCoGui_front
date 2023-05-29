@@ -47,7 +47,6 @@ const FormPopupView = ({
               required
               id="outlined-required"
               label="Name"
-              defaultValue=""
               color="info"
               variant="standard"
               onChange={handleNomentrepriseChange}
@@ -58,7 +57,6 @@ const FormPopupView = ({
               required
               id="outlined-required"
               label="Country"
-              defaultValue=""
               color="info"
               variant="standard"
               onChange={handlePaysChange}
@@ -69,7 +67,6 @@ const FormPopupView = ({
               required
               id="outlined-required"
               label="Adresse"
-              defaultValue=""
               color="info"
               variant="standard"
               width="50ch"

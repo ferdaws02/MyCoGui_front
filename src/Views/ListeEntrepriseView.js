@@ -8,7 +8,7 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { tokens } from '../theme';
 import FormPopup from '../Controllers/FormPopupController';
-import EditForm from '../components/EditForm';
+import EditForm from '../Controllers/EditFormController';
 
 const ListEntrepriseView = ({
   entreprises,
@@ -27,9 +27,10 @@ const ListEntrepriseView = ({
 
   const columns = [
     { field: 'id_e', headerName: 'ID', width: 70 },
+    { field: 'nomentreprise', headerName: 'Name', width: 200 },
     { field: 'adresse', headerName: 'Adresse', width: 200 },
     { field: 'pays', headerName: 'Country', width: 200 },
-    { field: 'nomentreprise', headerName: 'Name', width: 200 },
+   
     {
       headerName: 'Action',
       flex: 1,
