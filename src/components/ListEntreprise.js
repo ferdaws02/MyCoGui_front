@@ -65,7 +65,7 @@ const ListEntreprise = () => {
 
   const columns = [
     { field: 'id_e', headerName: 'ID', width: 70 },
-    { field: 'adresse', headerName: 'Adresse', width: 130 },
+    { field: 'adresse', headerName: 'Adresse', width: 200 },
     { field: 'pays', headerName: 'Country', width: 200 },
     { field: 'nomentreprise', headerName: 'Name', width: 200 },
     {
@@ -73,14 +73,10 @@ const ListEntreprise = () => {
       flex: 1,
       renderCell: (params)  => {
         return (<Box display="flex"  mt="15px">
-                   <IconButton onClick={handleOpenEdit} aria-label="Edit" size="small" id="Edit_BTN">
-                  <EditOutlinedIcon fontSize="small" />
+                   <IconButton onClick={handleOpenEdit} aria-label="Edit" size="large" id="Edit_BTN">
+                  <EditOutlinedIcon fontSize="small"  />
                   </IconButton>
-                 
-                   <IconButton aria-label="delete" size="small">
-                  <DeleteOutlinedIcon fontSize="small" color='error' />
-                  </IconButton>
-                  <IconButton aria-label="delete" size="small">
+                  <IconButton aria-label="consult" size="large">
                   <VisibilityOutlinedIcon fontSize="small" color="info" />
                   </IconButton>
                  </Box>
@@ -98,7 +94,13 @@ return(<div>
       >
         </Box>
         <Box>
-     <Button  onClick={handleOpen } size="small" color="info" variant="contained">
+     <Button  onClick={handleOpen } size="small"  sx={{
+        backgroundColor: colors.greenAccent[500], // Replace with your desired color
+        '&:hover': {
+          backgroundColor: colors.greenAccent[700]
+        },
+      }}
+     variant="contained">
      Add New Client 
      <Box width="5px"></Box>
       <AddCircleOutlineOutlinedIcon  fontSize="medium" />
@@ -121,7 +123,7 @@ return(<div>
             color: colors.greenAccent[300],
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.greenAccent[600],
             borderBottom: "none",
           },
           "& .MuiDataGrid-virtualScroller": {
@@ -129,7 +131,7 @@ return(<div>
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.greenAccent[600],
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
@@ -156,6 +158,8 @@ return(<div>
            
            //();
          }}
+         pagination
+         pageSize={10}
         
       />
        <EditForm   isOpenEdit={isOpenEdit} onCloseEdit={handleCloseEdit} selectedData={data} />
