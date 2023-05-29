@@ -9,6 +9,7 @@ import Dashboard  from "./layouts/dashboard/index";
 import Sidebar from"./layouts/global/Sidebar";
 import ProjectList from"./components/ProjectList";
 import ListEntreprise from"./components/ListEntreprise";
+import Entreprises from"./Controllers/ListeEntreprise";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -27,7 +28,7 @@ function App() {
           <Route path="/" element={<Dashboard/>}/>
           <Route path="/" element={<Sidebar/>}/>
           <Route path="/Projects" element={<ProjectList />} />
-          <Route path="/Clients" element={<ListEntreprise />} />
+          <Route path="/Clients" element={<Entreprises />} />
         </Routes>
       </main>
        </div>
