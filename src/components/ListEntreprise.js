@@ -8,21 +8,33 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { tokens } from "../theme";
 import FormPopup from './popupForm';
+import EditForm from'./EditForm';
+
 
 const ListEntreprise = () => {
   const [entreprises, setEntreprises] = useState([]);
+  const [data, setData] = useState('');
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isOpen, setIsOpen] = useState(false);
-
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
   const handleOpen = () => {
     setIsOpen(true);
+  };
+  const handleOpenEdit = () => {
+    setIsOpenEdit(true);
   };
 
   const handleClose = () => {
     setIsOpen(false);
   };
- 
+
+  const handleCloseEdit = () => {
+    setIsOpenEdit(false);
+  };
+  const handleDataChange = (newData) => {
+    setData(newData);
+  };
   useEffect(() => {
     // Fetch data from the backend and update the state
     fetchData();
@@ -45,6 +57,11 @@ const ListEntreprise = () => {
       console.error('Error while fetching data:', error);
     }
   };
+  const getDataById = (id) => {
+    const row = entreprises.find((row) => row.id === id);
+    return row ? row : null;
+  };
+
 
   const columns = [
     { field: 'id_e', headerName: 'ID', width: 70 },
@@ -54,12 +71,12 @@ const ListEntreprise = () => {
     {
       headerName: "Action",
       flex: 1,
-      renderCell: () => {
+      renderCell: (params)  => {
         return (<Box display="flex"  mt="15px">
-                   <IconButton aria-label="delete" size="small">
+                   <IconButton onClick={handleOpenEdit} aria-label="Edit" size="small" id="Edit_BTN">
                   <EditOutlinedIcon fontSize="small" />
                   </IconButton>
-      
+                 
                    <IconButton aria-label="delete" size="small">
                   <DeleteOutlinedIcon fontSize="small" color='error' />
                   </IconButton>
@@ -119,11 +136,33 @@ return(<div>
           },
         }}
       >
-        <DataGrid rows={entreprises}  columns={columns} sortModel={[{ field: 'id_e', sort: 'desc' }]} 
+        <DataGrid rows={entreprises} columns={columns} sortModel={[{ field: 'id_e', sort: 'desc' }]} 
+         getRowId={(row) => row.id} // Specify the ID field
+         getRowData={(params) => params.row} // Retrieve the row data
+         onRowClick={(params) => {
+           const id = params.row.id;
+           const rowData = getDataById(id);
+           if (rowData) {
+             console.log('Data found:', rowData);
+             const Data= rowData
+             console.log('Data :', Data);
+
+             handleDataChange(Data)
+          
+           } else {
+             console.log('Data not found for the specified ID.');
+           }
+           handleOpenEdit ();
+           
+           //();
+         }}
+        
       />
+       <EditForm   isOpenEdit={isOpenEdit} onCloseEdit={handleCloseEdit} selectedData={data} />
       </Box>
       </Box>
       <FormPopup isOpen={isOpen} onClose={handleClose} />
+      
       </div>);
 };
 

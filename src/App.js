@@ -9,6 +9,7 @@ import Dashboard  from "./layouts/dashboard/index";
 import Sidebar from"./layouts/global/Sidebar";
 import ProjectList from"./components/ProjectList";
 import ListEntreprise from"./components/ListEntreprise";
+
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
