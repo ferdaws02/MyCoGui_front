@@ -3,32 +3,38 @@ import React ,{useState,useEffect}from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Box,TextField} from '@mui/material';
 import { tokens } from "../theme";
 import { useTheme } from "@mui/material";
-const EditForm = ({ isOpenEdit, onCloseEdit, selectedData,onDataChange }) => {
+import SelectOption from'../components/SelectEntreprise';
+const EditProject = ({ isOpenEditProject, onCloseEditProject, rowData}) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [nomentreprise, setNomentreprise] = useState('');
-    const [pays, setPays] = useState('');
-    const [adresse, setAdresse] = useState('');
-  //  const [formData, setFormData] = useState({selectedData });
-  
-  useEffect(() => {
-    if (selectedData) {
-      setNomentreprise(selectedData.nomentreprise);
-      setPays(selectedData.pays);
-      setAdresse(selectedData.adresse);
-    }
-  }, [selectedData]);
+    const [titre, setTitre] = useState('');
+    const [description, setdescription] = useState('');
+    const [entreprise, setEntreprise] = useState('');
+    const[data,setData]=useState([]);
+    const [selectedOption, setSelectedOption] = useState('')
 
+    useEffect(() => {
+      if (rowData) {
+        console.log(rowData.entreprise.id_e);
+        var x = rowData.entreprise.id_e;
+        setTitre(rowData.titre);
+        setdescription(rowData.description);
+        setEntreprise(x);
+         //retrieveData()
+      }
+    }, [rowData]);
+    
    
     const handleSubmit = (event) => {
       event.preventDefault();
       const modifiedData = {
-        id_e: selectedData.id_e,
-        nomentreprise,
-        pays,
-        adresse
+        id_p: rowData.id_p,
+        titre,
+        description,
+        entreprise       
       };
-      fetch('/ModifierEntreprise', {
+      console.log(modifiedData.entreprise.id_e)
+      fetch('/modifierProjet', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -38,9 +44,9 @@ const EditForm = ({ isOpenEdit, onCloseEdit, selectedData,onDataChange }) => {
         .then(response => {
           if (response.ok) {
             // Handle successful submission
-            console.log('Data submitted successfully');
-            onCloseEdit(); // Close the dialog box
-            window.location.reload(); // Refresh the page
+            console.log('Data submitted successfully ');
+            //onCloseEditProject(); // Close the dialog box
+            //window.location.reload(); // Refresh the page
            
           } else {
             throw new Error('Error submitting data');
@@ -54,18 +60,21 @@ const EditForm = ({ isOpenEdit, onCloseEdit, selectedData,onDataChange }) => {
     };
     const handleInputChange = (event) => {
       const { name, value } = event.target;
-      if (name === 'nomentreprise') {
-        setNomentreprise(value);
-      } else if (name === 'pays') {
-        setPays(value);
-      } else if (name === 'adresse') {
-        setAdresse(value);
-      }
+      if (name === 'titre') {
+        setTitre(value);
+      } else if (name === 'description') {
+        setdescription(value);
+      } 
     };
 
 
+    const handleOptionChange = (selectedOption) => {
+      setSelectedOption(selectedOption);
+      // Process the selected option in the parent component
+      console.log('Selected option:', selectedOption);
+    }
     return (
-      <Dialog open={isOpenEdit} onClose={onCloseEdit}  fullWidth
+      <Dialog open={isOpenEditProject} onClose={onCloseEditProject}  fullWidth
       maxWidth="sm">
         <DialogTitle fontStyle={colors.grey[800]} important>Edit Client</DialogTitle>
         <DialogContent>
@@ -84,9 +93,9 @@ const EditForm = ({ isOpenEdit, onCloseEdit, selectedData,onDataChange }) => {
       <TextField
           required
           id="outlined-required"
-          name='id_e'
+          name='id_p'
           label="id"
-          value={selectedData.id_e}
+          value={rowData.id_p}
           color= "info"
           variant='standard'
          
@@ -97,8 +106,8 @@ const EditForm = ({ isOpenEdit, onCloseEdit, selectedData,onDataChange }) => {
           required
           id="outlined-required"
           label="Name"
-          name='nomentreprise'
-          value={nomentreprise}
+          name='titre'
+          value={titre}
           color= "info"
           variant='standard'
           onChange={handleInputChange}
@@ -110,35 +119,29 @@ const EditForm = ({ isOpenEdit, onCloseEdit, selectedData,onDataChange }) => {
           required
           id="outlined-required"
           label="Country"
-          name='pays'
-          value={pays}
+          name='description'
+          value={description}
           color= "info"
           variant='standard'
           onChange={handleInputChange}
           
         />
-       
-        <TextField
-          required
-          id="outlined-required"
-          label="Adresse"
-          name='adresse'
-          value={adresse}
-          color= "info"
-          variant='standard'
-          width= '50ch'
-          onChange={handleInputChange}
-         
-        />
-       
+        </div>
+        <div>
+      
+       <SelectOption onOptionChange={handleOptionChange} />
+ 
+      
+        </div>
+      
         
    
-        </div>
+       
         </form>
         </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onCloseEdit} color="inherit" variant="text">
+          <Button onClick={onCloseEditProject} color="inherit" variant="text">
             Close
           </Button>
           <Button color="info" variant="text" autoFocus onClick={handleSubmit}>
@@ -149,7 +152,4 @@ const EditForm = ({ isOpenEdit, onCloseEdit, selectedData,onDataChange }) => {
     );
   };
 
-
-
-
-export default EditForm;
+export default EditProject;

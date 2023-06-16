@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+
 const useEntrepriseModel = () => {
   const [entreprises, setEntreprises] = useState([]);
   const [data, setData] = useState('');

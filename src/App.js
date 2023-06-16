@@ -7,8 +7,7 @@ import { Routes,Route } from 'react-router-dom';
 import Topbar from "./layouts/global/Topbar";
 import Dashboard  from "./layouts/dashboard/index";
 import Sidebar from"./layouts/global/Sidebar";
-import ProjectList from"./components/ProjectList";
-import ListEntreprise from"./components/ListEntreprise";
+import ProjectList from"./Controllers/ProjetsController";
 import Entreprises from"./Controllers/ListeEntreprise";
 
 function App() {
