@@ -9,18 +9,19 @@ const EditProject = ({ isOpenEditProject, onCloseEditProject, rowData}) => {
     const colors = tokens(theme.palette.mode);
     const [titre, setTitre] = useState('');
     const [description, setdescription] = useState('');
-    const [entreprise, setEntreprise] = useState('');
-    const[data,setData]=useState([]);
-    const [selectedOption, setSelectedOption] = useState('')
+    const [entreprise, setEntreprise] = useState(rowData.entreprise);
+    const [selectedOption, setSelectedOption] = useState(rowData.entreprise);
+  
 
     useEffect(() => {
       if (rowData) {
-        console.log(rowData.entreprise.id_e);
-        var x = rowData.entreprise.id_e;
+        console.log(rowData.entreprise.nomentreprise);
+        var x = rowData.entreprise.nomentreprise;
         setTitre(rowData.titre);
         setdescription(rowData.description);
         setEntreprise(x);
-         //retrieveData()
+        console.log("Entreprise geted"+rowData.entreprise.nomentreprise)
+       
       }
     }, [rowData]);
     
@@ -33,7 +34,7 @@ const EditProject = ({ isOpenEditProject, onCloseEditProject, rowData}) => {
         description,
         entreprise       
       };
-      console.log(modifiedData.entreprise.id_e)
+      console.log(modifiedData)
       fetch('/modifierProjet', {
         method: 'PUT',
         headers: {
@@ -64,19 +65,23 @@ const EditProject = ({ isOpenEditProject, onCloseEditProject, rowData}) => {
         setTitre(value);
       } else if (name === 'description') {
         setdescription(value);
-      } 
+      } else if (name === 'entreprise') {
+        setEntreprise(value);
+      }
     };
 
 
-    const handleOptionChange = (selectedOption) => {
-      setSelectedOption(selectedOption);
-      // Process the selected option in the parent component
-      console.log('Selected option:', selectedOption);
-    }
+    const handleOptionChange = (event) => {
+      //  setSelectedOption(event.target.value);
+      // console.log("****the selectedOPtion in the handle  "+selectedOption)
+      setEntreprise(event.target.value);
+      console.log("****the selectedOPtion in the handle  "+entreprise.nomentreprise)
+    };
+  
     return (
       <Dialog open={isOpenEditProject} onClose={onCloseEditProject}  fullWidth
       maxWidth="sm">
-        <DialogTitle fontStyle={colors.grey[800]} important>Edit Client</DialogTitle>
+        <DialogTitle fontStyle={colors.grey[800]} important>Edit Project</DialogTitle>
         <DialogContent>
         <Box
       component="form"
@@ -118,7 +123,7 @@ const EditProject = ({ isOpenEditProject, onCloseEditProject, rowData}) => {
          <TextField
           required
           id="outlined-required"
-          label="Country"
+          label="description"
           name='description'
           value={description}
           color= "info"
@@ -129,7 +134,7 @@ const EditProject = ({ isOpenEditProject, onCloseEditProject, rowData}) => {
         </div>
         <div>
       
-       <SelectOption onOptionChange={handleOptionChange} />
+       <SelectOption   selectedOption={entreprise} handleOptionChange={handleOptionChange} />
  
       
         </div>

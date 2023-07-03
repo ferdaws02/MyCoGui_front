@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 
-const SelectOptions = () => {
+const SelectOptions = ({ selectedOption, handleOptionChange }) => {
     const [options, setOptions] = useState([]);
-    const [selectedOption, setSelectedOption] = useState('');
+    const [optionselected, setOptionselected] = useState([]);
+   
   
     useEffect(() => {
         fetchData();
@@ -28,14 +29,25 @@ const SelectOptions = () => {
         }
       };
     
-    const handleChange = (event) => {
-      setSelectedOption(event.target.value);
-    };
+      const handleChange = (event) => {
+        setOptionselected(event.target.value);
+        handleOptionChange(event);
+      };
   
     return (
-      <FormControl sx={{mt:1,mb:1,mr:5,ml:10, width: 300 }}
-      >
-        <Select value={selectedOption} onChange={handleChange}
+      <FormControl sx={{mt:1,mb:1,mr:5,ml:10, width: 300 ,
+      '& .MuiSelect-standard':'standard'}}
+    
+       >
+        <InputLabel id="simple-select-label" color='info' sx={{ml:5,mr:10,mt:2}}>Entreprise Client</InputLabel>
+        <Select 
+        variant='outlined'
+        label='Entreprise Client'
+        color="info"
+        id="simple-select"
+        sx={{ml:5,mt:2,mr:8}} 
+        value={optionselected}
+         onChange={handleChange}
        >
           {options.map((option) => (
             <MenuItem key={option.id} value={option.id_e}>

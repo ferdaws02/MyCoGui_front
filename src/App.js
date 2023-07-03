@@ -9,6 +9,7 @@ import Dashboard  from "./layouts/dashboard/index";
 import Sidebar from"./layouts/global/Sidebar";
 import ProjectList from"./Controllers/ProjetsController";
 import Entreprises from"./Controllers/ListeEntreprise";
+import AddForm from"./components/formAddusers";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -28,6 +29,7 @@ function App() {
           <Route path="/" element={<Sidebar/>}/>
           <Route path="/Projects" element={<ProjectList />} />
           <Route path="/Clients" element={<Entreprises />} />
+          <Route path="/AddUser" element={<AddForm />} />
         </Routes>
       </main>
        </div>

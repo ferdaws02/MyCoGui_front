@@ -7,7 +7,8 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { tokens } from '../theme';
 import FormPopup from '../Controllers/FormPopupProjectController';
-import EditForm from '../components/EditProject';
+import EditFormProject from '../components/EditProject';
+import {useState}from 'react';
 
 const ListProjetView = ({
   projets,
@@ -23,7 +24,7 @@ const ListProjetView = ({
 }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
+  const [Data, setData] = useState('');
   const columns = [
     { field: 'id_p', headerName: 'ID', width: 70 },
     { field: 'titre', headerName: 'Title', width: 200 },
@@ -117,6 +118,7 @@ const ListProjetView = ({
                 console.log('Data found:', rowData);
                 const Data = rowData;
                 console.log('Data :', Data);
+                setData(Data)
                 handleDataChange(Data);
               } else {
                 console.log('Data not found for the specified ID.');
@@ -126,7 +128,7 @@ const ListProjetView = ({
             pagination
             pageSize={10}
           />
-          <EditForm isOpenEditProject={isOpenEdit} onCloseEditProject={handleCloseEdit} rowData={data} />
+          <EditFormProject isOpenEditProject={isOpenEdit} onCloseEditProject={handleCloseEdit} rowData={Data} />
         </Box>
       </Box>
       <FormPopup isOpen={isOpen} onClose={handleClose} />
