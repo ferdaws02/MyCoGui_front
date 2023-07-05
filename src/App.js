@@ -10,7 +10,8 @@ import Sidebar from"./layouts/global/Sidebar";
 import ProjectList from"./Controllers/ProjetsController";
 import Entreprises from"./Controllers/ListeEntreprise";
 import AddForm from"./components/formAddusers";
-
+import ListConsultant  from"./components/ListeConsultants";
+import ModifUser from "./components/ModifAccount";
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -30,6 +31,8 @@ function App() {
           <Route path="/Projects" element={<ProjectList />} />
           <Route path="/Clients" element={<Entreprises />} />
           <Route path="/AddUser" element={<AddForm />} />
+          <Route path="/Consultants" element={<ListConsultant />} />
+          <Route path="/ModifUser/:id" element={<ModifUser />} />
         </Routes>
       </main>
        </div>

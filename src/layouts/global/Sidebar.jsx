@@ -95,7 +95,7 @@ const Sidebar = () => {
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
-              title="Dashboard"
+              title="Tableau de bord"
               to="/"
               icon={<HomeOutlinedIcon />}
               selected={selected}
@@ -111,7 +111,7 @@ const Sidebar = () => {
             </Typography>
             <Item
             id="Project"
-              title="Projects"
+              title="Projets"
               to="/Projects"
               icon={<FactCheckOutlinedIcon />}
               selected={selected}
@@ -125,23 +125,17 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Create accounts"
+              title="Creation de Compte"
               to="/AddUser"
               icon={<PersonAddAltOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Pages
-            </Typography>
+            
             <Item
-              title="Profile Form"
-              to="/form"
+              title="Liste des Comptes"
+              to="/Consultants"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

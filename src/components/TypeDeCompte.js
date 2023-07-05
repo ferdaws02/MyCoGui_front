@@ -9,7 +9,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import SelectOptions from'./SelectEntreprise';
 import {Grid,Box} from '@mui/material';
 
-const  AccountTypeSelect=({onSelect })  =>{
+const  AccountTypeSelect=({onSelect ,onSetOPtion,selected})  =>{
   const [selectedValue, setSelectedValue] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [entreprise, setEntreprise] = useState('');
@@ -22,6 +22,7 @@ const  AccountTypeSelect=({onSelect })  =>{
   };
   const handleOptionChange = (event) => {
     setEntreprise(event.target.value);
+    onSetOPtion(event.target.value)
   }
 
   const handleChange = (event) => {
@@ -43,7 +44,7 @@ const  AccountTypeSelect=({onSelect })  =>{
         sx={{ml:10,mt:3}}
           color="info"
           id="simple-select"
-          value={selectedValue}
+          value={selected}
           label="Type de Compte"
           onChange={handleSelectChange}
         >
@@ -51,25 +52,15 @@ const  AccountTypeSelect=({onSelect })  =>{
           <MenuItem value={"Service_Manager"}>Service Manager</MenuItem>
           <MenuItem value={"RH"}>RH</MenuItem>
           <MenuItem value={"Comptable"}>Comptable</MenuItem>
-          <MenuItem value={'Manager'}>Manager</MenuItem>
+          <MenuItem value={'Manager_Inetum'}>Manager Inetum</MenuItem>
+          <MenuItem value={'Manager_Client'}>Manager Client</MenuItem>
         </Select>
       </FormControl>
       <Grid container spacing={2}>
       <Grid item>
         <item>
-      {selectedValue === 'Manager' && (
-        <FormControl component="fieldset">
-          <RadioGroup  sx={{mt:4}}
-            row
-            aria-label="position"
-            name="subType"
-            onChange={handleChange}>
-            <FormControlLabel value="Client" control={<Radio  color='info' />} label="Client" />
-            <FormControlLabel value="Inetum" control={<Radio  color='info' />} label="Inetum" />
-          </RadioGroup>
-        </FormControl>
-      )}</item><item>
-      {showDropdown && (
+      {selectedValue === 'Manager_Client' && (
+       
         <SelectOptions handleOptionChange={handleOptionChange}/>
         )}
         </item>

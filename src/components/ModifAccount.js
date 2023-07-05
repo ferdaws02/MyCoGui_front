@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
+import { useParams } from 'react-router-dom';
 import { 
   TextField, 
   Box,
@@ -19,16 +20,20 @@ import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import AccountTypeSelect from './TypeDeCompte'
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { format, parseISO } from 'date-fns';
 
 
-const Formadd=({url})=>{
+const ModifUser=()=>{
   const [email, setEmail] = useState('');
+  const { id } = useParams();
   const [isValid, setIsValid] = useState(true);
   const [showTextField, setShowTextField] = useState(false);
   const navigate = useNavigate();
   // const[file,setFile]=useState('')
   // const [imageUrl, setImageUrl] = useState('');
+  const [value, setValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [data, setData] = useState('');
   const [endpoint, setEndpoint] = useState('');
     const [formData, setFormData] = useState({
       id_c:"",
@@ -50,7 +55,79 @@ const Formadd=({url})=>{
       roles: "",
       entreprise:{id_e:""}
       });
-      const [value, setValue] = useState('');
+      
+
+  useEffect(() => {
+    const fetchDataget = async () => {
+      try {
+        console.log('the id '+id)
+        const response = await fetch(`/CompteById/${id}`);
+        const result = await response.json();
+        setData(result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchDataget();
+  }, [id]);
+  useEffect(() => {
+    
+    if (data) {
+      const parsedDate = parseISO(data.ddn_c);
+      const formattedDate = format(parsedDate, 'yyyy-MM-dd');
+      console.log(data.ddn_c);
+      const newEndpoint = getEndpoint(data.roles);
+    setEndpoint(newEndpoint); // Call getEndpoint after updating the formData state
+    console.log('newEndpoint:', newEndpoint);
+    console.log('Endpoint:', endpoint);
+    setShowTextField(data.roles === "Consultant" || data.roles === "Manager");
+     
+      if(data.roles=="Manager_Client"){
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        id_c: data.id_c,
+        etat: data.etat,
+        adresse_c: data.adresse_c,
+        cin_c: data.cin_c,
+        ddn_c: formattedDate,
+        emailc: data.emailc,
+        mdp_c: data.mdp_c,
+        nom_c: data.nom_c,
+        num_tel_c: data.num_tel_c,
+        pole_c: data.pole_c,
+        post_c: data.post_c,
+        prenom_c: data.prenom_c,
+        sexe_c: data.sexe_c,
+        soldecongémaladie: data.soldecongémaladie,
+        solde_congé_payé: data.solde_congé_payé,
+        roles: data.roles,
+        entreprise: { id_e: data.entreprise.id_e },
+      }));
+    } else{
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        id_c: data.id_c,
+        etat: data.etat,
+        adresse_c: data.adresse_c,
+        cin_c: data.cin_c,
+        ddn_c: data.formattedDate,
+        emailc: data.emailc,
+        mdp_c: data.mdp_c,
+        nom_c: data.nom_c,
+        num_tel_c: data.num_tel_c,
+        pole_c: data.pole_c,
+        post_c: data.post_c,
+        prenom_c: data.prenom_c,
+        sexe_c: data.sexe_c,
+        soldecongémaladie: data.soldecongémaladie,
+        solde_congé_payé: data.solde_congé_payé,
+        roles: data.roles,
+      }));
+    }
+    }
+  }, [data]);
+      
      
       const handleChange =(event)=>{
         const {name,value} = event.target;
@@ -177,15 +254,15 @@ const handleSelect2 = (value) => {
           console.log('in the getendpoint and the passed value is ' +selectedRole)
           switch (selectedRole) {
             case 'Consultant':
-              return '/ajouter_Consultant';
+              return '/modifConsultant';
             case 'Service_Manager':
               return '/ajouter_SM';
             case 'RH':
-              return '/ajouter_RH';
+              return '/modifRH';
             case 'Manager_Inetum':
-              return '/ajouter_MI';
+              return '/modifMI';
             case 'Manager_Client':
-              return '/MC/ajouter_MC';
+              return '/MC/modifMC';
             default:
               return '';
           }
@@ -219,7 +296,7 @@ const handleSelect2 = (value) => {
           console.log('the AccountData in the fetch is ',AccountData.emailc);
             // Effectuer la requête POST avec l'endpoint approprié
             fetch(`${endpoint}`, {
-              method: 'POST',
+              method: 'PUT',
               headers: {
                 'Content-Type': 'application/json',
               },
@@ -260,19 +337,20 @@ return (
       <div>
       <div>
       <TextField
-      variant="outlined"
-       color="info"
-        // type="text"
-        name="id_c"
-        value={formData.id_c}
-        inputProps={{
-          pattern: '[0-9]*',
-          maxLength:4
-        }}
-        onChange={handleChange2}
-        label="Matricule"
-       
-      />
+  variant="outlined"
+  color="info"
+  name="id_c"
+  value={data.id_c}
+  inputProps={{
+    pattern: '[0-9]*',
+    maxLength: 4
+  }}
+  onChange={handleChange2}
+  label="Matricule"
+  InputLabelProps={{
+    shrink: true
+  }}
+  />
          <NumericTextField   
          name={"cin_c"} 
         placeholder="cin"  
@@ -348,9 +426,8 @@ return (
       name="ddn_c"
       value={formData.ddn_c}
       renderInput={(params) => <TextField {...params} />}
-    />
+      />
       </LocalizationProvider>
-
 
       <div>
       <Grid container spacing={2}>
@@ -406,7 +483,7 @@ return (
         {formData.photo_c && <p>photo: {formData.photo_c.name}</p>}
       </label> */}
    
-      <AccountTypeSelect  onSelect={handleSelect} onSetOPtion={handleSelect2}/>
+      <AccountTypeSelect  onSelect={handleSelect} onSetOPtion={handleSelect2} selected={formData.roles}/>
       {showTextField && (
         <div>
         <TextField
@@ -440,4 +517,4 @@ return (
     </Box>
   );
 };
-export default Formadd;
+export default ModifUser;
