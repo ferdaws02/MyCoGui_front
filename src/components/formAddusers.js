@@ -93,18 +93,6 @@ const Formadd=({url})=>{
       };
       const handleInputChange = (e) => {
        const { name, value, files } = e.target;
-
-  // if (name === "photo_c") {
-  //   const file = e.target.files[0];
-  //   setFile(file);
-
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     const imageUrl = reader.result;
-  //     setImageUrl(imageUrl);
-  //   };
-  //   reader.readAsDataURL(file);
-  // } else {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -167,7 +155,7 @@ const handleSelect2 = (value) => {
           setEndpoint(newEndpoint); // Call getEndpoint after updating the formData state
           console.log('newEndpoint:', newEndpoint);
           console.log('Endpoint:', endpoint);
-          setShowTextField(value === "Consultant" || value === "Manager");
+          setShowTextField(value === "Consultant" || value === "Manager_Client" || value === "Manager_Inetum");
     
     
    

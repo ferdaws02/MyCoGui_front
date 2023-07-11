@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from 'react';
 import { ColorModeContext,useMode } from "./theme";
 import{ThemeProvider} from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,16 +13,20 @@ import Entreprises from"./Controllers/ListeEntreprise";
 import AddForm from"./components/formAddusers";
 import ListConsultant  from"./components/ListeConsultants";
 import ModifUser from "./components/ModifAccount";
+import AjoutTC from "./components/ajoutTypeCongé";
+import AjoutClient from './components/AjoutClientForm'
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
-
+  useEffect(() => {
+    document.title = 'MyCoGui';
+  }, []);
   return (
     <ColorModeContext.Provider value ={colorMode}>
   <ThemeProvider theme={theme}> 
   <CssBaseline/> 
     <div className="app">
-    <Sidebar isSidebar={isSidebar} />
+    <Sidebar isSidebar={isSidebar}/>
       <main className="content">
       <Topbar setIsSidebar={setIsSidebar} />
       {/* routage probleme */}
@@ -33,6 +38,8 @@ function App() {
           <Route path="/AddUser" element={<AddForm />} />
           <Route path="/Consultants" element={<ListConsultant />} />
           <Route path="/ModifUser/:id" element={<ModifUser />} />
+          <Route path="/TypeConge" element={<AjoutTC />} />
+          <Route path="/AddClient" element={<AjoutClient />} />
         </Routes>
       </main>
        </div>

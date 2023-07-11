@@ -59,12 +59,14 @@ const  AccountTypeSelect=({onSelect ,onSetOPtion,selected})  =>{
       <Grid container spacing={2}>
       <Grid item>
         <item>
-      {selectedValue === 'Manager_Client' && (
+      {(selectedValue === 'Manager_Client' || selected === 'Manager_Client') && (
        
         <SelectOptions handleOptionChange={handleOptionChange}/>
         )}
+        
         </item>
         </Grid>
+      
         </Grid>
     </Box>
   );

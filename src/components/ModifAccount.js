@@ -74,7 +74,7 @@ const ModifUser=()=>{
   useEffect(() => {
     
     if (data) {
-      const parsedDate = parseISO(data.ddn_c);
+      const parsedDate = new Date(data.ddn_c); // Use the Date constructor to parse the date string
       const formattedDate = format(parsedDate, 'yyyy-MM-dd');
       console.log(data.ddn_c);
       const newEndpoint = getEndpoint(data.roles);
@@ -90,7 +90,7 @@ const ModifUser=()=>{
         etat: data.etat,
         adresse_c: data.adresse_c,
         cin_c: data.cin_c,
-        ddn_c: formattedDate,
+        ddn_c: data.formattedDate,
         emailc: data.emailc,
         mdp_c: data.mdp_c,
         nom_c: data.nom_c,
@@ -244,7 +244,7 @@ const handleSelect2 = (value) => {
           setEndpoint(newEndpoint); // Call getEndpoint after updating the formData state
           console.log('newEndpoint:', newEndpoint);
           console.log('Endpoint:', endpoint);
-          setShowTextField(value === "Consultant" || value === "Manager");
+          setShowTextField(value === "Consultant" || value === "Manager_Client" || value === "Manager_Inetum");
     
     
    
@@ -424,8 +424,8 @@ return (
       label= "Date de Naissance"
       onChange={handleInputChangeddn}
       name="ddn_c"
-      value={formData.ddn_c}
-      renderInput={(params) => <TextField {...params} />}
+      value={data.formattedDate}
+      // renderInput={(params) => <TextField {...params} />}
       />
       </LocalizationProvider>
 

@@ -46,8 +46,8 @@ const EditProject = ({ isOpenEditProject, onCloseEditProject, rowData}) => {
           if (response.ok) {
             // Handle successful submission
             console.log('Data submitted successfully ');
-            //onCloseEditProject(); // Close the dialog box
-            //window.location.reload(); // Refresh the page
+            onCloseEditProject(); // Close the dialog box
+            window.location.reload(); // Refresh the page
            
           } else {
             throw new Error('Error submitting data');

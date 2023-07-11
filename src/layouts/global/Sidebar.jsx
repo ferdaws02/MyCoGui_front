@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { ProSidebar, Menu, MenuItem ,SubMenu} from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme} from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
@@ -7,17 +7,25 @@ import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
+import StorageOutlinedIcon from '@mui/icons-material/StorageOutlined';
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
+import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
+import ReportGmailerrorredOutlinedIcon from '@mui/icons-material/ReportGmailerrorredOutlined';
+import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
+import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
+import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import DomainOutlinedIcon from '@mui/icons-material/DomainOutlined';
+import AirlineSeatFlatOutlinedIcon from '@mui/icons-material/AirlineSeatFlatOutlined';
+import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
+import HandshakeOutlinedIcon from '@mui/icons-material/HandshakeOutlined';
+import SquareFootOutlinedIcon from '@mui/icons-material/SquareFootOutlined';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import SupervisedUserCircleOutlinedIcon from '@mui/icons-material/SupervisedUserCircleOutlined';
+import AssignmentTurnedInOutlinedIcon from '@mui/icons-material/AssignmentTurnedInOutlined';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -42,9 +50,9 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
-
+  const navigate = useNavigate();
   return (
-    <Box
+    <Box 
       sx={{
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
@@ -53,7 +61,7 @@ const Sidebar = () => {
           backgroundColor: "transparent !important",
         },
         "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important",
+          padding: "2px 20px 5px 5px !important",
         },
         "& .pro-inner-item:hover": {
           color: `${colors.greenAccent[700]} !important`,
@@ -63,7 +71,7 @@ const Sidebar = () => {
         },
       }}
     >
-      <ProSidebar collapsed={isCollapsed}>
+      <ProSidebar collapsed={isCollapsed}  style={{ height:'150%'}} >
         <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
           <MenuItem
@@ -82,7 +90,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  GoMyGui
+                MyCoGui
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -101,14 +109,45 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+                      <SubMenu
+                     style={{
+                      color: colors.grey[100],
+                      hover:colors.greenAccent[700],
+                      
+                    }}
+            title="Gestion Réferentiel"
+            // to="/Gestion Réferentiel"
+            icon={<StorageOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+          >
+            <MenuItem
+              icon={<AirlineSeatFlatOutlinedIcon />}
+              onClick={() => {
+                navigate('/TypeConge') 
+              }}
+             
+            >
+              Type de Congé
+            </MenuItem>
+            <MenuItem
+              icon={<HomeWorkOutlinedIcon />}
 
+              onClick={() => {
+                navigate('/AddClient') 
+              }}
+            >
+              Entreprise Client
+            </MenuItem>
+          </SubMenu>
+{/* 
             <Typography
               variant="h6"
               color={colors.grey[200]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Data
-            </Typography>
+            </Typography> */}
             <Item
             id="Project"
               title="Projets"
@@ -141,52 +180,94 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Calendar"
-              to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
+              title="Congés"
+              to="/conges"
+              icon={<EventOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
-              title="FAQ Page"
-              to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+            <SubMenu
+                  style={{
+                    color: colors.grey[100],
+                    hover:colors.greenAccent[700],
+                  }}
+            title="Demandes/Réclamation"
+            // to="/Gestion Réferentiel"
+            icon={<LibraryBooksOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+          >
+            <MenuItem
+              icon={<ListAltOutlinedIcon />}
+              onClick={() => {
+                navigate('/Demandes') 
+              }}
+             
             >
-              Charts
-            </Typography>
+              Demandes
+            </MenuItem>
+            <MenuItem
+              icon={<ReportGmailerrorredOutlinedIcon/>}
+
+              onClick={() => {
+                navigate('/Reclamations') 
+              }}
+            >
+              Réclamations
+            </MenuItem>
+          </SubMenu>
+
+          <SubMenu
+                style={{
+                  color: colors.grey[100],
+                  hover:colors.greenAccent[700],
+                }}
+            title="Affectations "
+            // to="/Gestion Réferentiel"
+            icon={<HandshakeOutlinedIcon  />}
+            selected={selected}
+            setSelected={setSelected}
+          >
+            <MenuItem
+              icon={<SquareFootOutlinedIcon />}
+              onClick={() => {
+                navigate('/Gestion_aff_ptojet') 
+              }}
+             
+            >
+              Projets
+            </MenuItem>
+            <MenuItem
+              icon={<ManageAccountsOutlinedIcon/>}
+
+              onClick={() => {
+                navigate('/Gestion_aff_MI') 
+              }}
+            >
+                 Managers Inetum  
+            </MenuItem>
+            <MenuItem
+           
+              icon={<  SupervisedUserCircleOutlinedIcon/>}
+
+              onClick={() => {
+                navigate('/Gestion_aff_MC') 
+              }}
+            >
+                     Managers Clients  
+            </MenuItem>
+          </SubMenu>
             <Item
-              title="Bar Chart"
-              to="/bar"
-              icon={<BarChartOutlinedIcon />}
+              title="Ordre de Mission/Note de frais"
+              to="/ODM"
+              icon={<AssignmentTurnedInOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Pie Chart"
-              to="/pie"
-              icon={<PieChartOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Line Chart"
-              to="/line"
-              icon={<TimelineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Geography Chart"
-              to="/geography"
-              icon={<MapOutlinedIcon />}
+              title="FeedBacks"
+              to="/feed"
+              icon={<AddReactionOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
