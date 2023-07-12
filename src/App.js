@@ -14,7 +14,8 @@ import AddForm from"./components/formAddusers";
 import ListConsultant  from"./components/ListeConsultants";
 import ModifUser from "./components/ModifAccount";
 import AjoutTC from "./components/ajoutTypeCongé";
-import AjoutClient from './components/AjoutClientForm'
+import AjoutClient from './components/AjoutClientForm';
+import ListConges from'./components/listeConge';
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -40,6 +41,7 @@ function App() {
           <Route path="/ModifUser/:id" element={<ModifUser />} />
           <Route path="/TypeConge" element={<AjoutTC />} />
           <Route path="/AddClient" element={<AjoutClient />} />
+          <Route path="/conges" element={<ListConges />} />
         </Routes>
       </main>
        </div>
