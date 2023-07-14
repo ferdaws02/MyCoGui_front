@@ -64,7 +64,7 @@ const ListConsultant = () => {
     { field: 'etat', headerName: 'ETAT', width: 100 },
     { field: 'roles', headerName: 'ROLE', width: 150},
     {
-      headerName: "Action",
+      headerName: "ACTION",
       flex: 1,
       renderCell: (params)  => {
         const id = params.row.id_c; // Get the ID from the 'id_c' field
@@ -98,7 +98,7 @@ return(<div>
         },
       }}
      variant="contained">
-     Add New Client 
+     Ajout de compte
      <Box width="5px"></Box>
       <AddCircleOutlineOutlinedIcon  fontSize="medium" />
       </Button>

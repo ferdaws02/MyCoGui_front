@@ -115,7 +115,7 @@ const Sidebar = () => {
                       hover:colors.greenAccent[700],
                       
                     }}
-            title="Gestion Réferentiel"
+            title="Réferentiels"
             // to="/Gestion Réferentiel"
             icon={<StorageOutlinedIcon />}
             selected={selected}
@@ -130,16 +130,15 @@ const Sidebar = () => {
             >
               Type de Congé
             </MenuItem>
-            <MenuItem
-              icon={<HomeWorkOutlinedIcon />}
-
-              onClick={() => {
-                navigate('/AddClient') 
-              }}
-            >
-              Entreprise Client
-            </MenuItem>
+    
           </SubMenu>
+          <Item
+              title="Comptes"
+              to="/Consultants"
+              icon={<PersonAddAltOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
 {/* 
             <Typography
               variant="h6"
@@ -148,14 +147,7 @@ const Sidebar = () => {
             >
               Data
             </Typography> */}
-            <Item
-            id="Project"
-              title="Projets"
-              to="/Projects"
-              icon={<FactCheckOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+         
             <Item
               title="Clients"
               to="/Clients"
@@ -163,61 +155,16 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
-              title="Creation de Compte"
-              to="/AddUser"
-              icon={<PersonAddAltOutlinedIcon />}
+             <Item
+            id="Project"
+              title="Projets"
+              to="/Projects"
+              icon={<FactCheckOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
-            
-            <Item
-              title="Liste des Comptes"
-              to="/Consultants"
-              icon={<PersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Congés"
-              to="/conges"
-              icon={<EventOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <SubMenu
-                  style={{
-                    color: colors.grey[100],
-                    hover:colors.greenAccent[700],
-                  }}
-            title="Demandes/Réclamation"
-            // to="/Gestion Réferentiel"
-            icon={<LibraryBooksOutlinedIcon />}
-            selected={selected}
-            setSelected={setSelected}
-          >
-            <MenuItem
-              icon={<ListAltOutlinedIcon />}
-              onClick={() => {
-                navigate('/Demandes') 
-              }}
-             
-            >
-              Demandes
-            </MenuItem>
-            <MenuItem
-              icon={<ReportGmailerrorredOutlinedIcon/>}
-
-              onClick={() => {
-                navigate('/Reclamations') 
-              }}
-            >
-              Réclamations
-            </MenuItem>
-          </SubMenu>
-
-          <SubMenu
+<SubMenu
                 style={{
                   color: colors.grey[100],
                   hover:colors.greenAccent[700],
@@ -257,13 +204,54 @@ const Sidebar = () => {
                      Managers Clients  
             </MenuItem>
           </SubMenu>
+           
+            
             <Item
-              title="Ordre de Mission/Note de frais"
+              title="ODM|NDF"
               to="/ODM"
               icon={<AssignmentTurnedInOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+             <Item
+              title="Congés"
+              to="/conges"
+              icon={<EventOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <SubMenu
+                  style={{
+                    color: colors.grey[100],
+                    hover:colors.greenAccent[700],
+                  }}
+            title="Demandes|Réclamations"
+            // to="/Gestion Réferentiel"
+            icon={<LibraryBooksOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+          >
+            <MenuItem
+              icon={<ListAltOutlinedIcon />}
+              onClick={() => {
+                navigate('/Demandes') 
+              }}
+             
+            >
+              Demandes
+            </MenuItem>
+            <MenuItem
+              icon={<ReportGmailerrorredOutlinedIcon/>}
+
+              onClick={() => {
+                navigate('/Reclamations') 
+              }}
+            >
+              Réclamations
+            </MenuItem>
+          </SubMenu>
+
+         
             <Item
               title="FeedBacks"
               to="/feed"

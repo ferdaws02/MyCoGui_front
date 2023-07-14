@@ -15,6 +15,7 @@ import { tokens } from "../theme";
 import { useTheme } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import ModifTConge from './ModifTConge'
+import AddForm from'./AjoutTypeCongéPopUp';
 
 
 const AjoutTC=()=>{
@@ -25,6 +26,8 @@ const AjoutTC=()=>{
   const colors = tokens(theme.palette.mode);
   const [Type,setType]=useState('');
   const [isOpen, setIsOpenEdit] = useState(false);
+  const [isOpenADD, setIsOpenADD] = useState(false);
+  
   
   const [data, setData] = useState('');
   useEffect(() => {
@@ -40,6 +43,12 @@ const AjoutTC=()=>{
   const handleDataChange = (newData) => {
     setData(newData);
   };
+  const onOpenAdd=()=>{
+    setIsOpenADD(true);
+  }
+  const onCloseAdd=()=>{
+    setIsOpenADD(false);
+  }
 
 
   const fetchData = async () => {
@@ -63,30 +72,7 @@ const AjoutTC=()=>{
     const row = conges.find((row) => row.id_tco === id);
         return row ? row : null;
   };
-  const onSubmit=(event)=>{
-    event.preventDefault();
-          
-    const AccountData = {
-      type:Type}
-      fetch('/ref/TypeConge', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(AccountData ),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Traiter la réponse de la requête
-          console.log(data);
-        })
-        .catch((error) => {
-          // Gérer les erreurs
-          console.error(error);
-        });
-        window.location.reload(); 
-  
-  }
+ 
   const handleInputChange=(e)=>{
     const value  = e.target.value;
     setType(value)
@@ -124,31 +110,22 @@ const AjoutTC=()=>{
          >
          
            </Box>
-           <Box
-            sx={{ 
-              '& .MuiTextField-root': { mt:1,mb:3,mr:1,ml:10},
-            '& .MuiIconButton-root':{mt:3,mb:3,mr:1}}}
-           >
-           <TextField 
-           variant="outlined"
-           color="info"
-           type="text"
-           name="Type"
-           value={Type}
-           onChange={handleInputChange}
-           label="Ajouer Type"
-          />
-       
-        <IconButton onClick={onSubmit} size="small"  sx={{
-           '&:hover': {
-             backgroundColor: colors.greenAccent[700]
-           },
-         }}
-        variant="contained">
-        <Box width="5px"></Box>
-         <AddCircleOutlineOutlinedIcon  fontSize="medium" />
-         </IconButton>
-        
+           <Box>
+            <Button
+               onClick={onOpenAdd}
+              size="small"
+              sx={{
+                backgroundColor: colors.greenAccent[500],
+                '&:hover': {
+                  backgroundColor: colors.greenAccent[700],
+                },
+              }}
+              variant="contained"
+            >
+              Ajout Type Congé
+              <Box width="5px"></Box>
+              <AddCircleOutlineOutlinedIcon fontSize="medium" />
+            </Button>
          </Box>
          </Box>
          
@@ -205,7 +182,7 @@ const AjoutTC=()=>{
             pageSize={10}
            
          />
-          {/* <EditForm   isOpenEdit={isOpenEdit} onCloseEdit={handleCloseEdit} selectedData={data} /> */}
+          <AddForm   isOpenEdit={isOpenADD} onCloseEdit={onCloseAdd} />
          </Box>
          </Box>
          <ModifTConge isOpenEdit={isOpen} onCloseEdit={onClose} selectedData={data} />

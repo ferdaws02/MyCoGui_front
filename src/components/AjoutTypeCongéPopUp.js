@@ -4,31 +4,35 @@ import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Box,TextFiel
 import { tokens } from "../theme";
 import { useTheme } from "@mui/material";
 import {putData} from '../Api';
-const ModifTConge = ({ isOpenEdit, onCloseEdit, selectedData,}) => {
+const AddForm = ({ isOpenEdit, onCloseEdit,}) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [Type,setType]=useState(selectedData.type)
+    const [Type,setType]=useState('')
    
-    const handleSubmit = async (event) => {
+    const onSubmit=(event)=>{
         event.preventDefault();
-        const modifiedData = {
-          id_tco: selectedData.id_tco,
-         type: Type}
-         try {
-            const response = await putData('/ref/updateTypeConge', modifiedData);
-            if (response.ok) {
-              // Handle successful submission
-              console.log('Data submitted successfully');
-               onCloseEdit(); // Close the dialog box
-               window.location.reload(); // Refresh the page
-            } else {
-              throw new Error('Error submitting data');
-            }
-          } catch (error) {
-            // Handle error
-            console.error('Error submitting data:', error);
-          }
-        };
+              
+        const AccountData = {
+          type:Type}
+          fetch('/ref/TypeConge', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(AccountData ),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              // Traiter la réponse de la requête
+              console.log(data);
+            })
+            .catch((error) => {
+              // Gérer les erreurs
+              console.error(error);
+            });
+            window.location.reload(); 
+      
+      }
         const handleInputChange =(event)=>{
           const value = event.target.value;
           setType( value );
@@ -37,14 +41,7 @@ const ModifTConge = ({ isOpenEdit, onCloseEdit, selectedData,}) => {
         };
         
         
-   
-    useEffect(() => {
-        if (selectedData) {
-          setType(selectedData.type);
-       
-        }
-      }, [selectedData]);
-
+  
 
     return(
     <Dialog open={isOpenEdit} onClose={onCloseEdit}  fullWidth
@@ -60,20 +57,10 @@ const ModifTConge = ({ isOpenEdit, onCloseEdit, selectedData,}) => {
     noValidate
     autoComplete="off"
   >
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
     <div>
        
-    <TextField
-        required
-        id="outlined-required"
-        name='id_tco'
-        label="id"
-        value={selectedData.id_tco}
-        color= "info"
-        variant='standard'
-       
-         hidden
-      />
+  
       <TextField
      
         required
@@ -98,11 +85,11 @@ const ModifTConge = ({ isOpenEdit, onCloseEdit, selectedData,}) => {
         <Button onClick={onCloseEdit} color="inherit" variant="text">
           Close
         </Button>
-        <Button color="info" variant="text" autoFocus onClick={handleSubmit}>
+        <Button color="info" variant="text" autoFocus onClick={onSubmit}>
           Save
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
-export default ModifTConge;
+export default AddForm;

@@ -55,6 +55,42 @@ const ListConges = () => {
     const row = conges.find((row) => row.id_co === id);
     return row ? row : null;
   };
+  const handleCancellation = (id) => {
+    const rowData = getDataById(id);
+    if (rowData) {
+      // Mettre à jour l'état de la ligne en "Annuler"
+      const updatedRow = { ...rowData, etat: 'annuler' };
+      console.log("the updated row "+updatedRow.etat)
+  
+      // Mettre à jour le tableau 'conges' avec la nouvelle valeur modifiée
+      const updatedConges = conges.map((row) => (row.id_c === id ? updatedRow.etat : row));
+      setConges(updatedConges);
+  
+      // Envoyer les modifications à la base de données via une requête API appropriée
+      // Assurez-vous d'adapter cette partie à votre configuration de backend
+      fetch(`/Conge/updateConge/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedRow.etat),
+      })
+        .then((response) => {
+          if (response.ok) {
+            console.log('La mise à jour a été effectuée avec succès');
+            window.location.reload(); 
+          } else {
+            console.error('Échec de la mise à jour');
+          }
+        })
+        .catch((error) => {
+          console.error('Erreur lors de la mise à jour:', error);
+        });
+    } else {
+      console.log('Data not found for the specified ID.');
+    }
+  };
+
 
 
   const columns = [
@@ -64,7 +100,7 @@ const ListConges = () => {
     { field: 'etat', headerName: 'ETAT', width: 150 },
   
     {
-      headerName: "Action",
+      headerName: "ACTION",
       flex: 1,
       renderCell: (params)  => {
         const id = params.row.id_c; // Get the ID from the 'id_c' field
@@ -79,7 +115,7 @@ const ListConges = () => {
                   <IconButton aria-label="Validation" size="large" id="Validate_BTN">
                   <DoneOutlineOutlinedIcon fontSize="small" color="success" />
                   </IconButton>
-                  <IconButton aria-label="Validation" size="large" id="Validate_BTN">
+                  <IconButton aria-label="Annulation" size="large" id="Validate_BTN"  onClick={() => handleCancellation(id)}>
                   <HighlightOffOutlinedIcon fontSize="medium" color='error' />
                   </IconButton>
                  </Box>
@@ -97,7 +133,7 @@ return(<div>
       >
         </Box>
         <Box>
-     <Button onClick={handleOpen} size="small"  sx={{
+     <Button  size="small"  sx={{
         backgroundColor: colors.greenAccent[500], 
         '&:hover': {
           backgroundColor: colors.greenAccent[700]

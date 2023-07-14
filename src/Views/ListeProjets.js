@@ -27,13 +27,13 @@ const ListProjetView = ({
   const [Data, setData] = useState('');
   const columns = [
     { field: 'id_p', headerName: 'ID', width: 70 },
-    { field: 'titre', headerName: 'Title', width: 200 },
-    { field: 'description', headerName: 'Description', width: 200 },
-    { field: 'entreprise', headerName: 'Entreprise', width: 200 , valueGetter: (params) => params.row.entreprise?.nomentreprise || ''},
+    { field: 'titre', headerName: 'TITRE', width: 200 },
+    { field: 'description', headerName: 'DESCRIPTION', width: 200 },
+    { field: 'entreprise', headerName: 'ENTREPRISE', width: 200 , valueGetter: (params) => params.row.entreprise?.nomentreprise || ''},
    
    
     {
-      headerName: 'Action',
+      headerName: 'ACTION',
       flex: 1,
       renderCell: (params) => {
         return (
@@ -68,7 +68,7 @@ const ListProjetView = ({
               }}
               variant="contained"
             >
-              Add New Project
+              Ajout Projet
               <Box width="5px"></Box>
               <AddCircleOutlineOutlinedIcon fontSize="medium" />
             </Button>

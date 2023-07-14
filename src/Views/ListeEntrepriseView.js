@@ -27,12 +27,12 @@ const ListEntrepriseView = ({
 
   const columns = [
     { field: 'id_e', headerName: 'ID', width: 70 },
-    { field: 'nomentreprise', headerName: 'Name', width: 200 },
-    { field: 'adresse', headerName: 'Adresse', width: 200 },
-    { field: 'pays', headerName: 'Country', width: 200 },
+    { field: 'nomentreprise', headerName: 'NOM ENTREPRISE', width: 200 },
+    { field: 'adresse', headerName: 'ADRESSE', width: 200 },
+    { field: 'pays', headerName: 'PAYS', width: 200 },
    
     {
-      headerName: 'Action',
+      headerName: 'ACTION',
       flex: 1,
       renderCell: (params) => {
         return (
@@ -67,7 +67,7 @@ const ListEntrepriseView = ({
               }}
               variant="contained"
             >
-              Add New Client
+              Ajout Client
               <Box width="5px"></Box>
               <AddCircleOutlineOutlinedIcon fontSize="medium" />
             </Button>
