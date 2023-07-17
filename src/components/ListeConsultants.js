@@ -83,7 +83,7 @@ const ListConsultant = () => {
   ];
 return(<div>
  <Box m="20px">
-     <h2>CLIENT</h2>
+     <h2>COMPTES</h2>
      <Box display="flex" justifyContent="space-between" p={2}>
      <Box
         display="flex"
