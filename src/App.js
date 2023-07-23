@@ -15,8 +15,11 @@ import ModifUser from "./components/ModifAccount";
 import AjoutTC from "./components/ajoutTypeCongé";
 import AjoutClient from './components/AjoutClientForm';
 import ListConges from './components/listeConge';
+import AffProjet from './components/AffectationProjet'
 import Auth from "./components/Auth";
 import Sidebar from"./layouts/global/Sidebar";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -35,6 +38,7 @@ function App() {
           {isSidebarOpen && <Sidebar />} {/* Render the Sidebar component only when isSidebarOpen is true */}
           <main className="content">
             <Topbar />
+            <ToastContainer />
             <Routes>
               <Route path="/" element={<Auth />} />
               <Route path="/dashbord" element={<Dashboard />} />
@@ -46,6 +50,7 @@ function App() {
               <Route path="/TypeConge" element={<AjoutTC />} />
               <Route path="/AddClient" element={<AjoutClient />} />
               <Route path="/conges" element={<ListConges />} />
+              <Route path="Gestion_aff_ptojet" element={<AffProjet/>}/>
             </Routes>
           </main>
         </div>

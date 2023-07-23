@@ -8,7 +8,7 @@ const useProjetModel = () => {
   const fetchData = async () => {
     try {
       // Make a request to your backend API endpoint
-      const response = await fetch('/ListePrjets');
+      const response = await fetch('/ListeProjets');
 
       if (response.ok) {
         const jsonData = await response.json();

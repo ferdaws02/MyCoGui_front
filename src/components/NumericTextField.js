@@ -38,8 +38,7 @@ const NumericTextField = ({name,placeholder,value,handleInputChange,error,helper
        error={error}
        helperText={helperText ? 'Seuls les chiffres sont autorisés.' : ''}
        label={placeholder}
-       InputLabelProps={{
-        shrink: true}}
+      
      
        
       />
