@@ -9,19 +9,29 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined';
 import { tokens } from "../theme";
 import { useNavigate } from 'react-router-dom';
+import AddConge from './AddConge';
+import ValidationButton from './ValidationButton';
 
 
 const ListConges = () => {
   const [conges, setConges] = useState([]);
   const [data, setData] = useState('');
+  const [roles, setRoles] = useState('');
   
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
  
   const navigate = useNavigate();
-  const handleOpen = () => {
-    navigate('/AddUser'); 
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleOpenDialog = () => {
+    setDialogOpen(true);
   };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+ 
   const handletoEdit = (id)=> {
     const row = getDataById(id)
     navigate(`/ModifUser/${row.id_c}`); 
@@ -53,7 +63,25 @@ const ListConges = () => {
   };
   const getDataById = (id) => {
     const row = conges.find((row) => row.id_co === id);
-    return row ? row : null;
+        return row ? row : null;
+  }
+ 
+  const handleValidation = (id) => {
+    const rowData = getDataById(id);
+    console.log("********************the validation")
+    if (rowData) {
+      // Update the "etat" field to "valider" for the specified row
+      const updatedRow = { ...rowData, etat: 'valider' };
+
+      // Update the "conges" state with the updated row
+      const updatedConges = conges.map((row) => (row.id_co === id ? updatedRow : row));
+      setConges(updatedConges);
+
+      // Send the updated row to the backend
+      // ... (Your fetch code to update the row in the backend) ...
+    } else {
+      console.log('Data not found for the specified ID.');
+    }
   };
   const handleCancellation = (id) => {
     const rowData = getDataById(id);
@@ -103,7 +131,7 @@ const ListConges = () => {
       headerName: "ACTION",
       flex: 1,
       renderCell: (params)  => {
-        const id = params.row.id_c; // Get the ID from the 'id_c' field
+        const id = params.row.id_co; // Get the ID from the 'id_c' field
        
         return (<Box display="flex"  mt="15px">
                    <IconButton onClick={() => handletoEdit(id)} aria-label="Edit" size="large" id="Edit_BTN">
@@ -112,9 +140,7 @@ const ListConges = () => {
                   <IconButton aria-label="consult" size="large">
                   <VisibilityOutlinedIcon fontSize="small" color="info" />
                   </IconButton>
-                  <IconButton aria-label="Validation" size="large" id="Validate_BTN">
-                  <DoneOutlineOutlinedIcon fontSize="small" color="success" />
-                  </IconButton>
+                  <ValidationButton id_conge={id} onRefrech={handleValidation} etat={params.row.etat}/>
                   <IconButton aria-label="Annulation" size="large" id="Validate_BTN"  onClick={() => handleCancellation(id)}>
                   <HighlightOffOutlinedIcon fontSize="medium" color='error' />
                   </IconButton>
@@ -139,12 +165,13 @@ return(<div>
           backgroundColor: colors.greenAccent[700]
         },
       }}
-     variant="contained">
+     variant="contained"
+     onClick={handleOpenDialog}>
      Ajout Congé 
      <Box width="5px"></Box>
       <AddCircleOutlineOutlinedIcon  fontSize="medium" />
       </Button>
-     
+ 
       </Box>
       </Box>
       
@@ -178,21 +205,22 @@ return(<div>
         }}
       >
         <DataGrid rows={conges} columns={columns} sortModel={[{ field: 'id_co', sort: 'desc' }]} 
-         getRowId={(row) => row.id} // Specify the ID field
-         getRowData={(params) => params.row} // Retrieve the row data
-         onRowClick={(params) => {
-           const id = params.row.id_c;
-           const rowData = getDataById(id);
-           if (rowData) {
-             console.log('Data found:', rowData);
-             const Data= rowData
-             console.log('Data :', Data);
+       getRowId={(row) => row.id_co} // Specify the ID field
+       getRowData={(params) => params.row} // Retrieve the row data
+       onRowClick={(params) => {
+         const id = params.row.id_co;
+         const rowData = getDataById(id);
+         if (rowData) {
+           console.log('Data found:', rowData);
+           const Data= rowData
+           console.log('Data :', Data);
 
-             handleDataChange(Data)
-           
-           } else {
-             console.log('Data not found for the specified ID.');
-           }
+           handleDataChange (Data)
+         
+         } else {
+           console.log('Data not found for the specified ID.');
+         }
+      
         
            
            //();
@@ -201,7 +229,8 @@ return(<div>
          pageSize={10}
         
       />
-       {/* <EditForm   isOpenEdit={isOpenEdit} onCloseEdit={handleCloseEdit} selectedData={data} /> */}
+   
+   <AddConge open={dialogOpen} onClose={handleCloseDialog} />
       </Box>
       </Box>
       {/* <FormPopup isOpen={isOpen} onClose={handleClose} /> */}

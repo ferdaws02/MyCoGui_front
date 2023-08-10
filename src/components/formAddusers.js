@@ -19,6 +19,8 @@ import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import AccountTypeSelect from './TypeDeCompte'
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Formadd=({url})=>{
@@ -48,7 +50,8 @@ const Formadd=({url})=>{
       solde_congé_payé: 8.0,
       // photo_c: null,
       roles: "",
-      entreprise:{id_e:""}
+      entreprise:{id_e:""},
+      servicemanager:{id_c:""}
       });
       const [value, setValue] = useState('');
      
@@ -165,7 +168,7 @@ const handleSelect2 = (value) => {
           console.log('in the getendpoint and the passed value is ' +selectedRole)
           switch (selectedRole) {
             case 'Consultant':
-              return '/ajouter_Consultant';
+              return '/api/set-profile';
             case 'Service_Manager':
               return '/ajouter_SM';
             case 'RH':
@@ -178,8 +181,24 @@ const handleSelect2 = (value) => {
               return '';
           }
         }
-    
-        const handleSubmit = (event) => {
+        const handleNotification = () => {
+          // Show the toast notification
+          toast.success('le compte est ajouter avec succé', {
+            position: "top-right",
+            autoClose: false, // Disable auto close
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined, // Use the default progress bar
+          });
+      
+          // Reload the page after a delay of 3 seconds (adjust as needed)
+          setTimeout(() => {
+          //  navigate('/Consultants'); 
+          }, 3000);
+        };
+        const handleSubmit = async (event) => {
           event.preventDefault();
           
           const AccountData = {
@@ -200,29 +219,44 @@ const handleSelect2 = (value) => {
             solde_congé_payé: 8.0,
             // photo_c:  imageUrl,
             roles: formData.roles,
-            entreprise:{id_e:formData.entreprise.id_e}
+            entreprise:{id_e:formData.entreprise.id_e},
+            servicemanager:{id_c:formData.servicemanager.id_c}
           }
-      
+      try{
           console.log('the endpoin in the fetch is ',endpoint)
           console.log('the AccountData in the fetch is ',AccountData.emailc);
             // Effectuer la requête POST avec l'endpoint approprié
-            fetch(`${endpoint}`, {
+            const response = await  fetch(`${endpoint}`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify(AccountData ),
             })
-              .then((response) => response.json())
-              .then((data) => {
-                // Traiter la réponse de la requête
-                console.log(data);
-              })
-              .catch((error) => {
+
+            if (response.ok) {
+              // Handle successful submission
+              console.log('Data submitted successfully');
+              handleNotification();
+              navigate("/Consultants")
+            } else {
+              throw new Error('Error submitting data');
+            }
+  
+          } catch(error){
                 // Gérer les erreurs
                 console.error(error);
-              });
-               navigate('/Consultants'); 
+                toast.error( 'opération invalide', {
+                  position: "top-right",
+                      autoClose: false, // Disable auto close
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                });
+              };
+              
             
         };
      

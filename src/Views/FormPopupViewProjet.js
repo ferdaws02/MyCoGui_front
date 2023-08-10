@@ -11,6 +11,7 @@ import {
   TextField,
 } from '@mui/material';
 import { tokens } from '../theme';
+import SelectOption from '../components/SelectEntreprise';
 import { useTheme } from '@mui/material';
 
 const FormPopupViewProjet = ({
@@ -19,6 +20,7 @@ const FormPopupViewProjet = ({
   entreprise_id_e,
   titre,
   description,
+  handleOptionChange,
   handleentreprise_id_eChange,
   handleTitreChange,
   handleDescriptionChange,
@@ -65,15 +67,8 @@ const FormPopupViewProjet = ({
               onChange={handleTitreChange}
               value={titre}
             />
-                <TextField
-              required
-              id="outlined-required"
-              label="entreprise"
-              color="info"
-              variant="standard"
-              onChange={handleentreprise_id_eChange}
-              value={entreprise_id_e}
-            />
+         
+               <SelectOption   selectedOption={entreprise_id_e} handleOptionChange={handleOptionChange} />
           </div>
         </Box>
       </DialogContent>

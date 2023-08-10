@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, TextField ,Box} from "@mui/material";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const Auth = () => {
 
     const [username, setUsername] = useState("");
@@ -10,30 +11,27 @@ const Auth = () => {
     const navigate = useNavigate();
     const handleLogin = () => {
         const data = {
-            username,
-            password,
+          username,
+          password,
         };
-
-        fetch("/auth/login", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json",
-            },
+      
+        axios.post("/auth/login", data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
         })
-            .then((response) => {
-                if (response.status === 200) {
-                    setError(null);
-                    navigate('/dashboard'); 
-                } else {
-                    setError(response.statusText);
-                }
-            })
-            .catch((error) => {
-                setError(error.message);
-            });
-    };
-    
+          .then((response) => {
+            if (response.status === 200) {
+              setError(null);
+              navigate('/dashboard');
+            } else {
+              setError("Login failed. Please check your credentials.");
+            }
+          })
+          .catch((error) => {
+            setError("Error during login. Please try again later.");
+          });
+      };
    
 
     return (

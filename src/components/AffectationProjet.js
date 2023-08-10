@@ -44,7 +44,7 @@ const AffProjet=({url})=>{
 
       const handleNotification = () => {
         // Show the toast notification
-        toast.success('This is a success notification!', {
+        toast.success('affectation valider', {
           position: "top-right",
           autoClose: false, // Disable auto close
           hideProgressBar: false,
@@ -98,7 +98,7 @@ const handleSubmit = async (event) => {
   } catch (error) {
     // Handle error and display an error toast notification
     console.error('Error submitting data:', error.message);
-    toast.error( error.message, {
+    toast.error( 'opération invalide', {
       position: "top-right",
           autoClose: false, // Disable auto close
           hideProgressBar: false,

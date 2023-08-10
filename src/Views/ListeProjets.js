@@ -6,7 +6,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { tokens } from '../theme';
-import FormPopup from '../Controllers/FormPopupProjectController';
+import AjoutProject  from '../components/ajoutProjet';
 import EditFormProject from '../components/EditProject';
 import {useState}from 'react';
 
@@ -131,7 +131,7 @@ const ListProjetView = ({
           <EditFormProject isOpenEditProject={isOpenEdit} onCloseEditProject={handleCloseEdit} rowData={Data} />
         </Box>
       </Box>
-      <FormPopup isOpen={isOpen} onClose={handleClose} />
+      <AjoutProject  isOpen={isOpen} onClose={handleClose} />
     </div>
   );
 };

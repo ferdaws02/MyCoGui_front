@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 
-const SelectOptions = ({ selectedOption, handleOptionChange }) => {
+const SelectOptionsbyname = ({ selectedOption, handleOptionChange }) => {
     const [options, setOptions] = useState([]);
     const [optionselected, setOptionselected] = useState([]);
    
@@ -51,7 +51,7 @@ const SelectOptions = ({ selectedOption, handleOptionChange }) => {
          onChange={handleChange}
        >
           {options.map((option) => (
-            <MenuItem key={option.id} value={option.id_e}>
+            <MenuItem key={option.id} value={option.nomentreprise}>
               {option.nomentreprise}
             </MenuItem>
           ))}
@@ -60,4 +60,4 @@ const SelectOptions = ({ selectedOption, handleOptionChange }) => {
     );
   };
   
-  export default SelectOptions;
+  export default SelectOptionsbyname;

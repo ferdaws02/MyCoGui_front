@@ -164,46 +164,14 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
-<SubMenu
-                style={{
-                  color: colors.grey[100],
-                  hover:colors.greenAccent[700],
-                }}
-            title="Affectations "
-            // to="/Gestion Réferentiel"
-            icon={<HandshakeOutlinedIcon  />}
-            selected={selected}
-            setSelected={setSelected}
-          >
-            <MenuItem
-              icon={<SquareFootOutlinedIcon />}
-              onClick={() => {
-                navigate('/Gestion_aff_ptojet') 
-              }}
-             
-            >
-              Projets
-            </MenuItem>
-            <MenuItem
-              icon={<ManageAccountsOutlinedIcon/>}
-
-              onClick={() => {
-                navigate('/Gestion_aff_MI') 
-              }}
-            >
-                 Managers Inetum  
-            </MenuItem>
-            <MenuItem
-           
-              icon={<  SupervisedUserCircleOutlinedIcon/>}
-
-              onClick={() => {
-                navigate('/Gestion_aff_MC') 
-              }}
-            >
-                     Managers Clients  
-            </MenuItem>
-          </SubMenu>
+            <Item
+            id="Affectations"
+              title="Affectations"
+              to="Affectations"
+              icon={<HandshakeOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
            
             
             <Item

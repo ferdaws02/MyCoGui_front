@@ -3,61 +3,40 @@ import React ,{useState,useEffect}from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Box,TextField} from '@mui/material';
 import { tokens } from "../theme";
 import { useTheme } from "@mui/material";
-import SelectOption from'../components/SelectEntreprise';
-const EditProject = ({ isOpenEditProject, onCloseEditProject, rowData}) => {
+import SelectOptionsbyname from'./SelectEntreprisebyname';
+import axios from 'axios';
+
+const AjoutProject = ({ isOpen, onClose}) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [titre, setTitre] = useState('');
     const [description, setdescription] = useState('');
-    const [entreprise, setEntreprise] = useState(rowData.entreprise);
-    const [selectedOption, setSelectedOption] = useState(rowData.entreprise);
+    const [entreprise, setEntreprise] = useState('');
+    const [selectedOption, setSelectedOption] = useState('');
   
 
     useEffect(() => {
-      if (rowData) {
-        console.log(rowData.entreprise.nomentreprise);
-        var x = rowData.entreprise.nomentreprise;
-        setTitre(rowData.titre);
-        setdescription(rowData.description);
-        setEntreprise(x);
-        console.log("Entreprise geted"+rowData.entreprise.nomentreprise)
-       
-      }
-    }, [rowData]);
+     
+     
+    }, []);
     
    
     const handleSubmit = (event) => {
-      event.preventDefault();
-      const modifiedData = {
-        id_p: rowData.id_p,
-        titre,
-        description,
-        entreprise:{id_e:entreprise}       
+      const dataToSend = {
+        titre :titre,
+        description:description,
+        entreprise:{nomentreprise:entreprise},
       };
-      console.log(modifiedData)
-      fetch('/modifierProjet', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(modifiedData),
+      axios
+      .post('/ajoutProjet', dataToSend)
+      .then((response) => {
+        console.log('Data sent to the database successfully:', response.data);
+        // Optionally, you can perform additional actions after the data is successfully sent
       })
-        .then(response => {
-          if (response.ok) {
-            // Handle successful submission
-            console.log('Data submitted successfully ');
-            onCloseEditProject(); // Close the dialog box
-            window.location.reload(); // Refresh the page
-           
-          } else {
-            throw new Error('Error submitting data');
-          }
-        })
-        .catch(error => {
-          // Handle error
-          console.error('Error submitting data:', error);
-        });
-       
+      .catch((error) => {
+        console.error('Error while sending data to the database:', error);
+      });
+      onClose(); // Close the dialog after form submission
     };
     const handleInputChange = (event) => {
       const { name, value } = event.target;
@@ -79,7 +58,7 @@ const EditProject = ({ isOpenEditProject, onCloseEditProject, rowData}) => {
     };
   
     return (
-      <Dialog open={isOpenEditProject} onClose={onCloseEditProject}  fullWidth
+      <Dialog open={isOpen} onClose={onClose}  fullWidth
       maxWidth="sm">
         <DialogTitle fontStyle={colors.grey[800]} important>Edit Project</DialogTitle>
         <DialogContent>
@@ -94,18 +73,7 @@ const EditProject = ({ isOpenEditProject, onCloseEditProject, rowData}) => {
     >
       <form onSubmit={handleSubmit}>
       <div>
-         
-      <TextField
-          required
-          id="outlined-required"
-          name='id_p'
-          label="id"
-          value={rowData.id_p}
-          color= "info"
-          variant='standard'
-         
-          hidden
-        />
+    
         <TextField
        
           required
@@ -134,7 +102,7 @@ const EditProject = ({ isOpenEditProject, onCloseEditProject, rowData}) => {
         </div>
         <div>
       
-       <SelectOption   selectedOption={entreprise} handleOptionChange={handleOptionChange} />
+       <SelectOptionsbyname   selectedOption={entreprise} handleOptionChange={handleOptionChange} />
  
       
         </div>
@@ -146,7 +114,7 @@ const EditProject = ({ isOpenEditProject, onCloseEditProject, rowData}) => {
         </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onCloseEditProject} color="inherit" variant="text">
+          <Button onClick={onClose} color="inherit" variant="text">
             Close
           </Button>
           <Button color="info" variant="text" autoFocus onClick={handleSubmit}>
@@ -157,4 +125,4 @@ const EditProject = ({ isOpenEditProject, onCloseEditProject, rowData}) => {
     );
   };
 
-export default EditProject;
+export default AjoutProject ;

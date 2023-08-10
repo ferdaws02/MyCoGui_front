@@ -30,14 +30,14 @@ const AddForm = ({ isOpenEdit, onCloseEdit,}) => {
               // Gérer les erreurs
               console.error(error);
             });
-            window.location.reload(); 
+            //window.location.reload(); 
       
       }
         const handleInputChange =(event)=>{
           const value = event.target.value;
           setType( value );
          
-          console.log("fil handle  " + Type.type);
+          console.log("fil handle  " +Type);
         };
         
         
