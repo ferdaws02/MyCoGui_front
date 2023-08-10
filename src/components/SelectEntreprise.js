@@ -32,7 +32,9 @@ const SelectOptions = ({ selectedOption, handleOptionChange }) => {
       const handleChange = (event) => {
         setOptionselected(event.target.value);
         handleOptionChange(event);
+
         console.log('/////fil handle fil select'+optionselected)
+
       };
   
     return (

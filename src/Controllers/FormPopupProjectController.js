@@ -24,7 +24,9 @@ const FormPopupProjectController = ({ isOpen, onClose }) => {
       console.log('Data submitted successfully '+projetData.entreprise.nomentreprise);
       formModel.resetForm();
       onClose(); // Close the dialog box
-     // window.location.reload();
+
+      window.location.reload();
+
     } else {
       throw new Error('Error submitting data '+projetData.entreprise.entreprise_id_e);
     }

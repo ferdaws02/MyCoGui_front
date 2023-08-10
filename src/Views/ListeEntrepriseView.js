@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import { useTheme } from '@mui/material';
 import { Button, Box, IconButton } from '@mui/material';
@@ -9,6 +10,19 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import { tokens } from '../theme';
 import FormPopup from '../Controllers/FormPopupController';
 import EditForm from '../Controllers/EditFormController';
+=======
+import React, { useState } from 'react';
+import { useTheme } from '@mui/material';
+import { Button, Box, IconButton } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'; // Add this import
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import { tokens } from '../theme';
+import FormPopup from '../Controllers/FormPopupController';
+import EditFormController from '../Controllers/EditFormController';
+import ClientPopup from './ClientPopup'; // Replace with the actual path to ClientPopup.js
+>>>>>>> origin/takwa
 
 const ListEntrepriseView = ({
   entreprises,
@@ -24,6 +38,7 @@ const ListEntrepriseView = ({
 }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+<<<<<<< HEAD
 
   const columns = [
     { field: 'id_e', headerName: 'ID', width: 70 },
@@ -41,6 +56,52 @@ const ListEntrepriseView = ({
               <EditOutlinedIcon fontSize="small" />
             </IconButton>
             <IconButton aria-label="consult" size="large">
+=======
+  const [isClientPopupOpen, setClientPopupOpen] = useState(false);
+  const [selectedClientData, setSelectedClientData] = useState(null);
+
+  const columns = [
+    { field: 'id_e', headerName: 'ID', width: 70 },
+    { field: 'nomentreprise', headerName: 'Name', width: 200 },
+    { field: 'adresse', headerName: 'Adresse', width: 200 },
+    { field: 'pays', headerName: 'Country', width: 200 },
+    {
+      headerName: 'Action',
+      flex: 1,
+      renderCell: (params) => {
+        const id = params.row.id_e;
+        return (
+          <Box display="flex" mt="15px">
+            <IconButton
+              onClick={() => {
+                const rowData = getDataById(id);
+                if (rowData) {
+                  handleDataChange(rowData);
+                  handleOpenEdit();
+                } else {
+                  console.log('Data not found for the specified ID.');
+                }
+              }}
+              aria-label="Edit"
+              size="large"
+              id="Edit_BTN"
+            >
+              <EditOutlinedIcon fontSize="small" />
+            </IconButton>
+            <IconButton
+              onClick={() => {
+                const rowData = getDataById(id);
+                if (rowData) {
+                  setSelectedClientData(rowData);
+                  setClientPopupOpen(true);
+                } else {
+                  console.log('Data not found for the specified ID.');
+                }
+              }}
+              aria-label="consult"
+              size="large"
+            >
+>>>>>>> origin/takwa
               <VisibilityOutlinedIcon fontSize="small" color="info" />
             </IconButton>
           </Box>
@@ -67,7 +128,11 @@ const ListEntrepriseView = ({
               }}
               variant="contained"
             >
+<<<<<<< HEAD
               Ajout Client
+=======
+              Ajouter un client
+>>>>>>> origin/takwa
               <Box width="5px"></Box>
               <AddCircleOutlineOutlinedIcon fontSize="medium" />
             </Button>
@@ -75,7 +140,10 @@ const ListEntrepriseView = ({
         </Box>
 
         <Box
+<<<<<<< HEAD
          
+=======
+>>>>>>> origin/takwa
           m="40px 0 0 0"
           height="75vh"
           sx={{
@@ -110,6 +178,7 @@ const ListEntrepriseView = ({
             sortModel={[{ field: 'id_e', sort: 'desc' }]}
             getRowId={(row) => row.id}
             getRowData={(params) => params.row}
+<<<<<<< HEAD
             onRowClick={(params) => {
               const id = params.row.id;
               const rowData = getDataById(id);
@@ -129,9 +198,31 @@ const ListEntrepriseView = ({
           <EditForm isOpenEdit={isOpenEdit} onCloseEdit={handleCloseEdit} selectedData={data} />
         </Box>
       </Box>
+=======
+            pagination
+            pageSize={10}
+          />
+        </Box>
+      </Box>
+
+      {/* Display ClientPopup */}
+      {isClientPopupOpen && (
+        <ClientPopup
+          isOpen={isClientPopupOpen}
+          onClose={() => setClientPopupOpen(false)}
+          clientData={selectedClientData}
+        />
+      )}
+
+      <EditFormController isOpenEdit={isOpenEdit} onCloseEdit={handleCloseEdit} selectedData={data} />
+>>>>>>> origin/takwa
       <FormPopup isOpen={isOpen} onClose={handleClose} />
     </div>
   );
 };
 
+<<<<<<< HEAD
 export default ListEntrepriseView;
+=======
+export default ListEntrepriseView;
+>>>>>>> origin/takwa

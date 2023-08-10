@@ -9,6 +9,7 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined';
 import { tokens } from "../theme";
 import { useNavigate } from 'react-router-dom';
+
 import AddConge from './AddConge';
 import ValidationButton from './ValidationButton';
 
@@ -16,12 +17,15 @@ import ValidationButton from './ValidationButton';
 const ListConges = () => {
   const [conges, setConges] = useState([]);
   const [data, setData] = useState('');
+
   const [roles, setRoles] = useState('');
+
   
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
  
   const navigate = useNavigate();
+
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleOpenDialog = () => {
@@ -32,6 +36,7 @@ const ListConges = () => {
     setDialogOpen(false);
   };
  
+
   const handletoEdit = (id)=> {
     const row = getDataById(id)
     navigate(`/ModifUser/${row.id_c}`); 
@@ -63,6 +68,7 @@ const ListConges = () => {
   };
   const getDataById = (id) => {
     const row = conges.find((row) => row.id_co === id);
+
         return row ? row : null;
   }
  
@@ -82,6 +88,7 @@ const ListConges = () => {
     } else {
       console.log('Data not found for the specified ID.');
     }
+
   };
   const handleCancellation = (id) => {
     const rowData = getDataById(id);
@@ -131,7 +138,9 @@ const ListConges = () => {
       headerName: "ACTION",
       flex: 1,
       renderCell: (params)  => {
+
         const id = params.row.id_co; // Get the ID from the 'id_c' field
+
        
         return (<Box display="flex"  mt="15px">
                    <IconButton onClick={() => handletoEdit(id)} aria-label="Edit" size="large" id="Edit_BTN">
@@ -140,7 +149,9 @@ const ListConges = () => {
                   <IconButton aria-label="consult" size="large">
                   <VisibilityOutlinedIcon fontSize="small" color="info" />
                   </IconButton>
+
                   <ValidationButton id_conge={id} onRefrech={handleValidation} etat={params.row.etat}/>
+
                   <IconButton aria-label="Annulation" size="large" id="Validate_BTN"  onClick={() => handleCancellation(id)}>
                   <HighlightOffOutlinedIcon fontSize="medium" color='error' />
                   </IconButton>
@@ -165,13 +176,14 @@ return(<div>
           backgroundColor: colors.greenAccent[700]
         },
       }}
+
      variant="contained"
      onClick={handleOpenDialog}>
+
      Ajout Congé 
      <Box width="5px"></Box>
       <AddCircleOutlineOutlinedIcon  fontSize="medium" />
       </Button>
- 
       </Box>
       </Box>
       
@@ -205,6 +217,7 @@ return(<div>
         }}
       >
         <DataGrid rows={conges} columns={columns} sortModel={[{ field: 'id_co', sort: 'desc' }]} 
+
        getRowId={(row) => row.id_co} // Specify the ID field
        getRowData={(params) => params.row} // Retrieve the row data
        onRowClick={(params) => {
@@ -221,6 +234,7 @@ return(<div>
            console.log('Data not found for the specified ID.');
          }
       
+
         
            
            //();
@@ -229,8 +243,10 @@ return(<div>
          pageSize={10}
         
       />
+
    
    <AddConge open={dialogOpen} onClose={handleCloseDialog} />
+
       </Box>
       </Box>
       {/* <FormPopup isOpen={isOpen} onClose={handleClose} /> */}

@@ -2,6 +2,7 @@
 
 
 html,
+<<<<<<< HEAD
 body,
 #root,
 .app,
@@ -9,6 +10,31 @@ body,
   height: 100%;
   width:100%;
   font-family: 'Source Sans Pro',sans-serif;
+=======
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
+#root,
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+>>>>>>> origin/takwa
 }
 
 
@@ -29,4 +55,40 @@ body,
 }
 ::-webkit-scrollbar-track:hover{
   background: #555;
+<<<<<<< HEAD
 }
+=======
+}
+
+.boldText {
+  font-weight: bold !important;
+}
+
+@media (max-width: 600px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .content {
+    flex: 1;
+  }
+}
+
+/* For larger screens, show the Sidebar on the left, Topbar, and Footer at the bottom */
+@media (min-width: 601px) {
+  .content-wrapper {
+    flex-direction: row;
+  }
+
+  .content {
+    flex: 1;
+    padding-left: 80px; /* Adjust this value to match the Sidebar width */
+  }
+}
+
+
+
+
+
+
+>>>>>>> origin/takwa

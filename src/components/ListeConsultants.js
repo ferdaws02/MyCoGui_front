@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from "@mui/material";
-import { Button,Box,IconButton} from '@mui/material';
+import { Button,Box,IconButton, Dialog, DialogTitle, DialogContent, DialogActions} from '@mui/material';
 import { DataGrid } from "@mui/x-data-grid";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
@@ -8,6 +8,8 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { tokens } from "../theme";
 import { useNavigate } from 'react-router-dom';
+import DetailConsultant from './DetailConsultant';
+
 
 
 const ListConsultant = () => {
@@ -15,6 +17,26 @@ const ListConsultant = () => {
   const [data, setData] = useState('');
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [showDetailPopup, setShowDetailPopup] = useState(false);
+  const [selectedConsultant, setSelectedConsultant] = useState(null);
+  const [isConsultantPopupOpen, setConsultantPopupOpen] = useState(false);
+  const [selectedConsultantData, setSelectedConsultantData] = useState(null);
+
+
+
+  const handleShowDetails = (id) => {
+    const selectedRow = getDataById(id);
+    if (selectedRow) {
+      setSelectedConsultantData(selectedRow);
+      setConsultantPopupOpen(true);
+    } else {
+      console.log('Data not found for the specified ID.');
+    }
+  };
+  
+  
+
  
   const navigate = useNavigate();
   const handleOpen = () => {
@@ -22,7 +44,9 @@ const ListConsultant = () => {
   };
   const handletoEdit = (id)=> {
     const row = getDataById(id)
-    navigate(`/ModifUser/${row.id_c}`); 
+
+    navigate(`/ModifUser/${row.idc}`); 
+
   };
   const handleDataChange = (newData) => {
     setData(newData);
@@ -50,13 +74,17 @@ const ListConsultant = () => {
     }
   };
   const getDataById = (id) => {
-    const row = consultant.find((row) => row.id_c === id);
+
+    const row = consultant.find((row) => row.idc === id);
+
     return row ? row : null;
   };
 
 
   const columns = [
-    { field: 'id_c', headerName: 'ID', width: 70 },
+
+    { field: 'idc', headerName: 'ID', width: 70 },
+
     { field: 'nom_c', headerName: 'NOM', width: 150},
     { field: 'prenom_c', headerName: 'PRENOM', width: 150 },
     { field: 'adresse_c', headerName: 'ADRESSE', width: 150 },
@@ -65,21 +93,38 @@ const ListConsultant = () => {
     { field: 'roles', headerName: 'ROLE', width: 150},
     {
       headerName: "ACTION",
-      flex: 1,
-      renderCell: (params)  => {
-        const id = params.row.id_c; // Get the ID from the 'id_c' field
+
+    flex: 1,
+    field: 'actions', // Add this line to specify the field
+    renderCell: (params) => {
+      const id = params.row.idc;
+
        
         return (<Box display="flex"  mt="15px">
                    <IconButton onClick={() => handletoEdit(id)} aria-label="Edit" size="large" id="Edit_BTN">
                   <EditOutlinedIcon fontSize="small"  />
                   </IconButton>
-                  <IconButton aria-label="consult" size="large">
-                  <VisibilityOutlinedIcon fontSize="small" color="info" />
-                  </IconButton>
-                 </Box>
-        )},
+
+            <IconButton
+              onClick={() => {
+                const rowData = getDataById(id);
+                if (rowData) {
+                  setSelectedConsultantData(rowData);
+                  setConsultantPopupOpen(true);
+                } else {
+                  console.log('Data not found for the specified ID.');
+                }
+              }}
+              aria-label="consult"
+              size="large"
+            >
+              <VisibilityOutlinedIcon fontSize="small" color="info" />
+            </IconButton>
+          </Box>
+        );
       },
-       
+    },
+
   ];
 return(<div>
  <Box m="20px">
@@ -135,36 +180,38 @@ return(<div>
           },
         }}
       >
-        <DataGrid rows={consultant} columns={columns} sortModel={[{ field: 'id_c', sort: 'desc' }]} 
+
+        <DataGrid rows={consultant} columns={columns} sortModel={[{ field: 'idc', sort: 'desc' }]} 
          getRowId={(row) => row.id} // Specify the ID field
          getRowData={(params) => params.row} // Retrieve the row data
          onRowClick={(params) => {
-           const id = params.row.id_c;
-           const rowData = getDataById(id);
-           if (rowData) {
-             console.log('Data found:', rowData);
-             const Data= rowData
-             console.log('Data :', Data);
-
-             handleDataChange(Data)
-           
-           } else {
-             console.log('Data not found for the specified ID.');
-           }
-        
-           
-           //();
-         }}
+          if (params.field === 'actions') { // Check if the clicked icon is in the actions column
+            const id = params.row.idc;
+            const rowData = getDataById(id);
+            if (rowData) {
+              setSelectedConsultantData(rowData);
+              setConsultantPopupOpen(true);
+            } else {
+              console.log('Data not found for the specified ID.');
+            }
+          }
+        }}
          pagination
          pageSize={10}
         
       />
-       {/* <EditForm   isOpenEdit={isOpenEdit} onCloseEdit={handleCloseEdit} selectedData={data} /> */}
+
+      {isConsultantPopupOpen && (
+            <DetailConsultant
+              consultant={selectedConsultantData}
+              onClose={() => setConsultantPopupOpen(false)}
+            />
+          )}
+        </Box>
       </Box>
-      </Box>
-      {/* <FormPopup isOpen={isOpen} onClose={handleClose} /> */}
-      
-      </div>);
+    </div>
+  );
 };
 
-export default ListConsultant ;
+export default ListConsultant;
+

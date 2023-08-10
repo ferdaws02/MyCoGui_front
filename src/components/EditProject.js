@@ -33,6 +33,7 @@ const EditProject = ({ isOpenEditProject, onCloseEditProject, rowData}) => {
         titre,
         description,
         entreprise:{id_e:entreprise}       
+
       };
       console.log(modifiedData)
       fetch('/modifierProjet', {
@@ -75,7 +76,7 @@ const EditProject = ({ isOpenEditProject, onCloseEditProject, rowData}) => {
       //  setSelectedOption(event.target.value);
       // console.log("****the selectedOPtion in the handle  "+selectedOption)
       setEntreprise(event.target.value);
-      console.log("****the selectedOPtion in the handle  "+entreprise.id_e)
+
     };
   
     return (

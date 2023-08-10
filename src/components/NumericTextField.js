@@ -30,7 +30,6 @@ const NumericTextField = ({name,placeholder,value,handleInputChange,error,helper
       name={name}
         value={inputValue}
         onChange={handleInputChange}
-    
         inputProps={{
           pattern: '[0-9]*',
           maxLength: 8, // Maximum length of 10 characters
@@ -40,7 +39,7 @@ const NumericTextField = ({name,placeholder,value,handleInputChange,error,helper
        helperText={helperText ? 'Seuls les chiffres sont autorisés.' : ''}
        label={placeholder}
        InputLabelProps={{
-        shrink: !!inputValue,
+          shrink: !!inputValue,
       }}
      
        

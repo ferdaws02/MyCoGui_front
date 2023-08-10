@@ -6,6 +6,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Topbar from "./layouts/global/Topbar";
+<<<<<<< HEAD
+=======
+import Footer from "./layouts/global/Footer";
+>>>>>>> origin/takwa
 import Dashboard from "./layouts/dashboard/index";
 import ProjectList from "./Controllers/ProjetsController";
 import Entreprises from "./Controllers/ListeEntreprise";
@@ -35,6 +39,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
+<<<<<<< HEAD
           {isSidebarOpen && <Sidebar />} {/* Render the Sidebar component only when isSidebarOpen is true */}
           <main className="content">
             <Topbar />
@@ -42,6 +47,17 @@ function App() {
             <Routes>
               <Route path="/" element={<Auth />} />
               <Route path="/dashbord" element={<Dashboard />} />
+=======
+        <Topbar />
+        <div className="content-wrapper">
+          {isSidebarOpen && <Sidebar />} {/* Render the Sidebar component only when isSidebarOpen is true */}
+          <main className="content">
+            
+            <ToastContainer />
+            <Routes>
+              <Route path="/" element={<Auth />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+>>>>>>> origin/takwa
               <Route path="/Projects" element={<ProjectList />} />
               <Route path="/Clients" element={<Entreprises />} />
               <Route path="/AddUser" element={<AddForm />} />
@@ -50,9 +66,18 @@ function App() {
               <Route path="/TypeConge" element={<AjoutTC />} />
               <Route path="/AddClient" element={<AjoutClient />} />
               <Route path="/conges" element={<ListConges />} />
+<<<<<<< HEAD
               <Route path="Gestion_aff_projet" element={<AffProjet/>}/>
             </Routes>
           </main>
+=======
+              <Route path="Gestion_aff_ptojet" element={<AffProjet/>}/>
+            </Routes>
+            </main>
+          </div>
+          
+          <Footer style={{ position: "absolute", bottom: 0 }} />
+>>>>>>> origin/takwa
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>

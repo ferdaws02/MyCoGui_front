@@ -340,7 +340,9 @@ return (
   variant="outlined"
   color="info"
   name="id_c"
-  value={data.id_c}
+
+  value={data.idc}
+
   inputProps={{
     pattern: '[0-9]*',
     maxLength: 4

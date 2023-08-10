@@ -69,6 +69,10 @@ const Sidebar = () => {
         "& .pro-menu-item.active": {
           color: `${colors.greenAccent[400]} !important`,
         },
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/takwa
       }}
     >
       <ProSidebar collapsed={isCollapsed}  style={{ height:'150%'}} >
@@ -164,6 +168,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
+<<<<<<< HEAD
             <Item
             id="Affectations"
               title="Affectations"
@@ -172,6 +177,48 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+=======
+<SubMenu
+                style={{
+                  color: colors.grey[100],
+                  hover:colors.greenAccent[700],
+                }}
+            title="Affectations "
+            // to="/Gestion Réferentiel"
+            icon={<HandshakeOutlinedIcon  />}
+            selected={selected}
+            setSelected={setSelected}
+          >
+            <MenuItem
+              icon={<SquareFootOutlinedIcon />}
+              onClick={() => {
+                navigate('/Gestion_aff_ptojet') 
+              }}
+             
+            >
+              Projets
+            </MenuItem>
+            <MenuItem
+              icon={<ManageAccountsOutlinedIcon/>}
+
+              onClick={() => {
+                navigate('/Gestion_aff_MI') 
+              }}
+            >
+                 Managers Inetum  
+            </MenuItem>
+            <MenuItem
+           
+              icon={<  SupervisedUserCircleOutlinedIcon/>}
+
+              onClick={() => {
+                navigate('/Gestion_aff_MC') 
+              }}
+            >
+                     Managers Clients  
+            </MenuItem>
+          </SubMenu>
+>>>>>>> origin/takwa
            
             
             <Item
