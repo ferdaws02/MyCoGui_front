@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
 import { useHistory } from 'react-router-dom'
 import {
   TextField,
-
   Box,
   Button,
   FormControl,
@@ -16,31 +14,25 @@ import {
   Grid,
   InputLabel,
 } from '@mui/material';
-
 import NumericTextField from './NumericTextField';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
-import AccountTypeSelect from './TypeDeCompte'
+import AccountTypeSelect from './TypeDeCompte';
 import { Formik } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
-
-const Formadd=({url})=>{
+const Formadd = ({ url }) => {
 
   const [email, setEmail] = useState('');
   const [isValid, setIsValid] = useState(true);
   const [showTextField, setShowTextField] = useState(false);
   const navigate = useNavigate();
-  // const[file,setFile]=useState('')
   const [selectedImage, setSelectedImage] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [endpoint, setEndpoint] = useState('');
-    const [formData, setFormData] = useState({
-      idc: "",
+  const [formData, setFormData] = useState({
+    idc: "",
     etat: "Activé",
     adresse_c: "",
     cin_c: "",
@@ -59,71 +51,64 @@ const Formadd=({url})=>{
     roles: "",
     entreprise: { id_e: "" }
   });
-      const [value, setValue] = useState('');
-     
-      const handleChange =(event)=>{
-        const {name,value} = event.target;
-        setFormData({
-          ...formData,
-          [name]: value,
+  const [value, setValue] = useState('');
 
-      })
-      
-    }
-      const handleChange2 = (event) => {
-        const inputValue = event.target.value;
-    
-        // Remove any non-digit characters
-        const cleanedValue = inputValue.replace(/\D/g, '');
-    
-        // Restrict the input to four digits
-        const truncatedValue = cleanedValue.slice(0, 4);
-    
-        setValue(truncatedValue);
-        setFormData({
-          ...formData,
-          idc: truncatedValue,
-        });
-      };
-      const handleImageChange = (event) => {
-        const file = event.target.files[0];
-        setSelectedImage(file);
-    
-        const formDataToSend = new FormData();
-        formDataToSend.append('photo_c', file);
-    
-        // Merge the existing form data with the file data
-        setFormData((prevFormData) => {
-          return {
-            ...prevFormData,
-            photo_c: file,
-            formDataToSend
-          };
-        });
-      };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  }
 
-      
-      const handleChangeemail = (e) => {
-        const inputEmail = e.target.value;
-        setEmail(inputEmail);
-        setFormData({
-          ...formData,
-          emailc: inputEmail,
-        });
-    
-        // Validation de l'email
-        const emailRegex =/^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{1,7}$/;
-        const isValidEmail = emailRegex.test(email);
-        setIsValid(isValidEmail);
-      };
-      const handleInputChange = (e) => {
-       const { name, value, files } = e.target;
+  const handleChange2 = (event) => {
+    const inputValue = event.target.value;
+    const cleanedValue = inputValue.replace(/\D/g, '');
+    const truncatedValue = cleanedValue.slice(0, 4);
+    setValue(truncatedValue);
+    setFormData({
+      ...formData,
+      idc: truncatedValue,
+    });
+  };
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(file);
+
+    const formDataToSend = new FormData();
+    formDataToSend.append('photo_c', file);
+
+    // Merge the existing form data with the file data
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        photo_c: file,
+        formDataToSend
+      };
+    });
+  };
+
+
+  const handleChangeemail = (e) => {
+    const inputEmail = e.target.value;
+    setEmail(inputEmail);
+    setFormData({
+      ...formData,
+      emailc: inputEmail,
+    });
+
+    const emailRegex = /^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{1,7}$/;
+    const isValidEmail = emailRegex.test(email);
+    setIsValid(isValidEmail);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value, files } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
-
   };
 
   const handleInputChangecin = (e) => {
@@ -455,4 +440,3 @@ const Formadd=({url})=>{
 };
 
 export default Formadd;
-

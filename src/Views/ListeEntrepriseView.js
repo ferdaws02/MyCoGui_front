@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import { useTheme } from '@mui/material';
-import { Button, Box, IconButton } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-import { tokens } from '../theme';
-import FormPopup from '../Controllers/FormPopupController';
-import EditForm from '../Controllers/EditFormController';
-=======
 import React, { useState } from 'react';
 import { useTheme } from '@mui/material';
 import { Button, Box, IconButton } from '@mui/material';
@@ -22,7 +9,6 @@ import { tokens } from '../theme';
 import FormPopup from '../Controllers/FormPopupController';
 import EditFormController from '../Controllers/EditFormController';
 import ClientPopup from './ClientPopup'; // Replace with the actual path to ClientPopup.js
->>>>>>> origin/takwa
 
 const ListEntrepriseView = ({
   entreprises,
@@ -38,25 +24,6 @@ const ListEntrepriseView = ({
 }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-<<<<<<< HEAD
-
-  const columns = [
-    { field: 'id_e', headerName: 'ID', width: 70 },
-    { field: 'nomentreprise', headerName: 'NOM ENTREPRISE', width: 200 },
-    { field: 'adresse', headerName: 'ADRESSE', width: 200 },
-    { field: 'pays', headerName: 'PAYS', width: 200 },
-   
-    {
-      headerName: 'ACTION',
-      flex: 1,
-      renderCell: (params) => {
-        return (
-          <Box display="flex" mt="15px">
-            <IconButton onClick={handleOpenEdit} aria-label="Edit" size="large" id="Edit_BTN">
-              <EditOutlinedIcon fontSize="small" />
-            </IconButton>
-            <IconButton aria-label="consult" size="large">
-=======
   const [isClientPopupOpen, setClientPopupOpen] = useState(false);
   const [selectedClientData, setSelectedClientData] = useState(null);
 
@@ -101,7 +68,6 @@ const ListEntrepriseView = ({
               aria-label="consult"
               size="large"
             >
->>>>>>> origin/takwa
               <VisibilityOutlinedIcon fontSize="small" color="info" />
             </IconButton>
           </Box>
@@ -128,11 +94,7 @@ const ListEntrepriseView = ({
               }}
               variant="contained"
             >
-<<<<<<< HEAD
-              Ajout Client
-=======
               Ajouter un client
->>>>>>> origin/takwa
               <Box width="5px"></Box>
               <AddCircleOutlineOutlinedIcon fontSize="medium" />
             </Button>
@@ -140,10 +102,6 @@ const ListEntrepriseView = ({
         </Box>
 
         <Box
-<<<<<<< HEAD
-         
-=======
->>>>>>> origin/takwa
           m="40px 0 0 0"
           height="75vh"
           sx={{
@@ -178,27 +136,6 @@ const ListEntrepriseView = ({
             sortModel={[{ field: 'id_e', sort: 'desc' }]}
             getRowId={(row) => row.id}
             getRowData={(params) => params.row}
-<<<<<<< HEAD
-            onRowClick={(params) => {
-              const id = params.row.id;
-              const rowData = getDataById(id);
-              if (rowData) {
-                console.log('Data found:', rowData);
-                const Data = rowData;
-                console.log('Data :', Data);
-                handleDataChange(Data);
-              } else {
-                console.log('Data not found for the specified ID.');
-              }
-              handleOpenEdit();
-            }}
-            pagination
-            pageSize={10}
-          />
-          <EditForm isOpenEdit={isOpenEdit} onCloseEdit={handleCloseEdit} selectedData={data} />
-        </Box>
-      </Box>
-=======
             pagination
             pageSize={10}
           />
@@ -215,14 +152,9 @@ const ListEntrepriseView = ({
       )}
 
       <EditFormController isOpenEdit={isOpenEdit} onCloseEdit={handleCloseEdit} selectedData={data} />
->>>>>>> origin/takwa
       <FormPopup isOpen={isOpen} onClose={handleClose} />
     </div>
   );
 };
 
-<<<<<<< HEAD
 export default ListEntrepriseView;
-=======
-export default ListEntrepriseView;
->>>>>>> origin/takwa

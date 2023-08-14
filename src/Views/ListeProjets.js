@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import { useTheme } from '@mui/material';
-import { Button, Box, IconButton } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-import { tokens } from '../theme';
-import AjoutProject  from '../components/ajoutProjet';
-import EditFormProject from '../components/EditProject';
-import {useState}from 'react';
-=======
 import React, { useState } from 'react';
 import { useTheme } from '@mui/material';
 import { Button, Box, IconButton } from '@mui/material';
@@ -22,7 +9,6 @@ import FormPopup from '../Controllers/FormPopupProjectController';
 import EditFormProject from '../components/EditProject';
 import ProjectPopup from './ProjectPopup';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
->>>>>>> origin/takwa
 
 const ListProjetView = ({
   projets,
@@ -38,28 +24,6 @@ const ListProjetView = ({
 }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-<<<<<<< HEAD
-  const [Data, setData] = useState('');
-  const columns = [
-    { field: 'id_p', headerName: 'ID', width: 70 },
-    { field: 'titre', headerName: 'TITRE', width: 200 },
-    { field: 'description', headerName: 'DESCRIPTION', width: 200 },
-    { field: 'entreprise', headerName: 'ENTREPRISE', width: 200 , valueGetter: (params) => params.row.entreprise?.nomentreprise || ''},
-   
-   
-    {
-      headerName: 'ACTION',
-      flex: 1,
-      renderCell: (params) => {
-        return (
-          <Box display="flex" mt="15px">
-            <IconButton onClick={handleOpenEdit} aria-label="Edit" size="large" id="Edit_BTN">
-              <EditOutlinedIcon fontSize="small" />
-            </IconButton>
-            <IconButton aria-label="consult" size="large">
-              <VisibilityOutlinedIcon fontSize="small" color="info" />
-            </IconButton>
-=======
   const [isProjectPopupOpen, setProjectPopupOpen] = useState(false);
   const [selectedProjectData, setSelectedProjectData] = useState(null);
 
@@ -109,7 +73,6 @@ const ListProjetView = ({
             >
               <EditOutlinedIcon fontSize="small" />
             </IconButton>
->>>>>>> origin/takwa
           </Box>
         );
       },
@@ -134,11 +97,7 @@ const ListProjetView = ({
               }}
               variant="contained"
             >
-<<<<<<< HEAD
-              Ajout Projet
-=======
               Ajouter un Projet
->>>>>>> origin/takwa
               <Box width="5px"></Box>
               <AddCircleOutlineOutlinedIcon fontSize="medium" />
             </Button>
@@ -146,10 +105,6 @@ const ListProjetView = ({
         </Box>
 
         <Box
-<<<<<<< HEAD
-         
-=======
->>>>>>> origin/takwa
           m="40px 0 0 0"
           height="75vh"
           sx={{
@@ -184,29 +139,6 @@ const ListProjetView = ({
             sortModel={[{ field: 'id_e', sort: 'desc' }]}
             getRowId={(row) => row.id}
             getRowData={(params) => params.row}
-<<<<<<< HEAD
-            onRowClick={(params) => {
-              const id = params.row.id;
-              const rowData = getDataById(id);
-              if (rowData) {
-                console.log('Data found:', rowData);
-                const Data = rowData;
-                console.log('Data :', Data);
-                setData(Data)
-                handleDataChange(Data);
-              } else {
-                console.log('Data not found for the specified ID.');
-              }
-              handleOpenEdit();
-            }}
-            pagination
-            pageSize={10}
-          />
-          <EditFormProject isOpenEditProject={isOpenEdit} onCloseEditProject={handleCloseEdit} rowData={Data} />
-        </Box>
-      </Box>
-      <AjoutProject  isOpen={isOpen} onClose={handleClose} />
-=======
             pagination
             pageSize={10}
           />
@@ -217,13 +149,8 @@ const ListProjetView = ({
         </Box>
       </Box>
       <FormPopup isOpen={isOpen} onClose={handleClose} />
->>>>>>> origin/takwa
     </div>
   );
 };
 
-<<<<<<< HEAD
 export default ListProjetView;
-=======
-export default ListProjetView;
->>>>>>> origin/takwa

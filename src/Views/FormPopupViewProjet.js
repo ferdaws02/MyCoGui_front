@@ -11,10 +11,9 @@ import {
   TextField,
 } from '@mui/material';
 import { tokens } from '../theme';
-<<<<<<< HEAD
+
 import SelectOption from '../components/SelectEntreprise';
-=======
->>>>>>> origin/takwa
+
 import { useTheme } from '@mui/material';
 
 const FormPopupViewProjet = ({
@@ -23,10 +22,9 @@ const FormPopupViewProjet = ({
   entreprise_id_e,
   titre,
   description,
-<<<<<<< HEAD
+
   handleOptionChange,
-=======
->>>>>>> origin/takwa
+
   handleentreprise_id_eChange,
   handleTitreChange,
   handleDescriptionChange,
@@ -39,11 +37,9 @@ const FormPopupViewProjet = ({
   return (
     <Dialog open={isOpen} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle fontStyle={colors.grey[800]} important>
-<<<<<<< HEAD
-        Add Project
-=======
+
         Ajouter un Projet
->>>>>>> origin/takwa
+
       </DialogTitle>
       <DialogContent>
         <Box
@@ -77,20 +73,8 @@ const FormPopupViewProjet = ({
               onChange={handleTitreChange}
               value={titre}
             />
-<<<<<<< HEAD
-         
                <SelectOption   selectedOption={entreprise_id_e} handleOptionChange={handleOptionChange} />
-=======
-                <TextField
-              required
-              id="outlined-required"
-              label="entreprise"
-              color="info"
-              variant="standard"
-              onChange={handleentreprise_id_eChange}
-              value={entreprise_id_e}
-            />
->>>>>>> origin/takwa
+
           </div>
         </Box>
       </DialogContent>

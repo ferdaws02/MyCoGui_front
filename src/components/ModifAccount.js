@@ -36,7 +36,7 @@ const ModifUser=()=>{
   const [data, setData] = useState('');
   const [endpoint, setEndpoint] = useState('');
     const [formData, setFormData] = useState({
-      id_c:"",
+      idc:"",
       etat: "Activé",
       adresse_c: "",
       cin_c: "",
@@ -86,7 +86,7 @@ const ModifUser=()=>{
       if(data.roles=="Manager_Client"){
       setFormData((prevFormData) => ({
         ...prevFormData,
-        id_c: data.id_c,
+        idc: data.idc,
         etat: data.etat,
         adresse_c: data.adresse_c,
         cin_c: data.cin_c,
@@ -107,7 +107,7 @@ const ModifUser=()=>{
     } else{
       setFormData((prevFormData) => ({
         ...prevFormData,
-        id_c: data.id_c,
+        idc: data.idc,
         etat: data.etat,
         adresse_c: data.adresse_c,
         cin_c: data.cin_c,
@@ -150,7 +150,7 @@ const ModifUser=()=>{
         setValue(truncatedValue);
         setFormData({
           ...formData,
-          id_c: truncatedValue,
+          idc: truncatedValue,
         });
       };
 
@@ -256,7 +256,7 @@ const handleSelect2 = (value) => {
             case 'Consultant':
               return '/modifConsultant';
             case 'Service_Manager':
-              return '/ajouter_SM';
+              return '/modif_SM';
             case 'RH':
               return '/modifRH';
             case 'Manager_Inetum':
@@ -272,7 +272,7 @@ const handleSelect2 = (value) => {
           event.preventDefault();
           
           const AccountData = {
-            id_c:formData.id_c,
+            idc:formData.idc,
             etat: formData.etat,
             adresse_c: formData.adresse_c,
             cin_c: formData.cin_c,
@@ -339,10 +339,8 @@ return (
       <TextField
   variant="outlined"
   color="info"
-  name="id_c"
-
+  name="idc"
   value={data.idc}
-
   inputProps={{
     pattern: '[0-9]*',
     maxLength: 4
