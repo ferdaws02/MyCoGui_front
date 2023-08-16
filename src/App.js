@@ -56,7 +56,7 @@ function App() {
               <Route path="/AddClient" element={<AjoutClient />} />
               <Route path="/conges" element={<ListConges />} />
 
-              <Route path="Gestion_aff_ptojet" element={<AffProjet/>}/>
+              <Route path="/Affectations" element={<AffProjet/>}/>
             </Routes>
             </main>
           </div>

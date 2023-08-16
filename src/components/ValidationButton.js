@@ -26,19 +26,20 @@ const ValidationButton = ({id_conge,onRefrech,etat}) => {
 
 
   const isConsultant = (roles) => {
-    console.log("the role is "+roles+" the etat is "+etat)
+    console.log("the role is " + roles + " the etat is " + etat);
+    
     // Check if the user is a Consultant or Manager_Client with status not validation_client
     if (roles === 'Consultant') {
       return true; // Disable the button for Consultants
+    } else if (roles === 'Service_Manager' && etat !== 'validation_SM') {
+      return true; // Disable the button for Service_Manager with status not validation_SM
+    } else if (roles === 'RH' && etat !== 'validation_RH') {
+      return true; // Disable the button for RH with status not validation_RH
     } else if (roles === 'Manager_Client' && etat !== 'validation_client') {
       return true; // Disable the button for Manager_Client with status not validation_client
-    }  else if (roles === 'Service_Manager' && etat !== 'validation_SM') {
-      return true; // Disable the button for Manager_Client with status not validation_client
     }
-  else if (roles === 'RH' && etat !== 'validation_RH') {
-    return true; // Disable the button for Manager_Client with status not validation_client
-  }
-    return true; // Enable the button for all other cases
+    
+    return false; // Enable the button for all other cases
   };
 
   console.error('the role is '+roles);

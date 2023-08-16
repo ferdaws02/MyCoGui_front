@@ -47,7 +47,7 @@ const AddConge = ({ open, onClose }) => {
     const handleButtonClick = () => {
       // Handle the button click here
       const dataToSend = {
-        consultant :{id_c:userId},
+        consultant :{idc:userId},
         ddconge:selectedDate1,
         dfconge:selectedDate2,
         typeConge:{type:selectedOption},

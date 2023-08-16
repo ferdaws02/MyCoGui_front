@@ -13,12 +13,12 @@ const UserIdInput = ({ onFieldChange }) => {
       .then((response) => {
         console.log(response)
         if (response.status === 200) {
-          setUserId(response.data.id_c);
+          setUserId(response.data.idc);
           setuserNom(response.data.nom_c);
           setuserPrenom(response.data.prenom_c);
 
           onFieldChange({
-            userId: response.data.id_c,
+            userId: response.data.idc,
             userNom: response.data.nom_c,
             userPrenom: response.data.prenom_c,
           });
