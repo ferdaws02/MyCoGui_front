@@ -23,18 +23,18 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const AffProjet=({url})=>{
+const AffMC=({url})=>{
   const [consultant, setConsultant] = useState('');
   const [projet, setProjet] = useState('');
   const [entreprise, setEntreprise] = useState('');
-  const [formData, setFormData] = useState({
-     consultant:{idc:""} ,
-      projet:{id_p:""},
-      ddaff_projet:null,
-      dfaff_projet:null,
-      entreprise:{idc:""}
-    
-    });
+    const [formData, setFormData] = useState({
+       consultant:{idc:""} ,
+        projet:{id_p:""},
+        ddaff_projet:null,
+        dfaff_projet:null,
+        entreprise:{id_e:""}
+      
+      });
       const [value, setValue] = useState('');
  
       const handleOptionChange = (event) =>{
@@ -92,7 +92,7 @@ const handleSubmit = async (event) => {
     projet: { id_p: projet },
     ddaff_projet: formData.ddaff_projet,
     dfaff_projet: formData.dfaff_projet,
-    entreprise:{idc:entreprise}
+    entreprise:{id_e:entreprise}
   };
 
   try {
@@ -143,11 +143,15 @@ return (
   noValidate
   autoComplete="off"
 >
-<h2 style={{marginLeft:20}}>Ajouter Affectation</h2>
+<h2 style={{marginLeft:20}}>Ajouter compte</h2>
     <Formik   >
      
       <div>
-       
+        <div>
+      <SelectConsultant  selectedOption={consultant} handleOptionChange={handleOptionChange}/>
+      <SelectProjet selectedOption={projet}  handleOptionChange={handleOptionChange2}handleOptionMCChange={handleOptionChangeMc}/>
+     
+     </div>
     <div>
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker  
@@ -168,11 +172,7 @@ return (
     />
       </LocalizationProvider>
     </div>
-    <div>
-      <SelectConsultant  selectedOption={consultant} handleOptionChange={handleOptionChange}/>
-      <SelectProjet selectedOption={projet}  handleOptionChange={handleOptionChange2}handleOptionMCChange={handleOptionChangeMc}/>
-     
-     </div>
+
    
     <div>
       <Button onClick={handleSubmit} color="info" variant="contained"sx={{mt:3,ml:10}} >Submit</Button>
@@ -182,4 +182,4 @@ return (
     </Box>
   );
 };
-export default AffProjet;
+export default AffMC;

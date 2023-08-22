@@ -25,6 +25,7 @@ const NumericTextField = ({name,placeholder,value,handleInputChange,error,helper
   return (
 
       <TextField
+      required
        color="info"
        variant="outlined"
       name={name}

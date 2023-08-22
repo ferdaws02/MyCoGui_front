@@ -36,7 +36,7 @@ const AjoutProject = ({ isOpen, onClose}) => {
       .catch((error) => {
         console.error('Error while sending data to the database:', error);
       });
-      onClose(); // Close the dialog after form submission
+     // onClose(); // Close the dialog after form submission
     };
     const handleInputChange = (event) => {
       const { name, value } = event.target;

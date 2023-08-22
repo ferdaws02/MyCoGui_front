@@ -19,22 +19,38 @@ const Topbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [userProfileImage, setUserProfileImage] = useState(null); // State pour stocker l'URL de l'image de profil
   const [mode, setMode] = useState("light");
+  const [userId, setUserId] = useState('');
 
 
   useEffect(() => {
-    // Make an API request to get the user profile image URL
-    // Replace 'YOUR_BACKEND_API_URL' with the base URL of your backend API
-    axios.get("http://localhost:8086/PFE/getimage/9966") // Replace '2020' with the actual user ID of the logged-in user
-      .then(response => {
-        const imageData = response.data;
-         // Assuming the response contains the image URL as a string
-        // setUserProfileImage(URL.createObjectURL(new Blob([imageData], { type: 'image/jpeg' })));
-        setUserProfileImage(imageData);
+    // Fetch user ID from the server
+    axios.get('/api/get-profile')
+      .then((response) => {
+        if (response.status === 200) {
+          setUserId(response.data.idc);
+        } else {
+          console.error('Failed to fetch user ID');
+        }
       })
-      .catch(error => {
-        console.error("Error fetching user profile image:", error);
+      .catch((error) => {
+        console.error('Error while fetching user ID:', error);
       });
-  }, []); // The effect runs once after the component mounts
+  }, []);
+
+  useEffect(() => {
+    // Fetch user profile image URL using the fetched userId
+    if (userId) {
+      axios.get(`http://localhost:8086/PFE/getimage/${userId}`)
+        .then(response => {
+          const imageData = response.data;
+          // Assuming the response contains the image data as base64 or a URL
+          setUserProfileImage(imageData);
+        })
+        .catch(error => {
+          console.error("Error fetching user profile image:", error);
+        });
+    }
+  }, [userId]); // The effect runs once after the component mounts
 
   const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -56,6 +72,7 @@ const Topbar = () => {
           console.error('Error while sending data to the database:', error);
         });
       navigate('/')
+      window.location.reload()
     }
 
 

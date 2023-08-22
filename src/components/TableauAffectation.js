@@ -2,40 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { useTheme } from "@mui/material";
 import { Button,Box,IconButton} from '@mui/material';
 import { DataGrid } from "@mui/x-data-grid";
+import { tokens } from "../theme";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; 
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DoneOutlineOutlinedIcon from '@mui/icons-material/DoneOutlineOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined';
-import { tokens } from "../theme";
-import { useNavigate } from 'react-router-dom';
-import AddConge from './AddConge';
-import ValidationButton from './ValidationButton';
-import axios from 'axios'; 
+const TableauAffectation = () => {
 
-const ListConges = () => {
-  const [conges, setConges] = useState([]);
-  const [data, setData] = useState('');
-  const [roles, setRoles] = useState('');
-  
+    const [data, setData] = useState([]);
+    const [conges, setConges] = useState([]);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
  
-  const navigate = useNavigate();
-  const [dialogOpen, setDialogOpen] = useState(false);
+//   const navigate = useNavigate();
+//   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const handleOpenDialog = () => {
-    setDialogOpen(true);
-  };
+//   const handleOpenDialog = () => {
+//     setDialogOpen(true);
+//   };
 
-  const handleCloseDialog = () => {
-    setDialogOpen(false);
-  };
+//   const handleCloseDialog = () => {
+//     setDialogOpen(false);
+//   };
  
-  const handletoEdit = (id)=> {
-    const row = getDataById(id)
-    navigate(`/ModifUser/${row.id_c}`); 
-  };
+  
   const handleDataChange = (newData) => {
     setData(newData);
   };
@@ -47,7 +40,7 @@ const ListConges = () => {
   const fetchData = async () => {
     try {
       // Make a request to your backend API endpoint
-      const response = await fetch('/Conge/showAll');
+      const response = await fetch('users');
 
       if (response.ok) {
         const jsonData = await response.json();
@@ -62,72 +55,56 @@ const ListConges = () => {
     }
   };
   const getDataById = (id) => {
-    const row = conges.find((row) => row.id_co === id);
+    const row = conges.find((row) => row.idc === id);
         return row ? row : null;
   }
+  
  
-  const handleValidation = (id) => {
-    const rowData = getDataById(id);
-    console.log("********************the validation")
-    if (rowData) {
-      // Update the "etat" field to "valider" for the specified row
-      const updatedRow = { ...rowData, etat: 'valider' };
-
-      // Update the "conges" state with the updated row
-      const updatedConges = conges.map((row) => (row.id_co === id ? updatedRow : row));
-      setConges(updatedConges);
-
-      // Send the updated row to the backend
-      // ... (Your fetch code to update the row in the backend) ...
-    } else {
-      console.log('Data not found for the specified ID.');
-    }
+  const navigate = useNavigate();
+  const handleOpen = () => {
+    navigate('/AddAffectaion'); 
   };
-  const handleCancellation = (id) => {
-    const rowData = getDataById(id);
-    if (rowData) {
-      // Mettre à jour l'état de la ligne en "Annuler"
-      const updatedRow = { ...rowData, etat: 'annuler' };
-      console.log("the updated row " + updatedRow.etat);
-  
-      // Mettre à jour le tableau 'conges' avec la nouvelle valeur modifiée
-      const updatedConges = conges.map((row) => (row.id_c === id ? updatedRow : row));
-      setConges(updatedConges);
-  
-      // Envoyer les modifications à la base de données via une requête API Axios
-      axios.put(`/Conge/updateConge/${id}`, updatedRow)
-        .then((response) => {
-          if (response.status === 200) {
-            console.log('La mise à jour a été effectuée avec succès');
-            window.location.reload();
-          } else {
-            console.error('Échec de la mise à jour');
-          }
-        })
-        .catch((error) => {
-          console.error('Erreur lors de la mise à jour:', error);
-        });
-    } else {
-      console.log('Data not found for the specified ID.');
-    }
-  };
+ 
+ 
 
 
-
+// const id_p= conges.projet.id_p
   const columns = [
-    { field: 'id_co', headerName: 'ID', width: 70 },
-    { field: 'ddconge', headerName: 'DATE DEBUT', width: 150,
+    { field: 'idc', headerName: 'ID', width: 70 },
+    { field: 'ddaff_projet', headerName: 'DATE DEBUT', width: 150,
     valueGetter: (params) => {
-      const date = new Date(params.row.ddconge);
+      const date = new Date(params.row.ddaff_projet);
       return date.toLocaleDateString(); // Format de date lisible
     },},
-    { field: 'dfconge', headerName: 'DATE FIN', width: 150,
+    { field: 'dfaff_projet', headerName: 'DATE FIN', width: 150,
     valueGetter: (params) => {
-      const date = new Date(params.row.ddconge);
+      const date = new Date(params.row.dfaff_projet);
       return date.toLocaleDateString(); // Format de date lisible
     }, },
-    { field: 'etat', headerName: 'ETAT', width: 150 },
-  
+    { field: 'status', headerName: 'ETAT', width: 100 },
+    {
+      field: 'projet.id_p', // Access the nested property path
+    headerName: 'PROJET',
+    width: 150,
+    valueGetter: (params) => {
+      const projet = params.row.projet; // Get the "projet" object
+      if (projet) {
+        return projet.titre; // Return the ID if "projet" exists
+      }
+      return ""; // Return an empty string if "projet" is not defined
+    }, },
+    {
+      field: 'entreprise.idc', // Access the nested property path
+    headerName: 'PROJET',
+    width: 150,
+    valueGetter: (params) => {
+      const enterprise = params.row.entreprise; // Get the "projet" object
+      if (enterprise) {
+        return enterprise.idc; // Return the ID if "projet" exists
+      }
+      return ""; // Return an empty string if "projet" is not defined
+    },
+  },
     {
       headerName: "ACTION",
       flex: 1,
@@ -135,14 +112,13 @@ const ListConges = () => {
         const id = params.row.id_co; // Get the ID from the 'id_c' field
        
         return (<Box display="flex"  mt="15px">
-                   <IconButton onClick={() => handletoEdit(id)} aria-label="Edit" size="large" id="Edit_BTN">
+                   <IconButton aria-label="Edit" size="large" id="Edit_BTN">
                   <EditOutlinedIcon fontSize="small"  />
                   </IconButton>
                   <IconButton aria-label="consult" size="large">
                   <VisibilityOutlinedIcon fontSize="small" color="info" />
                   </IconButton>
-                  <ValidationButton id_conge={id} onRefrech={handleValidation} etat={params.row.etat}/>
-                  <IconButton aria-label="Annulation" size="large" id="Validate_BTN"  onClick={() => handleCancellation(id)}>
+                  <IconButton aria-label="Annulation" size="large" id="Validate_BTN"  >
                   <HighlightOffOutlinedIcon fontSize="medium" color='error' />
                   </IconButton>
                  </Box>
@@ -152,7 +128,7 @@ const ListConges = () => {
   ];
 return(<div>
  <Box m="20px">
-     <h2>Congés</h2>
+     <h2>Affectation Projet</h2>
      <Box display="flex" justifyContent="space-between" p={2}>
      <Box
         display="flex"
@@ -160,15 +136,15 @@ return(<div>
       >
         </Box>
         <Box>
-     <Button  size="small"  sx={{
+     <Button onClick={handleOpen}  size="small"  sx={{
         backgroundColor: colors.greenAccent[500], 
         '&:hover': {
           backgroundColor: colors.greenAccent[700]
         },
       }}
      variant="contained"
-     onClick={handleOpenDialog}>
-     Ajout Congé 
+        >
+     Ajout Affectation
      <Box width="5px"></Box>
       <AddCircleOutlineOutlinedIcon  fontSize="medium" />
       </Button>
@@ -205,11 +181,11 @@ return(<div>
           },
         }}
       >
-        <DataGrid rows={conges} columns={columns} sortModel={[{ field: 'id_co', sort: 'desc' }]} 
-       getRowId={(row) => row.id_co} // Specify the ID field
+        <DataGrid rows={conges} columns={columns} sortModel={[{ field: 'idc', sort: 'desc' }]} 
+       getRowId={(row) => row.idc} // Specify the ID field
        getRowData={(params) => params.row} // Retrieve the row data
        onRowClick={(params) => {
-         const id = params.row.id_co;
+         const id = params.row.idc;
          const rowData = getDataById(id);
          if (rowData) {
            console.log('Data found:', rowData);
@@ -231,7 +207,7 @@ return(<div>
         
       />
    
-   <AddConge open={dialogOpen} onClose={handleCloseDialog} />
+  
       </Box>
       </Box>
       {/* <FormPopup isOpen={isOpen} onClose={handleClose} /> */}
@@ -239,4 +215,4 @@ return(<div>
       </div>);
 };
 
-export default ListConges ;
+export default TableauAffectation ;

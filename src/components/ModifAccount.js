@@ -468,20 +468,7 @@ return (
     <div>
 
    
-      {/* <Input 
-        type="file"
-        name="photo_c"
-        onChange={handleInputChange}
-        color='primary'
-        inputProps={{ style: { display: 'none' } }}
-        id="file-upload"
-      />
-       <label htmlFor="file-upload">
-        <Button  sx={{mt:3}} variant="contained" component="span" startIcon={<CloudUploadOutlinedIcon />}color='secondary'>
-          Browse
-        </Button>
-        {formData.photo_c && <p>photo: {formData.photo_c.name}</p>}
-      </label> */}
+     
    
       <AccountTypeSelect  onSelect={handleSelect} onSetOPtion={handleSelect2} selected={formData.roles}/>
       {showTextField && (

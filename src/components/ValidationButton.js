@@ -14,7 +14,7 @@ const ValidationButton = ({id_conge,onRefrech,etat}) => {
         console.log(response)
         if (response.status === 200) {
             setRoles(response.data.roles);
-          
+           
         } else {
           console.error('Failed to fetch user ID');
         }
@@ -85,6 +85,7 @@ const ValidationButton = ({id_conge,onRefrech,etat}) => {
         
               if (response.status === 200) {
                 console.log(`Successfully updated status for Conge ID ${id_conge} to: ${newStatus}`);
+                window.location.reload();
                 // Optionally, you can refresh the data from the backend after a successful update
                 // fetchDataFromBackend();
               } else {

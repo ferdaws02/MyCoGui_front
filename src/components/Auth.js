@@ -28,6 +28,7 @@ const Auth = () => {
           if (response.status === 200) {
             setError(null);
             navigate('/dashboard');
+            window.location.reload()
           } else {
             setError("Login failed. Please check your credentials.");
           }

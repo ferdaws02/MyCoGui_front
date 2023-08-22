@@ -61,7 +61,7 @@ const  AccountTypeSelect=({onSelect ,onSetOPtion,selected})  =>{
         <item>
       {(selectedValue === 'Manager_Client' || selected === 'Manager_Client') && (
        
-        <SelectOptions handleOptionChange={handleOptionChange}/>
+        <SelectOptions selectedOption={entreprise} handleOptionChange={handleOptionChange}/>
         )}
         
         </item>

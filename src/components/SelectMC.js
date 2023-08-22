@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 
-const SelectConsultant = ({ selectedOption, handleOptionChange }) => {
+const SelectMC = ({ selectedOption, handleOptionChange }) => {
     const [options, setOptions] = useState([]);
     const [optionselected, setOptionselected] = useState([]);
    
@@ -14,7 +14,7 @@ const SelectConsultant = ({ selectedOption, handleOptionChange }) => {
     const fetchData = async () => {
         
     
-          fetch('/ListeConsultant') // Remplacez l'URL par l'URL de votre API
+          fetch('/MC/ListeMCs') 
       .then(response => response.json())
       .then(data => {
         // Les données récupérées doivent être au format : [{ id: 1, nom: 'John', prenom: 'Doe' }, ...]
@@ -33,11 +33,11 @@ const SelectConsultant = ({ selectedOption, handleOptionChange }) => {
       };
   
     return (
-      <FormControl sx={{mt:1,mb:1,mr:5,ml:5, width: '65ch' ,
+      <FormControl sx={{mt:1,mb:1,mr:5,ml:5, width: '66ch' ,
       '& .MuiSelect-standard':'standard'}}
     
        >
-        <InputLabel id="simple-select-label" color='info' sx={{ml:5,mr:10,mt:2}}>Consultant</InputLabel>
+        <InputLabel id="simple-select-label" color='info' sx={{ml:5,mr:10,mt:2}}>Manager_Client</InputLabel>
         <Select 
         variant='outlined'
         label='Consultants'
@@ -57,5 +57,5 @@ const SelectConsultant = ({ selectedOption, handleOptionChange }) => {
     );
   };
   
-  export default SelectConsultant;
+  export default SelectMC;
     

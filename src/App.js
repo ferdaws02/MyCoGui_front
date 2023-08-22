@@ -17,11 +17,12 @@ import ModifUser from "./components/ModifAccount";
 import AjoutTC from "./components/ajoutTypeCongé";
 import AjoutClient from './components/AjoutClientForm';
 import ListConges from './components/listeConge';
-import AffProjet from './components/AffectationProjet'
+import TableauAffectation from './components/TableauAffectation'
 import Auth from "./components/Auth";
 import Sidebar from"./layouts/global/Sidebar";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import AffProjet from './components/AffectationProjet'
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -55,8 +56,8 @@ function App() {
               <Route path="/TypeConge" element={<AjoutTC />} />
               <Route path="/AddClient" element={<AjoutClient />} />
               <Route path="/conges" element={<ListConges />} />
-
-              <Route path="/Affectations" element={<AffProjet/>}/>
+              <Route path="/AddAffectaion" element={<AffProjet />} />
+              <Route path="/Affectations" element={<TableauAffectation/>}/>
             </Routes>
             </main>
           </div>

@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { tokens } from '../theme';
 
-import SelectOption from '../components/SelectEntreprise';
+import SelectOptionsbyname from '../components/SelectEntreprisebyname';
 
 import { useTheme } from '@mui/material';
 
@@ -73,7 +73,7 @@ const FormPopupViewProjet = ({
               onChange={handleTitreChange}
               value={titre}
             />
-               <SelectOption   selectedOption={entreprise_id_e} handleOptionChange={handleOptionChange} />
+               <SelectOptionsbyname   selectedOption={entreprise_id_e} handleOptionChange={handleentreprise_id_eChange} />
 
           </div>
         </Box>

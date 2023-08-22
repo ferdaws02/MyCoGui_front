@@ -92,7 +92,7 @@ const DetailConsultant = ({ consultant, onClose }) => {
             <strong> Adresse: </strong> {consultant.adresse_c}
             </Typography>
             <Typography gutterBottom variant="h6">
-            <strong>Date de naissance:</strong> {consultant.ddn_c}
+            <strong>Date de naissance:</strong> {new Date(consultant.ddn_c).toLocaleDateString()}
             </Typography>
             <Typography gutterBottom variant="h6">
             <strong> Sexe: </strong>{consultant.sexe_c}

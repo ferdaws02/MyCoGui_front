@@ -21,6 +21,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import AccountTypeSelect from './TypeDeCompte';
 import { Formik } from 'formik';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Formadd = ({ url }) => {
 
@@ -49,7 +51,8 @@ const Formadd = ({ url }) => {
     solde_congé_payé: 8.0,
     photo_c: null,
     roles: "",
-    entreprise: { id_e: "" }
+    entreprise:{id_e:""},
+    servicemanager:{idc:""}
   });
   const [value, setValue] = useState('');
 
@@ -154,13 +157,19 @@ const Formadd = ({ url }) => {
   };
 
   const handleSelect = (value) => {
+    console.log('Selected value:', value);
     setFormData({
       ...formData,
       roles: value,
     });
     const newEndpoint = getEndpoint(value);
-    setEndpoint(newEndpoint);
+    setEndpoint(newEndpoint); // Call getEndpoint after updating the formData state
+    console.log('newEndpoint:', newEndpoint);
+    console.log('Endpoint:', endpoint);
     setShowTextField(value === "Consultant" || value === "Manager_Client" || value === "Manager_Inetum");
+
+
+
   };
 
   const getEndpoint = (selectedRole) => {
@@ -179,7 +188,24 @@ const Formadd = ({ url }) => {
         return '';
     }
   };
+  const handleNotification = () => {
+    // Show the toast notification
+    toast.success('le compte est ajouter avec succé', {
+      position: "top-right",
+      autoClose: false, // Disable auto close
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined, // Use the default progress bar
+    });
 
+    // Reload the page after a delay of 3 seconds (adjust as needed)
+    setTimeout(() => {
+    //  navigate('/Consultants'); 
+    }, 3000);
+  };
+ 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -202,7 +228,7 @@ const Formadd = ({ url }) => {
     formDataToSend.append("solde_congé_payé", formData.solde_congé_payé);
     //formDataToSend.append("photo_c", formData.photo_c);
     formDataToSend.append("roles", formData.roles);
-    formDataToSend.append("entreprise[id_e]", formData.entreprise.id_e);
+    formDataToSend.append("entreprise", formData.entreprise.id_e);
     //formDataToSend.append("photo_c", selectedImage);
 
     // Append the image if it exists
@@ -212,7 +238,7 @@ const Formadd = ({ url }) => {
 
     // Send the data to the server using fetch
     try {
-      const response = await fetch("/ajouter_Consultant", {
+      const response = await fetch(`${endpoint}`, {
         method: 'POST',
        
         body: formDataToSend, // Send the data as JSON
@@ -236,6 +262,7 @@ const Formadd = ({ url }) => {
       console.error(error);
     }
   };
+ 
 
   return (
     <Box
@@ -254,9 +281,10 @@ const Formadd = ({ url }) => {
         <div>
           <div>
             <TextField
+            required
               variant="outlined"
               color="info"
-              name="Id_c"
+              name="Idc"
               value={formData.idc}
               inputProps={{
                 pattern: '[0-9]*',
@@ -266,6 +294,7 @@ const Formadd = ({ url }) => {
               label="Matricule"
             />
             <NumericTextField
+           
               name={"cin_c"}
               placeholder="cin"
               value={formData.cin_c}
@@ -275,6 +304,7 @@ const Formadd = ({ url }) => {
             />
 
             <TextField
+            required
               variant="outlined"
               color="info"
               type="text"
@@ -283,7 +313,9 @@ const Formadd = ({ url }) => {
               onChange={handleInputChange}
               label="Nom"
             />
+         
             <TextField
+               required
               variant="outlined"
               color="info"
               type="text"
@@ -294,6 +326,7 @@ const Formadd = ({ url }) => {
             />
 
             <NumericTextField
+               required
               name={"num_tel_c"}
               placeholder="Contact"
               value={formData.num_tel_c}
@@ -303,6 +336,7 @@ const Formadd = ({ url }) => {
             />
 
             <TextField
+               required
               variant="outlined"
               color="info"
               type="text"
@@ -313,6 +347,7 @@ const Formadd = ({ url }) => {
             />
 
             <TextField
+               required
               variant="outlined"
               color="info"
               type="email"
@@ -324,6 +359,7 @@ const Formadd = ({ url }) => {
               label="Email"
             />
             <TextField
+               required
               variant="outlined"
               color="info"
               type="password"
@@ -380,7 +416,7 @@ const Formadd = ({ url }) => {
           </div>
 
           <div>
-            <AccountTypeSelect onSelect={handleSelect} onSetOption={handleSelect2} />
+            <AccountTypeSelect onSelect={handleSelect} onSetOPtion={handleSelect2} />
             {showTextField && (
               <div>
                 <TextField
