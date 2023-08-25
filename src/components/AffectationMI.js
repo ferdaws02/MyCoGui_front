@@ -14,25 +14,26 @@ import {
  import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import SelectConsultant from '../components/SelectConsultant'
-import SelectProjet from '../components/SelectProjets';
+import SelectConsultant from './SelectConsultant'
+import SelectProjet from './SelectProjets';
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import { putData } from '../Api';
+import { postData } from '../Api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SelectMI from './SelectMI';
 
-
-const AffMC=({url})=>{
+const AffMI=()=>{
   const [consultant, setConsultant] = useState('');
-  const [projet, setProjet] = useState('');
-  const [entreprise, setEntreprise] = useState('');
+  const [manager, setManager] = useState('');
+
+
     const [formData, setFormData] = useState({
-       consultant:{idc:""} ,
-        projet:{id_p:""},
-        ddaff_projet:null,
-        dfaff_projet:null,
-        entreprise:{id_e:""}
+       id:{
+        consultant_id:"",
+        manager_id:""
+       },
+       aff_date:null
       
       });
       const [value, setValue] = useState('');
@@ -43,6 +44,12 @@ const AffMC=({url})=>{
 
         // onSetOPtion(event.target.value)
       }
+      const handleOptionChangeMI = (event) =>{
+   
+        setManager(event.target.value);
+
+      // onSetOPtion(event.target.value)
+    }
 
       const handleNotification = () => {
         // Show the toast notification
@@ -74,29 +81,23 @@ const AffMC=({url})=>{
       };
   
      
-const handleOptionChange2 = (event) => {
 
- 
-  setProjet(event.target.value);
-};
-const handleOptionChangeMc= (event) => {
 
- 
-  setEntreprise(event.target.value);
-};
 
 const handleSubmit = async (event) => {
   event.preventDefault();
   const ClientData = {
-    consultant: { idc: consultant },
-    projet: { id_p: projet },
-    ddaff_projet: formData.ddaff_projet,
-    dfaff_projet: formData.dfaff_projet,
-    entreprise:{id_e:entreprise}
-  };
+    id:{
+      consultant_id:consultant,
+      manager_id:manager
+     },
+     aff_date:formData.aff_date
+    
+    }
+    console.log("the aff "+ClientData.data)
 
   try {
-    const response = await putData('/affectations/affectationProjet', ClientData);
+    const response = await postData('/affectations/affectation_MI',ClientData);
 
     if (response.ok) {
       // Handle successful submission
@@ -143,31 +144,23 @@ return (
   noValidate
   autoComplete="off"
 >
-<h2 style={{marginLeft:20}}>Ajouter compte</h2>
+<h2 style={{marginLeft:20}}>Ajouter Affectation</h2>
+<h5 style={{marginLeft:20,marginTop:20}}>Ajouter Affectation MI</h5>
     <Formik   >
      
       <div>
         <div>
       <SelectConsultant  selectedOption={consultant} handleOptionChange={handleOptionChange}/>
-      <SelectProjet selectedOption={projet}  handleOptionChange={handleOptionChange2}handleOptionMCChange={handleOptionChangeMc}/>
+      <SelectMI selectedOption={manager} handleOptionChange={handleOptionChangeMI}/>
      
      </div>
     <div>
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker  
       label= "Date début"
-      onChange={(date) => handleInputChangeddn("ddaff_projet",date) }
-      name="ddaff_projet"
-      value={formData.ddaff_projet}
-      renderInput={() => <TextField />}
-    />
-      </LocalizationProvider>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <DatePicker 
-      label= "Date fin"
-      onChange={(date) => handleInputChangeddn("dfaff_projet",date)}
-      name="dfaff_projet"
-      value={formData.dfaff_projet}
+      onChange={(date) => handleInputChangeddn("aff_date",date) }
+      name="aff_date"
+      value={formData.aff_date}
       renderInput={() => <TextField />}
     />
       </LocalizationProvider>
@@ -182,4 +175,4 @@ return (
     </Box>
   );
 };
-export default AffMC;
+export default AffMI;
