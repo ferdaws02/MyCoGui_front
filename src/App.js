@@ -7,7 +7,6 @@ import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Topbar from "./layouts/global/Topbar";
 import Footer from "./layouts/global/Footer";
-
 import Dashboard from "./layouts/dashboard/index";
 import ProjectList from "./Controllers/ProjetsController";
 import Entreprises from "./Controllers/ListeEntreprise";
@@ -22,7 +21,8 @@ import Auth from "./components/Auth";
 import Sidebar from"./layouts/global/Sidebar";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import AffProjet from './components/AffectationProjet'
+import AffProjet from './components/AffectationProjet';
+import AffectationMI from './components/AffectationMI';
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -58,6 +58,7 @@ function App() {
               <Route path="/conges" element={<ListConges />} />
               <Route path="/AddAffectaion" element={<AffProjet />} />
               <Route path="/Affectations" element={<TableauAffectation/>}/>
+              <Route path="/AddAffectationMI" element={<AffectationMI/>}/>
             </Routes>
             </main>
           </div>

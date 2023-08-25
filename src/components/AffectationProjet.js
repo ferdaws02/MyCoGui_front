@@ -21,8 +21,7 @@ import { useNavigate } from 'react-router-dom';
 import { putData } from '../Api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
+import AffMI from './AffectationMI';
 const AffProjet=({url})=>{
   const [consultant, setConsultant] = useState('');
   const [projet, setProjet] = useState('');
@@ -144,6 +143,7 @@ return (
   autoComplete="off"
 >
 <h2 style={{marginLeft:20}}>Ajouter Affectation</h2>
+<h5 style={{marginLeft:20 ,marginTop: 20}}>Ajouter Affectation Projet et MC </h5>
     <Formik   >
      
       <div>
@@ -179,6 +179,7 @@ return (
       </div>
       </div>
     </Formik>
+    {/* <AffMI/> */}
     </Box>
   );
 };

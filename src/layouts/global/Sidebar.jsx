@@ -21,6 +21,7 @@ import AssignmentTurnedInOutlinedIcon from '@mui/icons-material/AssignmentTurned
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -38,6 +39,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
     </MenuItem>
   );
 };
+ 
 
 const Sidebar = () => {
   const theme = useTheme();
@@ -68,6 +70,7 @@ const Sidebar = () => {
       });
   }, []);
 
+
   return (
     <Box
       sx={{
@@ -83,24 +86,30 @@ const Sidebar = () => {
         '& .pro-inner-item:hover': {
           color: `${colors.greenAccent[700]} !important`,
         },
-        '& .pro-menu-item.active': {
+
+	'& .pro-menu-item.active': {
           color: `${colors.greenAccent[400]} !important`,
         },
         '& .pro-sidebar .pro-inner-list-item': {
+
           backgroundColor: 'transparent !important', // Set the background color you want here
+
         },
-        
+
       }}
     >
       <ProSidebar collapsed={isCollapsed} style={{ height: '150%' }}>
         <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
+
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
+
               margin: '10px 0 20px 0',
               color: colors.grey[100],
+
             }}
           >
             {!isCollapsed && (
@@ -129,6 +138,7 @@ const Sidebar = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
+
               <SubMenu
                 style={{
                   color: colors.grey[100],
@@ -136,10 +146,12 @@ const Sidebar = () => {
                 }}
                 title="Réferentiels"
                 // to="/Gestion Réferentiel"
+
                 icon={<StorageOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               >
+
                 <MenuItem
                   icon={<AirlineSeatFlatOutlinedIcon />}
                   onClick={() => {
@@ -156,29 +168,36 @@ const Sidebar = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
+
               <Item
                 title="Clients"
+
                 to="/Clients"
                 icon={<DomainOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
+
               <Item
                 id="Project"
                 title="Projets"
                 to="/Projects"
                 icon={<FactCheckOutlinedIcon />}
+
                 selected={selected}
                 setSelected={setSelected}
               />
               <Item
             id="Affectations"
+
               title="Affectations"
               to="Affectations"
               icon={<HandshakeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />  
+
+            />
+
             <Item
               title="ODM|NDF"
               to="/ODM"
@@ -186,6 +205,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+
              <Item
               title="Congés"
               to="/conges"
@@ -193,6 +213,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+
             <SubMenu
                   style={{
                     color: colors.grey[100],
@@ -204,20 +225,20 @@ const Sidebar = () => {
             selected={selected}
             setSelected={setSelected}
           >
+
             <MenuItem
               icon={<ListAltOutlinedIcon />}
               onClick={() => {
-                navigate('/Demandes') 
+                navigate('/Demandes')
               }}
-             
             >
               Demandes
             </MenuItem>
+
             <MenuItem
               icon={<ReportGmailerrorredOutlinedIcon/>}
-
               onClick={() => {
-                navigate('/Reclamations') 
+                navigate('/Reclamations')
               }}
             >
               Réclamations
@@ -233,9 +254,12 @@ const Sidebar = () => {
             />
             </>
           )}
+
           {shouldShowMenu(['Manager_Client', 'Manager_Inetum', 'RH', 'Consultant']) && (
   <>
     {/* Additional menu items for specific roles */}
+
+
     <Item
       id="Affectations"
       title="Affectations"
@@ -244,6 +268,7 @@ const Sidebar = () => {
       selected={selected}
       setSelected={setSelected}
     />
+
     <Item
       title="ODM|NDF"
       to="/ODM"
@@ -251,6 +276,7 @@ const Sidebar = () => {
       selected={selected}
       setSelected={setSelected}
     />
+
     <Item
       title="Congés"
       to="/conges"
@@ -258,17 +284,20 @@ const Sidebar = () => {
       selected={selected}
       setSelected={setSelected}
     />
+
     <SubMenu
       style={{
         color: colors.grey[100],
         hover: colors.greenAccent[700],
       }}
+
       title="Demandes|Réclamations"
       // to="/Gestion Réferentiel"
       icon={<LibraryBooksOutlinedIcon />}
       selected={selected}
       setSelected={setSelected}
     >
+
       <MenuItem
         icon={<ListAltOutlinedIcon />}
         onClick={() => {
@@ -277,6 +306,7 @@ const Sidebar = () => {
       >
         Demandes
       </MenuItem>
+
       <MenuItem
         icon={<ReportGmailerrorredOutlinedIcon />}
         onClick={() => {
@@ -286,6 +316,7 @@ const Sidebar = () => {
         Réclamations
       </MenuItem>
     </SubMenu>
+
     <Item
       title="FeedBacks"
       to="/feed"
@@ -301,5 +332,6 @@ const Sidebar = () => {
     </Box>
   );
 };
+
 
 export default Sidebar;

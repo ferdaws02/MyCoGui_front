@@ -57,6 +57,7 @@ const AddConge = ({ open, onClose }) => {
       .then((response) => {
         console.log('Data sent to the database successfully:', response.data);
         // Optionally, you can perform additional actions after the data is successfully sent
+        window.location.reload()
       })
       .catch((error) => {
         console.error('Error while sending data to the database:', error);

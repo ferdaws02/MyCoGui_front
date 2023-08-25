@@ -32,7 +32,7 @@ const AddForm = ({ isOpenEdit, onCloseEdit,}) => {
             });
 
             window.location.reload(); 
-a
+
       
       }
         const handleInputChange =(event)=>{
