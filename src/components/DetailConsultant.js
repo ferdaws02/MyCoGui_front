@@ -133,9 +133,28 @@ const DetailConsultant = ({ consultant, onClose }) => {
             <Typography gutterBottom variant="h6">
             <strong> Solde congé maladie: </strong>{consultant.soldecongémaladie}
             </Typography>
-            <Typography gutterBottom variant="h6">
-            <strong> Congés:</strong> {consultant.conges}
+            <Typography gutterBottom variant="h5">
+            <strong> Congés:</strong> {consultant.conges.id_co}
             </Typography>
+            <div>
+  {consultant.conges.map((dataItem, index) => (
+    <div key={index}>
+      <p>ID: {dataItem.id_co}</p>
+      
+      <Typography gutterBottom variant="h6">
+            <strong> Date début:</strong> {dataItem.ddconge}
+            </Typography>
+            <Typography gutterBottom variant="h6">
+            <strong> date fin:</strong> {dataItem.dfconge}
+            </Typography>
+            <Typography gutterBottom variant="h6">
+            <strong> etat de validation:</strong> {dataItem.etat}
+            </Typography>
+            <hr></hr>
+    </div>
+  ))}
+</div>
+           
             <Typography gutterBottom variant="h6">
             <strong> ODMs:</strong> {consultant.odms}
             </Typography>
