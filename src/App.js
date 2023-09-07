@@ -23,8 +23,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import AffProjet from './components/AffectationProjet';
 import AffectationMI from './components/AffectationMI';
-import EditTableauAffProjet from './components/EditAffectationProject'
-import ListODM from './components/ODM'
+import EditTableauAffProjet from './components/EditAffectationProject';
+import ListODM from './components/ODM';
+import AjoutODM from './components/AjoutODM';
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -63,6 +64,7 @@ function App() {
               <Route path="/AddAffectationMI" element={<AffectationMI/>}/>
               <Route path="/ModifAff/:id" element={<EditTableauAffProjet/>}/>
               <Route path="/ODM" element={<ListODM/>}/>
+              <Route path="/AddODM" element={<AjoutODM/>}/>
             </Routes>
             </main>
           </div>

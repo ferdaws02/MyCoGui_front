@@ -60,6 +60,11 @@ const ListODM = () => {
           setOdm(updatedConges);
         }    
     }
+
+    const navigate = useNavigate();
+    const handleOpen = () => {
+      navigate('/AddODM'); 
+    };
     const columns = [
         { field: 'id_odm', headerName: 'ID', width: 70 },
         { field: 'description_odm', headerName: 'DESCRIPTION', width: 150},
@@ -73,10 +78,10 @@ const ListODM = () => {
           const date = new Date(params.row.finodm);
           return date.toLocaleDateString(); // Format de date lisible
         }, },
-        { field: 'consultants_odm', headerName: 'Consultant', width: 150 ,
+        { field: 'consultants_odm.id_c', headerName: 'Consultant', width: 150 ,
     
         valueGetter: (params) => {
-            const con = params.row.consultants; // Get the "projet" object
+            const con = params.row.consultantsOdm; // Get the "projet" object
             if (con) {
               return con.nom_c +" "+con.prenom_c; // Return the ID if "projet" exists
             }
@@ -120,8 +125,8 @@ const ListODM = () => {
                  backgroundColor: colors.greenAccent[700]
                },
              }}
-            variant="contained">
-             {/* onClick={handleOpenDialog} */}
+            variant="contained"
+              onClick={handleOpen}> 
             Ajout ODM
             <Box width="5px"></Box>
              <AddCircleOutlineOutlinedIcon  fontSize="medium" />

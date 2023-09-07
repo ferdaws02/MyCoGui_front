@@ -10,6 +10,7 @@ import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined';
 import { tokens } from "../theme";
 import { useNavigate } from 'react-router-dom';
 import AddConge from './AddConge';
+import UpdateConge from './updateCongé'
 import ValidationButton from './ValidationButton';
 import axios from 'axios'; 
 
@@ -23,21 +24,29 @@ const ListConges = () => {
  
   const navigate = useNavigate();
   const [dialogOpen, setDialogOpen] = useState(false);
-
+  const [dialogOpenEdit, setDialogOpenEdit] = useState(false);
   const handleOpenDialog = () => {
     setDialogOpen(true);
+  };
+  const handleOpenDialogedit = () => {
+    console.log("**************************************************in open")
+    setDialogOpenEdit(true);
   };
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
   };
  
+  const handleCloseDialogedit = () => {
+    setDialogOpenEdit(false);
+  };
   const handletoEdit = (id)=> {
     const row = getDataById(id)
     navigate(`/ModifUser/${row.id_c}`); 
   };
   const handleDataChange = (newData) => {
     setData(newData);
+    console.log("//////////the data : //////////////" ,data)
   };
   useEffect(() => {
     // Fetch data from the backend and update the state
@@ -116,6 +125,17 @@ const ListConges = () => {
 
   const columns = [
     { field: 'id_co', headerName: 'ID', width: 70 },
+    {
+      field: 'consultant.idc', // Access the nested property path
+    headerName: 'CONSULTANT',
+    width: 150,
+    valueGetter: (params) => {
+      const enterprise = params.row.consultant; // Get the "projet" object
+      if (enterprise) {
+        return enterprise.nom_c+" " +enterprise.prenom_c; // Return the ID if "projet" exists
+      }
+      return ""; // Return an empty string if "projet" is not defined
+    }, },
     { field: 'ddconge', headerName: 'DATE DEBUT', width: 150,
     valueGetter: (params) => {
       const date = new Date(params.row.ddconge);
@@ -135,7 +155,7 @@ const ListConges = () => {
         const id = params.row.id_co; // Get the ID from the 'id_c' field
        
         return (<Box display="flex"  mt="15px">
-                   <IconButton onClick={() => handletoEdit(id)} aria-label="Edit" size="large" id="Edit_BTN">
+                   <IconButton onClick={() => handleOpenDialogedit()} aria-label="Edit" size="large" id="Edit_BTN">
                   <EditOutlinedIcon fontSize="small"  />
                   </IconButton>
                   <IconButton aria-label="consult" size="large">
@@ -234,7 +254,7 @@ return(<div>
    <AddConge open={dialogOpen} onClose={handleCloseDialog} />
       </Box>
       </Box>
-      {/* <FormPopup isOpen={isOpen} onClose={handleClose} /> */}
+      <UpdateConge open={dialogOpenEdit} onClose={handleCloseDialogedit} data={data} />
       
       </div>);
 };
