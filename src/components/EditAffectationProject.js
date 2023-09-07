@@ -22,7 +22,7 @@ import { putData } from '../Api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AffMI from './AffectationMI';
-const AffProjet=({url})=>{
+const EditTableauAffProjet=({url})=>{
   const [consultant, setConsultant] = useState('');
   const [projet, setProjet] = useState('');
   const [entreprise, setEntreprise] = useState('');
@@ -96,7 +96,7 @@ const handleSubmit = async (event) => {
 
   try {
     const response = await putData('/affectations/affectationProjet', ClientData);
-console.log("****************** data "+ClientData)
+
     if (response.ok) {
       // Handle successful submission
       console.log('Data submitted successfully');
@@ -142,8 +142,8 @@ return (
   noValidate
   autoComplete="off"
 >
-<h2 style={{marginLeft:20}}>Ajouter Affectation</h2>
-<h5 style={{marginLeft:20 ,marginTop: 20}}>Ajouter Affectation Projet et MC </h5>
+<h2 style={{marginLeft:20}}>Modifier Affectation</h2>
+<h5 style={{marginLeft:20 ,marginTop: 20}}>Modifier Affectation Projet et MC </h5>
     <Formik   >
      
       <div>
@@ -183,4 +183,4 @@ return (
     </Box>
   );
 };
-export default AffProjet;
+export default EditTableauAffProjet;

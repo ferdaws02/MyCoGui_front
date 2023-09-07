@@ -16,12 +16,12 @@ import UserIdInput from './UserIdInput';
 import SelectTypeConge from './ListeTypeConges';
 import axios from 'axios';
 
-const AddConge = ({ open, onClose }) => {
+const UpdateConge = ({ open, onClose,data }) => {
     const [userId, setUserId] = useState('');
     const [userNom, setUserNom] = useState('');
     const [userPrenom, setUserPrenom] = useState('');
    
-    const [selectedDate1, setSelectedDate1] = useState(null);
+    const [selectedDate1, setSelectedDate1] = useState();
     const [selectedDate2, setSelectedDate2] = useState(null);
     const [selectedOption, setSelectedOption] = useState('');
     const handleFieldChange = (fieldValues) => {
@@ -53,12 +53,11 @@ const AddConge = ({ open, onClose }) => {
         typeConge:{type:selectedOption},
       };
       axios
-      .post('/Conge/AddConge', dataToSend)
+      .post('/Conge/updateConge/', dataToSend)
       .then((response) => {
         console.log('Data sent to the database successfully:', response.data);
         // Optionally, you can perform additional actions after the data is successfully sent
         window.location.reload();
-
       })
       .catch((error) => {
         console.error('Error while sending data to the database:', error);
@@ -70,7 +69,46 @@ const AddConge = ({ open, onClose }) => {
       <Dialog open={open} onClose={onClose}>
         <DialogTitle>Ajouter Conge</DialogTitle>
         <DialogContent>
-       < UserIdInput onFieldChange={handleFieldChange}/>
+       
+      <TextField
+       label="Matricule"
+        variant="outlined"
+        color="info"
+        id="userIdInput"
+        type="text"
+        name="userId"
+        value={data.id_co}
+        fullWidth
+        margin="normal"
+        disabled
+        readOnly
+      />
+         <TextField
+       label="Nom"
+        variant="outlined"
+        color="info"
+        id="userIdInput"
+        type="text"
+        name="userId"
+        value={data.idc}
+        fullWidth
+        margin="normal"
+        disabled
+        readOnly
+      />
+         <TextField
+       label="Prenom"
+        variant="outlined"
+        color="info"
+        id="userIdInput"
+        type="text"
+        name="userId"
+        value={userPrenom}
+        fullWidth
+        margin="normal"
+        disabled
+        readOnly
+      />
           
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
@@ -101,4 +139,4 @@ const AddConge = ({ open, onClose }) => {
     );
   };
 
-export default AddConge;
+export default UpdateConge;

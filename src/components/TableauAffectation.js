@@ -29,6 +29,12 @@ const TableauAffectation = () => {
     fetchData();
     fetchDatat2();
   }, []);
+  const handletoEdit = (id)=> {
+    const row = getDataById(id)
+
+    navigate(`/ModifAff/${row.idc}`); 
+
+  };
 
   const fetchData = async () => {
     try {
@@ -57,7 +63,7 @@ const TableauAffectation = () => {
         // Add a unique 'id' property to each row
         const rowsWithIds = jsonData.map((row, index) => ({ ...row, idrow: index + 1 }));
         setAff(rowsWithIds);
-        console.log("the affectation data  "+aff.manager_id)
+       
       } else {
         console.error('Failed to fetch data');
       }
@@ -70,7 +76,40 @@ const TableauAffectation = () => {
         return row ? row : null;
   }
   
- 
+  function updateAffectationStatus(managerId, consultantId) {
+    const url = 'http://localhost:8086/PFE/affectations/updateAffMI'; // Add 'http://' to the URL
+  
+    const requestBody = {
+        manager_id: managerId,
+        consultant_id: consultantId
+    };
+
+    console.log("the request body ", requestBody); // Using a comma instead of '+' to concatenate
+
+    fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log('Affectation status updated successfully');
+          window.location.reload();
+          // Handle success, if needed
+        } else if (response.status === 404) {
+          console.log('Affectation not found');
+          // Handle 404 error, if needed
+        } else {
+          console.log('Error updating affectation status');
+          // Handle other errors, if needed
+        }
+      })
+      .catch(error => {
+        console.error('An error occurred:', error);
+      });
+}
   const navigate = useNavigate();
   const handleOpen = () => {
     navigate('/AddAffectaion'); 
@@ -79,8 +118,25 @@ const TableauAffectation = () => {
     navigate('/AddAffectationMI'); 
   };
  
-
-
+  const handleCancellation = (id) => {
+    axios.put(`/affectations/updateAffP_CM/${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          const updatedAff = aff.filter(row => row.id !== id);
+          setAff(updatedAff);
+          console.log('La mise à jour a été effectuée avec succès');
+          window.location.reload();
+        } else {
+          console.error('Échec de la mise à jour');
+        }
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la mise à jour:', error);
+      });
+  };
+  function handleCancellation2(managerId, consultantId) {
+    updateAffectationStatus(managerId, consultantId);
+  }
 // const id_p= conges.projet.id_p
   const columns = [
     { field: 'idc', headerName: 'ID', width: 70 },
@@ -122,16 +178,16 @@ const TableauAffectation = () => {
       headerName: "ACTION",
       flex: 1,
       renderCell: (params)  => {
-        const id = params.row.id_co; // Get the ID from the 'id_c' field
+        const id = params.row.idc; // Get the ID from the 'id_c' field
        
         return (<Box display="flex"  mt="15px">
-                   <IconButton aria-label="Edit" size="large" id="Edit_BTN">
+                   <IconButton aria-label="Edit" size="large" id="Edit_BTN" onClick={() => handletoEdit(id)}>
                   <EditOutlinedIcon fontSize="small"  />
                   </IconButton>
                   <IconButton aria-label="consult" size="large">
                   <VisibilityOutlinedIcon fontSize="small" color="info" />
                   </IconButton>
-                  <IconButton aria-label="Annulation" size="large" id="Validate_BTN"  >
+                  <IconButton aria-label="Annulation" size="large" id="Validate_BTN"  onClick={() => handleCancellation(id)}>
                   <HighlightOffOutlinedIcon fontSize="medium" color='error' />
                   </IconButton>
                  </Box>
@@ -158,7 +214,7 @@ const TableauAffectation = () => {
       headerName: "ACTION",
       flex: 1,
       renderCell: (params)  => {
-        const id = params.row.id_co; // Get the ID from the 'id_c' field
+       // Get the ID from the 'id_c' field
        
         return (<Box display="flex"  mt="15px">
                    <IconButton aria-label="Edit" size="large" id="Edit_BTN">
@@ -167,7 +223,7 @@ const TableauAffectation = () => {
                   <IconButton aria-label="consult" size="large">
                   <VisibilityOutlinedIcon fontSize="small" color="info" />
                   </IconButton>
-                  <IconButton aria-label="Annulation" size="large" id="Validate_BTN"  >
+                  <IconButton aria-label="Annulation" size="large" id="Validate_BTN"  onClick={() => updateAffectationStatus(params.row.id.manager_id, params.row.id.consultant_id)}>
                   <HighlightOffOutlinedIcon fontSize="medium" color='error' />
                   </IconButton>
                  </Box>
@@ -314,25 +370,14 @@ return(<div>
         }}
       >
         <DataGrid rows={aff} columns={columnsaff} sortModel={[{ field: 'manager_id', sort: 'desc' }]} 
-       getRowId={(row) => row.id} // Specify the ID field
-       getRowData={(params) => params.row} // Retrieve the row data
+       getRowId={(row) => row.id}
+       getRowData={(params) => params.row}
        onRowClick={(params) => {
-         const id = params.row.idc;
-         const rowData = getDataById(id);
-         if (rowData) {
-           console.log('Data found:', rowData);
-           const Data= rowData
-           console.log('Data :', Data);
-
-           handleDataChange (Data)
+         const managerId = params.row.id.manager_id;
+         const consultantId = params.row.id.consultant_id;
          
-         } else {
-           console.log('Data not found for the specified ID.');
-         }
-      
-        
-           
-           //();
+         updateAffectationStatus(managerId, consultantId);
+        //();
          }}
          pagination
          pageSize={10}
