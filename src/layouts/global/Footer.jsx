@@ -18,7 +18,7 @@ const Footer = () => {
   return (
     <Box style={footerStyles}>
       <Link href="/about" style={linkStyles}>
-        About Us
+      À propos de nous
       </Link>
       <Link href="/services" style={linkStyles}>
         Services

@@ -90,7 +90,7 @@ const UpdateConge = ({ open, onClose,data }) => {
         id="userIdInput"
         type="text"
         name="userId"
-        value={data.idc}
+        value={data.consultant.nom_c}
         fullWidth
         margin="normal"
         disabled
@@ -103,7 +103,7 @@ const UpdateConge = ({ open, onClose,data }) => {
         id="userIdInput"
         type="text"
         name="userId"
-        value={userPrenom}
+        value={data.consultant.prenom_c}
         fullWidth
         margin="normal"
         disabled

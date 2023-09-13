@@ -12,11 +12,18 @@ import ProjectList from "./Controllers/ProjetsController";
 import Entreprises from "./Controllers/ListeEntreprise";
 import AddForm from "./components/formAddusers";
 import ListConsultant from "./components/ListeConsultants";
+import ListeDemande from "./components/ListeDemande";
+import ListeReclamation from "./components/ListReclamation";
+import ListeFeedback from "./components/ListeFeedback";
+import AjoutDemande from "./components/AjoutDemande";
+import AjoutReclamation from "./components/AjoutReclamation";
+import AjouterFeedback from "./components/AjouterFeedback";
 import ModifUser from "./components/ModifAccount";
 import AjoutTC from "./components/ajoutTypeCongé";
+import AboutUs from "./components/AboutUs";
 import AjoutClient from './components/AjoutClientForm';
 import ListConges from './components/listeConge';
-import TableauAffectation from './components/TableauAffectation'
+import TableauAffectation from './components/TableauAffectation';
 import Auth from "./components/Auth";
 import Sidebar from"./layouts/global/Sidebar";
 import 'react-toastify/dist/ReactToastify.css';
@@ -65,6 +72,13 @@ function App() {
               <Route path="/ModifAff/:id" element={<EditTableauAffProjet/>}/>
               <Route path="/ODM" element={<ListODM/>}/>
               <Route path="/AddODM" element={<AjoutODM/>}/>
+              <Route path="/Demandes" element={<ListeDemande />} />
+              <Route path="/Reclamations" element={<ListeReclamation />} />
+              <Route path="/feed" element={<ListeFeedback />} />
+              <Route path="/AddDemande" element={<AjoutDemande />} />
+              <Route path="/AddReclamation" element={<AjoutReclamation />} />
+              <Route path="/AddFeedback" element={<AjouterFeedback />} />
+              <Route path="/about" element={<AboutUs />} />
             </Routes>
             </main>
           </div>

@@ -70,6 +70,16 @@ const Sidebar = () => {
       });
   }, []);
 
+  
+  // Check if userRole exists
+  if (userRole === null || userRole === undefined) {
+    // Render an error message or a login prompt
+    return (
+      <div>
+      
+      </div>
+    );
+  }
 
   return (
     <Box
