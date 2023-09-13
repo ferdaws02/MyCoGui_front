@@ -18,7 +18,11 @@ const FormPopupProjectController = ({ isOpen, onClose }) => {
     },
     };
   try {
-    const response = await postData('/ajoutProjet', projetData);
+    const response = await postData('/ajoutProjet', projetData, {
+      headers: {
+        'Content-Type': 'application/ json;charset=UTF-8' ,
+      },
+    });
     if (response.ok) {
       // Handle successful submission
       console.log('Data submitted successfully '+projetData.entreprise.nomentreprise);

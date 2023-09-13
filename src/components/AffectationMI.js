@@ -66,9 +66,9 @@ const AffMI=()=>{
         });
     
         // Reload the page after a delay of 3 seconds (adjust as needed)
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 3000);
       };
 
       const handleInputChangeddn = (datePickerKey, date) => {

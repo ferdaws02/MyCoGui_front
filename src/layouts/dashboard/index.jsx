@@ -10,7 +10,7 @@ const Dashboard = () => {
   return (<div>
     <h1>Dashboard</h1>
     <UserChart />
-    <CongePieChart/>{/* Add the UserChart component here */}
+    {/* <CongePieChart/>Add the UserChart component here */}
     {/* Add other components as needed */}
   </div>);
 };

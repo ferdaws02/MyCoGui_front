@@ -19,7 +19,7 @@ const SelectTypeConge= ({ selectedOption, handleOptionChange }) => {
       .then(data => {
         // Les données récupérées doivent être au format : [{ id: 1, nom: 'John', prenom: 'Doe' }, ...]
         const optionsData = data.map(TConge => ({
-          value: TConge.type,
+          value: TConge.id_tco,
           label: `${TConge.type}`,
         }));
         setOptions(optionsData);

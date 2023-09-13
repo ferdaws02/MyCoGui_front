@@ -21,7 +21,7 @@ const UpdateConge = ({ open, onClose,data }) => {
     const [userNom, setUserNom] = useState('');
     const [userPrenom, setUserPrenom] = useState('');
    
-    const [selectedDate1, setSelectedDate1] = useState();
+    const [selectedDate1, setSelectedDate1] = useState(data.ddconge);
     const [selectedDate2, setSelectedDate2] = useState(null);
     const [selectedOption, setSelectedOption] = useState('');
     const handleFieldChange = (fieldValues) => {
@@ -90,7 +90,9 @@ const UpdateConge = ({ open, onClose,data }) => {
         id="userIdInput"
         type="text"
         name="userId"
-        value={data.consultant.nom_c}
+
+        value={data}
+
         fullWidth
         margin="normal"
         disabled
@@ -103,7 +105,9 @@ const UpdateConge = ({ open, onClose,data }) => {
         id="userIdInput"
         type="text"
         name="userId"
-        value={data.consultant.prenom_c}
+
+        value={data}
+
         fullWidth
         margin="normal"
         disabled
@@ -113,7 +117,7 @@ const UpdateConge = ({ open, onClose,data }) => {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               label="Date Picker 1"
-              value={selectedDate1}
+              value={data.ddconge}
               onChange={(date) => setSelectedDate1(date)}
               renderInput={(params) => <TextField {...params} fullWidth margin="normal" />}
             />
