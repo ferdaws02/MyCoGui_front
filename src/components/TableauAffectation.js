@@ -207,7 +207,7 @@ const TableauAffectation = () => {
     field: 'aff_date',
     headerName: 'Aff Date',
     flex: 1,
-    valueGetter: (params) => params.row.aff_date.join('/'),
+    valueGetter: (params) => Array.isArray(params.row.aff_date) ? params.row.aff_date.join('/') : params.row.aff_date,
   },
 
     {

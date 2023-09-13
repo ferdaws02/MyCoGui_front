@@ -7,12 +7,10 @@ const CongePieChart = () => {
   const [congeData, setCongeData] = useState([]);
 
   useEffect(() => {
-    // Make an API call to fetch "congé" data from your backend
     axios.get('/Conge/showAll')
       .then((response) => {
+        console.log('API Response:', response.data); // Add this line
         const fetchedData = response.data;
-
-        // Set the fetched "congé" data in state
         setCongeData(fetchedData);
       })
       .catch((error) => {
@@ -20,9 +18,10 @@ const CongePieChart = () => {
       });
   }, []);
 
-  const calculateDistribution = () => {
-    const etatCounts = {};
-    congeData.forEach((conge) => {
+ const calculateDistribution = () => {
+  const etatCounts = {};
+  congeData.forEach((conge) => {
+  
       const { etat } = conge;
       if (etatCounts[etat]) {
         etatCounts[etat]++;
