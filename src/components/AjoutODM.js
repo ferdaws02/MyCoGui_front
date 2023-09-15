@@ -39,11 +39,11 @@ const AjoutODM = ({ url }) => {
     },
     
     kmJour: 0,
-    fraiskm: 0.0,
+    fraiskm: 0.5,
    
   
 })
-
+const [showOtherField, setShowOtherField] = useState(false);
 const [userId, setUserId] = useState('');
 const [numericValue, setNumericValue] = useState(0);
 const [numericValue2, setNumericValue2] = useState(0);
@@ -57,6 +57,50 @@ const handleNumericChange2 = (e) => {
   // Allow only numeric values and empty input
   const newValue = e.target.value.replace(/[^0-9]/g, '');
   setNumericValue2(newValue);
+  if (parseInt(newValue, 10) > 0) {
+    setShowOtherField(true);
+  } else {
+    setShowOtherField(false);
+  }
+};
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  const DatatoSend={
+    debutodm: selectedDate1,
+    finodm: selectedDate2,
+    description_odm:formData.description_odm,
+    nbr_jour_tt: numericValue, // Changez cette valeur en fonction de vos besoins de test
+    nbr_jour_sur_site :numericValue2,
+    consultantsOdm: {
+      idc:userId // Remplacez par un ID de consultant valide
+    },
+    
+    kmJour:formData.kmJour,
+    fraiskm: formData.fraiskm,
+
+  }
+
+  try {
+    // Make a POST request to your API endpoint
+    const response = await fetch('/ODM/ajouter', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(DatatoSend), // Send the form data as JSON
+    });
+
+    if (response.status === 201) {
+      // Data was successfully saved
+      toast.success('Données enregistrées avec succès');
+    } else {
+      // There was an error in saving the data
+      toast.error('Erreur lors de l\'enregistrement des données');
+    }
+  } catch (error) {
+    // Handle any network or other errors
+    toast.error('Erreur lors de la communication avec le serveur');
+  }
 };
 
 const handleInputChange = (e) => {
@@ -69,7 +113,7 @@ const handleInputChange = (e) => {
 const handleFieldChange = (fieldValues) => {
   setUserId(fieldValues.userId);
 };
-const handleSubmit= async (event) => {}
+
 
 return(
   <Box
@@ -137,7 +181,35 @@ return(
               label="nbr_jour_sur_site"
               inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             />
-          
+             {showOtherField && (
+              <div>
+      
+     <TextField
+       required
+       name='kmJour'
+       variant="outlined"
+       label="Kilomètres par jour"
+       value={formData.kmJour}
+       onChange={handleInputChange}
+       type="number"
+       inputProps={{ step: '0.01' }}
+     />
+     <br />
+     <TextField
+     disabled
+     name='fraiskm'
+       required
+       variant="outlined"
+       label="Frais par kilomètre"
+       value={formData.fraiskm}
+      //  onChange={handleInputChange}
+      
+     />
+     </div>
+      )}
+           <Button onClick={handleSubmit} color="info" variant="contained" sx={{ mt: 3, ml: 10 }}>
+          Submit
+        </Button>
         </div>
         </Formik>
         </Box>

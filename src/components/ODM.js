@@ -68,25 +68,28 @@ const ListODM = () => {
     const columns = [
         { field: 'id_odm', headerName: 'ID', width: 70 },
         { field: 'description_odm', headerName: 'DESCRIPTION', width: 150},
-        { field: 'debutodm', headerName: 'DATE DEBUT', width: 150,
+       
+        { field: 'debutodm', headerName: 'DATE DEBUT', width: 100,
         valueGetter: (params) => {
           const date = new Date(params.row.debutodm);
           return date.toLocaleDateString(); // Format de date lisible
         }, },
-        { field: 'finodm', headerName: 'DATE FIN', width: 150,
+        { field: 'finodm', headerName: 'DATE FIN', width: 100,
         valueGetter: (params) => {
           const date = new Date(params.row.finodm);
           return date.toLocaleDateString(); // Format de date lisible
         }, },
-        { field: 'consultants_odm.id_c', headerName: 'Consultant', width: 150 ,
+       
+          { field: 'ndf.somme', headerName: 'SOMME', width: 75 ,
     
-        valueGetter: (params) => {
-            const con = params.row.consultantsOdm; // Get the "projet" object
-            if (con) {
-              return con.nom_c +" "+con.prenom_c; // Return the ID if "projet" exists
-            }
-            return ""; // Return an empty string if "projet" is not defined
-          },},
+          valueGetter: (params) => {
+              const con = params.row.ndf.somme; // Get the "projet" object
+              if (con) {
+                return con+' dt'; // Return the ID if "projet" exists
+              }
+              return ""; // Return an empty string if "projet" is not defined
+            },},
+            { field: 'statusOdm', headerName: 'STATUS', width: 150},
       
         {
           headerName: "ACTION",
