@@ -122,7 +122,7 @@ const DetailConsultant = ({ consultant, onClose }) => {
             <strong> Pôle:</strong> {consultant.pole_c}
             </Typography>
             <Typography gutterBottom variant="h6">
-            <strong>Status:</strong> {consultant.status_c}
+            <strong>Status:</strong> {consultant.status}
             </Typography>
             <Typography gutterBottom variant="h6">
             <strong> Date début d'affiliation au projet: </strong> {consultant.ddaff_projet}
@@ -133,36 +133,11 @@ const DetailConsultant = ({ consultant, onClose }) => {
             <Typography gutterBottom variant="h6">
             <strong> Solde congé maladie: </strong>{consultant.soldecongémaladie}
             </Typography>
-            <Typography gutterBottom variant="h5">
-            <strong> Congés:</strong> {consultant.conges.id_co}
-            </Typography>
-            <div>
-  {consultant.conges.map((dataItem, index) => (
-    <div key={index}>
-      <p>ID: {dataItem.id_co}</p>
-      
-      <Typography gutterBottom variant="h6">
-            <strong> Date début:</strong> {dataItem.ddconge}
-            </Typography>
             <Typography gutterBottom variant="h6">
-            <strong> date fin:</strong> {dataItem.dfconge}
+            <strong> Projet Affecter: </strong>{consultant.projet.titre}
             </Typography>
-            <Typography gutterBottom variant="h6">
-            <strong> etat de validation:</strong> {dataItem.etat}
-            </Typography>
-            <hr></hr>
-    </div>
-  ))}
-</div>
-           
-            <Typography gutterBottom variant="h6">
-            <strong> ODMs:</strong> {consultant.odms}
-            </Typography>
-            <Typography gutterBottom variant="h6">
-            <strong> Solde Congé Payé:</strong> {consultant.soldeCongéPayé}
-            </Typography>
-          </div>
-        )}
+            
+           </div>)}
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={onClose} color="secondary" variant="contained">

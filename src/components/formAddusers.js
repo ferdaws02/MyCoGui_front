@@ -184,6 +184,8 @@ const Formadd = ({ url }) => {
         return '/ajouter_MI';
       case 'Manager_Client':
         return '/MC/ajouter_MC';
+        case 'Comptable':
+          return '/Comptables/ajouter_cpt';
       default:
         return '';
     }

@@ -10,6 +10,7 @@ import DoneOutlineOutlinedIcon from '@mui/icons-material/DoneOutlineOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined';
+import DetailConsultant from './DetailConsultant';
 const TableauAffectation = () => {
 
     const [data, setData] = useState([]);
@@ -17,7 +18,8 @@ const TableauAffectation = () => {
     const [aff, setAff] = useState([]);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
- 
+  const [isConsultantPopupOpen, setConsultantPopupOpen] = useState(false);
+  const [selectedConsultantData, setSelectedConsultantData] = useState(null);
 
  
   
@@ -162,18 +164,7 @@ const TableauAffectation = () => {
       }
       return ""; // Return an empty string if "projet" is not defined
     }, },
-    {
-      field: 'managerclient.idc', // Access the nested property path
-    headerName: 'MANAGER CLIENT',
-    width: 150,
-    valueGetter: (params) => {
-      const enterprise = params.row.managerclient; // Get the "projet" object
-      if (enterprise) {
-        return enterprise.nom_c+" " +enterprise.prenom_c; // Return the ID if "projet" exists
-      }
-      return ""; // Return an empty string if "projet" is not defined
-    },
-  },
+   
     {
       headerName: "ACTION",
       flex: 1,
@@ -184,9 +175,22 @@ const TableauAffectation = () => {
                    <IconButton aria-label="Edit" size="large" id="Edit_BTN" onClick={() => handletoEdit(id)}>
                   <EditOutlinedIcon fontSize="small"  />
                   </IconButton>
-                  <IconButton aria-label="consult" size="large">
-                  <VisibilityOutlinedIcon fontSize="small" color="info" />
-                  </IconButton>
+                  <IconButton
+  onClick={() => {
+    const rowData = getDataById(id);
+    if (rowData) {
+      console.log('Found data for the specified ID:', rowData);
+      setSelectedConsultantData(rowData);
+      setConsultantPopupOpen(true);
+    } else {
+      console.log('Data not found for the specified ID.');
+    }
+  }}
+  aria-label="consult"
+  size="large"
+>
+              <VisibilityOutlinedIcon fontSize="small" color="info" />
+            </IconButton>
                   <IconButton aria-label="Annulation" size="large" id="Validate_BTN"  onClick={() => handleCancellation(id)}>
                   <HighlightOffOutlinedIcon fontSize="medium" color='error' />
                   </IconButton>
@@ -297,7 +301,8 @@ return(<div>
            console.log('Data found:', rowData);
            const Data= rowData
            console.log('Data :', Data);
-
+            setSelectedConsultantData(rowData);
+            setConsultantPopupOpen(true);
            handleDataChange (Data)
          
          } else {
@@ -312,6 +317,12 @@ return(<div>
          pageSize={10}
         
       />
+      {/* {isConsultantPopupOpen && (
+            <DetailConsultant
+              consultant={selectedConsultantData}
+              onClose={() => setConsultantPopupOpen(false)}
+            />
+          )} */}
    
 {/* // ********************************** */}
       </Box>
@@ -388,7 +399,12 @@ return(<div>
       </Box>
       </Box>
       {/* <FormPopup isOpen={isOpen} onClose={handleClose} /> */}
-      
+      {isConsultantPopupOpen && (
+            <DetailConsultant
+              consultant={selectedConsultantData}
+              onClose={() => setConsultantPopupOpen(false)}
+            />
+          )}
       </div>);
 };
 

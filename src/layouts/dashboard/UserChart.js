@@ -23,7 +23,7 @@ const UserChart = () => {
         const userData = response.data;
 
         // Calculate counts for each role
-        const roles = ['Consultant', 'RH', 'Manager_Inetum','Manager_Client'];
+        const roles = ['Consultant', 'RH', 'Manager_Inetum','Manager_Client','Comptable'];
         const counts = roles.map((role) => {
           const roleCount = userData.filter((user) => user.roles === role).length;
           return { role, count: roleCount };
