@@ -51,25 +51,25 @@ const AffMI=()=>{
       // onSetOPtion(event.target.value)
     }
 
-      const handleNotification = () => {
-        // Show the toast notification
+      // const handleNotification = () => {
+      //   // Show the toast notification
 
-        toast.success('affectation valider', {
+      //   toast.success('affectation valider', {
 
-          position: "top-right",
-          autoClose: false, // Disable auto close
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined, // Use the default progress bar
-        });
+      //     position: "top-right",
+      //     autoClose: false, // Disable auto close
+      //     hideProgressBar: false,
+      //     closeOnClick: true,
+      //     pauseOnHover: true,
+      //     draggable: true,
+      //     progress: undefined, // Use the default progress bar
+      //   });
     
-        // Reload the page after a delay of 3 seconds (adjust as needed)
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 3000);
-      };
+      //   // Reload the page after a delay of 3 seconds (adjust as needed)
+      //   // setTimeout(() => {
+      //   //   window.location.reload();
+      //   // }, 3000);
+      // };
 
       const handleInputChangeddn = (datePickerKey, date) => {
         setFormData((prevFormData) => ({
@@ -102,24 +102,16 @@ const handleSubmit = async (event) => {
     if (response.ok) {
       // Handle successful submission
       console.log('Data submitted successfully');
-      handleNotification();
+      toast.success('Données enregistrées avec succès');
     } else {
       throw new Error('Error submitting data');
+      toast.error('Données non validées');
     }
   } catch (error) {
     // Handle error and display an error toast notification
     console.error('Error submitting data:', error.message);
 
-    toast.error( 'opération invalide', {
-
-      position: "top-right",
-          autoClose: false, // Disable auto close
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-    });
+    toast.error('Données non validées');
   }
 };
 

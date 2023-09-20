@@ -101,7 +101,8 @@ const handleSubmit = async (event) => {
     if (response.ok) {
       // Handle successful submission
       console.log('Data submitted successfully');
-      handleNotification();
+      toast.success('Données enregistrées');
+      // handleNotification();
     } else {
       throw new Error('Error submitting data');
     }
@@ -109,16 +110,7 @@ const handleSubmit = async (event) => {
     // Handle error and display an error toast notification
     console.error('Error submitting data:', error.message);
 
-    toast.error( 'opération invalide', {
-
-      position: "top-right",
-          autoClose: false, // Disable auto close
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-    });
+    toast.error('Données non validées');
   }
 };
 

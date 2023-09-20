@@ -16,6 +16,7 @@ const TableauAffectation = () => {
     const [data, setData] = useState([]);
     const [conges, setConges] = useState([]);
     const [aff, setAff] = useState([]);
+    const [roles, setRoles] = useState('');
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isConsultantPopupOpen, setConsultantPopupOpen] = useState(false);
@@ -119,6 +120,34 @@ const TableauAffectation = () => {
   const handleOpen2 = () => {
     navigate('/AddAffectationMI'); 
   };
+  
+  useEffect(() => {
+    axios.get('/api/get-profile')
+      .then((response) => {
+        console.log(response)
+        if (response.status === 200) {
+            setRoles(response.data.roles);
+           
+        } else {
+          console.error('Failed to fetch user ID');
+        }
+      })
+      .catch((error) => {
+        console.error('Error while fetching data:', error);
+      });
+  }, []);
+
+
+const isConsultant = (roles) => {
+console.log("+++++++++++++the role is " + roles );
+
+// Check if the user is a Consultant or Manager_Client with status not validation_client
+if (roles === 'Service_Manager') {
+return false; }
+else{
+ return true;
+}
+}
  
   const handleCancellation = (id) => {
     axios.put(`/affectations/updateAffP_CM/${id}`)
@@ -253,6 +282,7 @@ return(<div>
         },
       }}
      variant="contained"
+     disabled={isConsultant(roles)}//
         >
      Ajout Affectation
      <Box width="5px"></Box>
@@ -342,6 +372,7 @@ return(<div>
         },
       }}
      variant="contained"
+     disabled={isConsultant(roles)}//
         >
      Ajout Affectation MI
      <Box width="5px"></Box>

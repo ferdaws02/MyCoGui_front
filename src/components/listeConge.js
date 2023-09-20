@@ -40,10 +40,10 @@ const ListConges = () => {
   const handleCloseDialogedit = () => {
     setDialogOpenEdit(false);
   };
-  const handletoEdit = (id)=> {
-    const row = getDataById(id)
-    navigate(`/ModifUser/${row.id_c}`); 
-  };
+  // const handletoEdit = (id)=> {
+  //   const row = getDataById(id)
+  //   navigate(`/ModifUser/${row.id_c}`); 
+  // };
   const handleDataChange = (newData) => {
     setData(newData);
     console.log("//////////the data : //////////////" ,data)
@@ -74,6 +74,34 @@ const ListConges = () => {
     const row = conges.find((row) => row.id_co === id);
         return row ? row : null;
   }
+  
+  useEffect(() => {
+    axios.get('/api/get-profile')
+      .then((response) => {
+        console.log(response)
+        if (response.status === 200) {
+            setRoles(response.data.roles);
+           
+        } else {
+          console.error('Failed to fetch user ID');
+        }
+      })
+      .catch((error) => {
+        console.error('Error while fetching data:', error);
+      });
+  }, []);
+
+
+const isConsultant = (roles) => {
+console.log("+++++++++++++the role is " + roles );
+
+// Check if the user is a Consultant or Manager_Client with status not validation_client
+if (roles === 'Consultant') {
+return false; }
+else{
+ return true;
+}
+}
  
   const handleValidation = (id) => {
     const rowData = getDataById(id);
@@ -143,8 +171,8 @@ const ListConges = () => {
     },},
     { field: 'dfconge', headerName: 'DATE FIN', width: 150,
     valueGetter: (params) => {
-      const date = new Date(params.row.ddconge);
-      return date.toLocaleDateString(); // Format de date lisible
+      const date = new Date(params.row.dfconge);
+      return date.toLocaleDateString()// Format de date lisible
     }, },
     { field: 'etat', headerName: 'ETAT', width: 150 },
   
@@ -187,7 +215,8 @@ return(<div>
         },
       }}
      variant="contained"
-     onClick={handleOpenDialog}>
+     onClick={handleOpenDialog}
+     disabled={isConsultant(roles)}>
      Ajout Congé 
      <Box width="5px"></Box>
       <AddCircleOutlineOutlinedIcon  fontSize="medium" />
@@ -237,6 +266,7 @@ return(<div>
            console.log('Data :', Data);
 
            handleDataChange (Data)
+           setData(Data)
          
          } else {
            console.log('Data not found for the specified ID.');

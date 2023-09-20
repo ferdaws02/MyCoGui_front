@@ -48,17 +48,58 @@ const ListODM = () => {
             return row ? row : null;
       }
       const handleCancellation = (id) => {
-        const rowData = getDataById(id);
-        if (rowData) {
-        
-          // Mettre à jour l'état de la ligne en "Annuler"
-          const updatedRow = { ...rowData, etat: 'annuler' };
-          console.log("the updated row " + updatedRow.etat);
+       
+          const rowData = getDataById(id);
+          if (rowData) {
+         console.log("the rowdatat*********",rowData)
+            // const updatedConges = conges.map((row) => (row.id_odm === id ? updatedRow : row));
+         
+            // Envoyer les modifications à la base de données via une requête API Axios
+            axios.put(`/ODM/anuuleStatus`, rowData)
+              .then((response) => {
+                if (response.status === 200) {
+                  console.log('La mise à jour a été effectuée avec succès');
+                  window.location.reload();
+                } else {
+                  console.error('Échec de la mise à jour');
+                }
+              })
+              .catch((error) => {
+                console.error('Erreur lors de la mise à jour:', error);
+              });
+          } else {
+            console.log('Data not found for the specified ID.');
+          }
+        };
+
+
+
+        useEffect(() => {
+           axios.get('/api/get-profile')
+             .then((response) => {
+               console.log(response)
+               if (response.status === 200) {
+                   setRoles(response.data.roles);
+                  
+               } else {
+                 console.error('Failed to fetch user ID');
+               }
+             })
+             .catch((error) => {
+               console.error('Error while fetching data:', error);
+             });
+         }, []);
+       
       
-          // Mettre à jour le tableau 'conges' avec la nouvelle valeur modifiée
-          const updatedConges = odm.map((row) => (row.id_odm === id ? updatedRow : row));
-          setOdm(updatedConges);
-        }    
+  const isConsultant = (roles) => {
+    console.log("+++++++++++++the role is " + roles );
+    
+    // Check if the user is a Consultant or Manager_Client with status not validation_client
+    if (roles === 'Consultant') {
+      return false; }
+      else{
+        return true;
+      }
     }
 
     const navigate = useNavigate();
@@ -122,19 +163,23 @@ const ListODM = () => {
              >
                </Box>
                <Box>
-            <Button  size="small"  sx={{
-               backgroundColor: colors.greenAccent[500], 
-               '&:hover': {
-                 backgroundColor: colors.greenAccent[700]
-               },
-             }}
-            variant="contained"
-              onClick={handleOpen}> 
-            Ajout ODM
-            <Box width="5px"></Box>
-             <AddCircleOutlineOutlinedIcon  fontSize="medium" />
-             </Button>
-        
+               <Button
+  size="small"
+  sx={{
+    backgroundColor: colors.greenAccent[500],
+    '&:hover': {
+      backgroundColor: colors.greenAccent[700]
+    },
+  }}
+  variant="contained"
+  onClick={handleOpen}
+  disabled={isConsultant(roles)}// Condition pour désactiver le bouton si c'est un consultant
+>
+  Ajout ODM
+  <Box width="5px"></Box>
+  <AddCircleOutlineOutlinedIcon fontSize="medium" />
+</Button>
+
              </Box>
              </Box>
              

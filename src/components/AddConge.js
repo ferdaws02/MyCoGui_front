@@ -16,14 +16,15 @@ import UserIdInput from './UserIdInput';
 import SelectTypeConge from './ListeTypeConges';
 import axios from 'axios'
 import { postData } from '../Api';
+import { ToastContainer, toast } from 'react-toastify';
 const AddConge = ({ open, onClose }) => {
 
-  const [userId, setUserId] = useState('');
+
   const [selectedDate1, setSelectedDate1] = useState(null);
   const [selectedDate2, setSelectedDate2] = useState(null);
   const [selectedOption, setSelectedOption] = useState('');
   const [etatConge, setEtatConge] = useState('validation_client');
-
+  const [userId, setUserId] = useState('');
   const handleFieldChange = (fieldValues) => {
     setUserId(fieldValues.userId);
   };
@@ -40,11 +41,11 @@ const AddConge = ({ open, onClose }) => {
 
   const handleButtonClick = async() => {
     const DatatoSend = {
-      userId: userId,
+      consultant:{idc:userId} ,
       ddconge:  formatDateToYYYYMMDD(selectedDate1),
       dfconge: formatDateToYYYYMMDD(selectedDate2),
-      etat: etatConge,
-      typeConge: selectedOption,
+      // etat: etatConge,
+      typeConge:{type:selectedOption} ,
 
     };
     try {
@@ -56,6 +57,7 @@ const AddConge = ({ open, onClose }) => {
      });
     
      if (response.ok) {
+      toast.success('Données enregistrées avec succès');
       // Handle successful submission
       console.log('Data submitted successfully '+DatatoSend.type);
      
@@ -64,6 +66,7 @@ const AddConge = ({ open, onClose }) => {
       window.location.reload();
  
     } else {
+      toast.error('vérifier vos données');
       throw new Error('Error submitting data '+DatatoSend.type);
     }
   } catch (error) {
@@ -99,13 +102,13 @@ const AddConge = ({ open, onClose }) => {
         <div>
           <SelectTypeConge handleOptionChange={handleOptionChange} />
         </div>
-        <TextField
+        {/* <TextField
           label="État Congé"
           value="validation_client"
           onChange={(e) => setEtatConge(e.target.value)}
           fullWidth
           margin="normal"
-        />
+        /> */}
       </DialogContent>
       <DialogActions>
         <Button color="inherit" variant="text" onClick={onClose}>

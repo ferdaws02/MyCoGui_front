@@ -47,13 +47,14 @@ const UpdateConge = ({ open, onClose,data }) => {
     const handleButtonClick = () => {
       // Handle the button click here
       const dataToSend = {
+        id_co:data.id_co,
         consultant :{idc:userId},
         ddconge:selectedDate1,
         dfconge:selectedDate2,
         typeConge:{type:selectedOption},
       };
       axios
-      .post('/Conge/updateConge/', dataToSend)
+      .put('/Conge/updateConge', dataToSend)
       .then((response) => {
         console.log('Data sent to the database successfully:', response.data);
         // Optionally, you can perform additional actions after the data is successfully sent
@@ -69,55 +70,25 @@ const UpdateConge = ({ open, onClose,data }) => {
       <Dialog open={open} onClose={onClose}>
         <DialogTitle>Ajouter Conge</DialogTitle>
         <DialogContent>
-       
-      <TextField
-       label="Matricule"
+        <TextField
         variant="outlined"
         color="info"
-        id="userIdInput"
+        id="id"
         type="text"
         name="userId"
         value={data.id_co}
         fullWidth
         margin="normal"
         disabled
-        readOnly
+       hidden
       />
-         <TextField
-       label="Nom"
-        variant="outlined"
-        color="info"
-        id="userIdInput"
-        type="text"
-        name="userId"
-
-        value={data}
-
-        fullWidth
-        margin="normal"
-        disabled
-        readOnly
-      />
-         <TextField
-       label="Prenom"
-        variant="outlined"
-        color="info"
-        id="userIdInput"
-        type="text"
-        name="userId"
-
-        value={data}
-
-        fullWidth
-        margin="normal"
-        disabled
-        readOnly
-      />
+      <UserIdInput onFieldChange={handleFieldChange}  />
+    
           
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               label="Date Picker 1"
-              value={data.ddconge}
+              value={selectedDate1}
               onChange={(date) => setSelectedDate1(date)}
               renderInput={(params) => <TextField {...params} fullWidth margin="normal" />}
             />
