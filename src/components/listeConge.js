@@ -11,7 +11,7 @@ import { tokens } from "../theme";
 import { useNavigate } from 'react-router-dom';
 import AddConge from './AddConge';
 import UpdateConge from './updateCongé'
-import ValidationButton from './ValidationButton';
+import ValidationButton from './validation button/ValidationButton';
 import axios from 'axios'; 
 
 const ListConges = () => {
@@ -29,7 +29,6 @@ const ListConges = () => {
     setDialogOpen(true);
   };
   const handleOpenDialogedit = () => {
-    console.log("**************************************************in open")
     setDialogOpenEdit(true);
   };
 

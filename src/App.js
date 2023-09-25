@@ -32,6 +32,7 @@ import AffProjet from './components/AffectationProjet';
 import AffectationMI from './components/AffectationMI';
 import EditTableauAffProjet from './components/EditAffectationProject';
 import ListODM from './components/ODM';
+import ListNDF from './components/NDF';
 import AjoutODM from './components/AjoutODM';
 function App() {
   const [theme, colorMode] = useMode();
@@ -71,6 +72,7 @@ function App() {
               <Route path="/AddAffectationMI" element={<AffectationMI/>}/>
               <Route path="/ModifAff/:id" element={<EditTableauAffProjet/>}/>
               <Route path="/ODM" element={<ListODM/>}/>
+              <Route path="/NDF" element={<ListNDF/>}/>
               <Route path="/AddODM" element={<AjoutODM/>}/>
               <Route path="/Demandes" element={<ListeDemande />} />
               <Route path="/Reclamations" element={<ListeReclamation />} />

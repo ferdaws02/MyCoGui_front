@@ -337,7 +337,79 @@ const Sidebar = () => {
   </>
 )}
 
-        </Menu>
+      
+        {shouldShowMenu(['Comptable']) && (
+  <>
+    {/* Additional menu items for specific roles */}
+
+
+    <Item
+      id="Affectations"
+      title="Affectations"
+      to="Affectations"
+      icon={<HandshakeOutlinedIcon />}
+      selected={selected}
+      setSelected={setSelected}
+    />
+
+    <Item
+      title="ODM|NDF"
+      to="/NDF"
+      icon={<AssignmentTurnedInOutlinedIcon />}
+      selected={selected}
+      setSelected={setSelected}
+    />
+
+    <Item
+      title="Congés"
+      to="/conges"
+      icon={<EventOutlinedIcon />}
+      selected={selected}
+      setSelected={setSelected}
+    />
+
+    <SubMenu
+      style={{
+        color: colors.grey[100],
+        hover: colors.greenAccent[700],
+      }}
+
+      title="Demandes|Réclamations"
+      // to="/Gestion Réferentiel"
+      icon={<LibraryBooksOutlinedIcon />}
+      selected={selected}
+      setSelected={setSelected}
+    >
+
+      <MenuItem
+        icon={<ListAltOutlinedIcon />}
+        onClick={() => {
+          navigate('/Demandes');
+        }}
+      >
+        Demandes
+      </MenuItem>
+
+      <MenuItem
+        icon={<ReportGmailerrorredOutlinedIcon />}
+        onClick={() => {
+          navigate('/Reclamations');
+        }}
+      >
+        Réclamations
+      </MenuItem>
+    </SubMenu>
+    <Item
+      title="FeedBacks"
+      to="/feed"
+      icon={<AddReactionOutlinedIcon />}
+      selected={selected}
+      setSelected={setSelected}
+    />
+  </>
+)}
+  </Menu>
+      
       </ProSidebar>
     </Box>
   );

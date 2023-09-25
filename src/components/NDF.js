@@ -9,12 +9,14 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined';
 import { tokens } from "../theme";
 import { useNavigate } from 'react-router-dom';
-import ValidationButtonODDM from './validation button/validationbuttonforODM';
+import ValidationButton from './validation button/ValidationButton';
 import axios from 'axios'; 
+import ValidationButtonODM from './validation button/validationbuttonforODM';
+import ValidationButtonNDF from './validation button/validationButtonNDF';
 
 
-const ListODM = () => {
-    const [odm, setOdm] = useState([]);
+const ListNDF= () => {
+    const [ndf, setNDF] = useState([]);
     const [data, setData] = useState('');
   const [roles, setRoles] = useState('');
     const theme = useTheme();
@@ -29,13 +31,13 @@ const ListODM = () => {
       const fetchData = async () => {
         try {
           // Make a request to your backend API endpoint
-          const response = await fetch('/ODM/showODM');
+          const response = await fetch('/ODM/showNDF');
     
           if (response.ok) {
             const jsonData = await response.json();
             // Add a unique 'id' property to each row
             const rowsWithIds = jsonData.map((row, index) => ({ ...row, id: index + 1 }));
-            setOdm(rowsWithIds);
+            setNDF(rowsWithIds);
           } else {
             console.error('Failed to fetch data');
           }
@@ -44,9 +46,27 @@ const ListODM = () => {
         }
       };
       const getDataById = (id) => {
-        const row = odm.find((row) => row.id_odm === id);
+        const row = ndf.find((row) => row.id_ndf === id);
             return row ? row : null;
       }
+      
+      const handleValidation = (id) => {
+        const rowData = getDataById(id);
+        console.log("********************the validation")
+        if (rowData) {
+          // Update the "etat" field to "valider" for the specified row
+          const updatedRow = { ...rowData, etat: 'valider' };
+    
+          // Update the "conges" state with the updated row
+          const updatedConges =ndf.map((row) => (row.id_ndf === id ? updatedRow : row));
+          setNDF(updatedConges);
+    
+          // Send the updated row to the backend
+          // ... (Your fetch code to update the row in the backend) ...
+        } else {
+          console.log('Data not found for the specified ID.');
+        }
+      };
       const handleCancellation = (id) => {
        
           const rowData = getDataById(id);
@@ -72,23 +92,7 @@ const ListODM = () => {
           }
         };
 
-        const handleValidation = (id) => {
-          const rowData = getDataById(id);
-          console.log("********************the validation")
-          if (rowData) {
-            // Update the "etat" field to "valider" for the specified row
-            const updatedRow = { ...rowData, etat: 'valider' };
-      
-            // Update the "conges" state with the updated row
-            const updatedConges =odm.map((row) => (row.id_odm === id ? updatedRow : row));
-            setOdm(updatedConges);
-      
-            // Send the updated row to the backend
-            // ... (Your fetch code to update the row in the backend) ...
-          } else {
-            console.log('Data not found for the specified ID.');
-          }
-        };
+
 
         useEffect(() => {
            axios.get('/api/get-profile')
@@ -123,45 +127,20 @@ const ListODM = () => {
       navigate('/AddODM'); 
     };
     const columns = [
-        { field: 'id_odm', headerName: 'ID', width: 70 },
-        { field: 'description_odm', headerName: 'DESCRIPTION', width: 150},
+        { field: 'id_ndf', headerName: 'ID', width: 70 },
+        { field: 'fraiskm', headerName: 'FRAIS', width: 150},
        
-        { field: 'debutodm', headerName: 'DATE DEBUT', width: 100,
-        valueGetter: (params) => {
-          const date = new Date(params.row.debutodm);
-          return date.toLocaleDateString(); // Format de date lisible
-        }, },
-        { field: 'finodm', headerName: 'DATE FIN', width: 100,
-        valueGetter: (params) => {
-          const date = new Date(params.row.finodm);
-          return date.toLocaleDateString(); // Format de date lisible
-        }, },
+        { field: 'kmJour', headerName: 'KM/J', width: 100 },
+        { field: 'nbrJRSURsit', headerName: 'NBR JOUR', width: 100 },
        
-          { field: 'somme', headerName: 'SOMME', width: 75 ,
-    
-          valueGetter: (params) => {
-              const con = params.row.somme; // Get the "projet" object
-             
-                if (params.row.somme !== null && params.row.somme !== undefined) {
-                    return params.row.somme + ' dt';
-                
-            }
-            return "-";},},
-            { field: 'statusODM	', headerName: 'STATUS', width: 150,
-            valueGetter: (params) => {
-              const con = params.row.statusODM // Get the "projet" object
-             
-                if (con) {
-                    return params.row.statusODM ;
-                
-            }
-            return "-";},},
-      
+        { field: 'somme', headerName: 'SOMME', width: 150},
+        { field: 'statusNdf', headerName: 'STATUS', width: 150},
+           
         {
           headerName: "ACTION",
           flex: 1,
           renderCell: (params)  => {
-            const id = params.row.id_odm; // Get the ID from the 'id_c' field
+            const id = params.row.id_ndf; // Get the ID from the 'id_c' field
            
             return (<Box display="flex"  mt="15px">
                        <IconButton  aria-label="Edit" size="large" id="Edit_BTN">
@@ -170,7 +149,7 @@ const ListODM = () => {
                       <IconButton aria-label="consult" size="large">
                       <VisibilityOutlinedIcon fontSize="small" color="info" />
                       </IconButton>
-                       <ValidationButtonODDM id_odm={id}onRefrech={handleValidation} etat={params.row.statusODM}/>
+                       <ValidationButtonNDF id_ndf={id} onRefrech={handleValidation} etat={params.row.statusNdf}/>
                       <IconButton aria-label="Annulation" size="large" id="Validate_BTN"  onClick={() => handleCancellation(id)}>
                       <HighlightOffOutlinedIcon fontSize="medium" color='error' />
                       </IconButton>
@@ -180,7 +159,7 @@ const ListODM = () => {
     ]
     return(<div>
         <Box m="20px">
-            <h2>Ordre de Mission</h2>
+            <h2>Note De Frais</h2>
             <Box display="flex" justifyContent="space-between" p={2}>
             <Box
                display="flex"
@@ -200,7 +179,7 @@ const ListODM = () => {
   onClick={handleOpen}
   disabled={isConsultant(roles)}// Condition pour désactiver le bouton si c'est un consultant
 >
-  Ajout ODM
+  Ajout NDF
   <Box width="5px"></Box>
   <AddCircleOutlineOutlinedIcon fontSize="medium" />
 </Button>
@@ -237,11 +216,11 @@ const ListODM = () => {
                  },
                }}
              >
-               <DataGrid rows={odm} columns={columns} sortModel={[{ field: 'id_odm', sort: 'desc' }]} 
-              getRowId={(row) => row.id_odm} // Specify the ID field
+               <DataGrid rows={ndf} columns={columns} sortModel={[{ field: 'id_ndf', sort: 'desc' }]} 
+              getRowId={(row) => row.id_ndf} // Specify the ID field
               getRowData={(params) => params.row} // Retrieve the row data
               onRowClick={(params) => {
-                const id = params.row.id_odm;
+                const id = params.row.id_ndf;
                 const rowData = getDataById(id);
                 if (rowData) {
                   console.log('Data found:', rowData);
@@ -272,4 +251,4 @@ const ListODM = () => {
     
 };
 
-export default ListODM ;
+export default ListNDF ;
