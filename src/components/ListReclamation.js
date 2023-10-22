@@ -51,26 +51,26 @@ const ListeReclamation = () => {
   }, []);
 
   const columns = [
-    { field: 'id_reclamation', headerName: 'ID', width: 100 },
-    { field: 'nom', headerName: 'Nom Consultant', width: 150 },
-    { field: 'date_reclamation', headerName: 'Date de Réclamation', width: 200 },
-    { field: 'objet', headerName: 'Objet', width: 200 },
-    { field: 'status', headerName: 'Status', width: 150 },
+    { field: 'id_r', headerName: 'ID', width: 100 },
+    { field: 'consultants_rec', headerName: 'ID CONSULTANT', width: 150 },
+    { field: 'date', headerName: 'DATE', width: 200 },
+    { field: 'objet', headerName: 'OBJET', width: 200 },
+    { field: 'status', headerName: 'STATUS', width: 150 },
     {
-      headerName: 'Actions',
+      headerName: 'ACTIONS',
       field: 'actions',
       flex: 1,
       renderCell: (params) => (
         <Box display="flex" alignItems="center">
           <IconButton
-            onClick={() => handleShowDetails(params.row.id_reclamation)}
+            onClick={() => handleShowDetails(params.row.id_r)}
             aria-label="Consult"
             size="large"
           >
             <VisibilityOutlinedIcon fontSize="small" color="info" />
           </IconButton>
           <IconButton
-            onClick={() => handletoEdit(params.row.id_reclamation)}
+            onClick={() => handletoEdit(params.row.id_r)}
             aria-label="Edit"
             size="large"
           >

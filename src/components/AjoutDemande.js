@@ -13,11 +13,11 @@ import { postData } from '../Api';
 
 const AjoutDemande = () => {
   const [formData, setFormData] = useState({
-    id_consultant: "", // Updated field names to match backend
+    consultant_demande: {idc:""} , // Updated field names to match backend
     nom_consultant: "",
     prenom: "",
     date_demande: new Date().toISOString().split('T')[0],
-    type: "",
+    typedemande: "",
     commentaire: "",
   });
 
@@ -33,7 +33,7 @@ const AjoutDemande = () => {
         const userData = await response.json();
         setFormData({
           ...formData,
-          id_consultant: userData.idc,
+          consultant_demande:{idc:userData.idc} ,
           nom_consultant: userData.nom_c,
           prenom: userData.prenom_c,
         });
@@ -57,11 +57,11 @@ const AjoutDemande = () => {
     event.preventDefault();
 
     try {
-      const response = await postData('/DemandeEtFormation/ajouter_Demande', formData);
+      const response = await postData('/DemandeEtFormation/ajouter_Formation', formData);
 
       if (response.ok) {
         console.log('Demande submitted successfully');
-        window.location.reload();
+        //window.location.reload();
       } else {
         throw new Error('Error submitting data');
       }
@@ -88,8 +88,8 @@ const AjoutDemande = () => {
               variant="outlined"
               color="info"
               type="text"
-              name="id_consultant"
-              value={formData.id_consultant}
+              name="consultant_demande"
+              value={formData.consultant_demande.idc}
               onChange={handleInputChange}
               label="Id Consultant"
               disabled
@@ -137,15 +137,41 @@ const AjoutDemande = () => {
                 variant="outlined"
                 color="info"
                 label="Type"
-                name="type"
-                value={formData.type}
+                name="typedemande"
+                value={formData.typedemande}
                 onChange={handleInputChange}
               >
-                <MenuItem value="Option1">Option 1</MenuItem>
-                <MenuItem value="Option2">Option 2</MenuItem>
+                <MenuItem value="Demande_Formation">Demande_Formation</MenuItem>
+                <MenuItem value="Demande_Papier">Demande_Papier</MenuItem>
+                <MenuItem value="Autre">Autre</MenuItem>
                 {/* Add more options as needed */}
               </Select>
             </FormControl>
+            {formData.typedemande === 'Demande_Formation' && (
+        <div>
+          <TextField
+            label="Nom de Formation"
+            type="text"
+            name="nom_formation"
+            value={formData.nom_formation}
+            onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <FormControl fullWidth margin="normal">
+            <InputLabel>Niveau</InputLabel>
+            <Select
+              name="niveau"
+              value={formData.niveau}
+              onChange={handleInputChange}
+            >
+              <MenuItem value="débutant">Débutant</MenuItem>
+              <MenuItem value="intermédiaire">Intermédiaire</MenuItem>
+              <MenuItem value="avancé">Avancé</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+      )}
           </div>
           <div>
             <TextField

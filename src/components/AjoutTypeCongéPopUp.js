@@ -10,6 +10,7 @@ const AddForm = ({ isOpenEdit, onCloseEdit }) => {
   const [formData, setFormData] = useState({
     type: ""
   });
+ 
   const handleSubmit = async (event) => {
     event.preventDefault();
   const DatatoSend = {
@@ -26,7 +27,7 @@ const AddForm = ({ isOpenEdit, onCloseEdit }) => {
    if (response.ok) {
      // Handle successful submission
      console.log('Data submitted successfully '+DatatoSend.type);
-     formData.resetForm();
+
      onCloseEdit(); // Close the dialog box
 
      window.location.reload();
@@ -52,7 +53,7 @@ const AddForm = ({ isOpenEdit, onCloseEdit }) => {
 
   return (
     <Dialog open={isOpenEdit} onClose={onCloseEdit} fullWidth maxWidth="sm">
-      <DialogTitle fontStyle={colors.grey[800]} important>Edit Client</DialogTitle>
+      <DialogTitle fontStyle={colors.grey[800]} important>Ajouter Type Congét</DialogTitle>
       <DialogContent>
         <Box
           component="form"

@@ -61,6 +61,7 @@ const AjoutTC=()=>{
         // Add a unique 'id' property to each row
         const rowsWithIds = jsonData.map((row, index) => ({ ...row, id: index + 1 }));
         setConges(rowsWithIds);
+        //window.location.reload();
       } else {
         console.error('Failed to fetch data');
       }

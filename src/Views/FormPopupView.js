@@ -31,7 +31,7 @@ const FormPopupView = ({
   return (
     <Dialog open={isOpen} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle fontStyle={colors.grey[800]} important>
-        Add Client
+        Ajouter Client
       </DialogTitle>
       <DialogContent>
         <Box
@@ -46,7 +46,7 @@ const FormPopupView = ({
             <TextField
               required
               id="outlined-required"
-              label="Name"
+              label="Nom de l'entreprise"
               color="info"
               variant="standard"
               onChange={handleNomentrepriseChange}
@@ -56,7 +56,7 @@ const FormPopupView = ({
             <TextField
               required
               id="outlined-required"
-              label="Country"
+              label="Pays"
               color="info"
               variant="standard"
               onChange={handlePaysChange}

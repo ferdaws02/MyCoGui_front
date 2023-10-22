@@ -10,7 +10,7 @@ const EditFormView = ({ isOpenEdit, onCloseEdit, selectedData,onDataChange
     return(
     <Dialog open={isOpenEdit} onClose={onCloseEdit}  fullWidth
     maxWidth="sm">
-      <DialogTitle fontStyle={colors.grey[800]} important>Edit Client</DialogTitle>
+      <DialogTitle fontStyle={colors.grey[800]} important>Modifier Client</DialogTitle>
       <DialogContent>
       <Box
     component="form"
@@ -39,7 +39,7 @@ const EditFormView = ({ isOpenEdit, onCloseEdit, selectedData,onDataChange
      
         required
         id="outlined-required"
-        label="Name"
+        label="Nom de l'entreprise"
         name='nomentreprise'
         value={nomentreprise}
         color= "info"
@@ -52,7 +52,7 @@ const EditFormView = ({ isOpenEdit, onCloseEdit, selectedData,onDataChange
        <TextField
         required
         id="outlined-required"
-        label="Country"
+        label="Pays"
         name='pays'
         value={pays}
         color= "info"

@@ -30,7 +30,7 @@ const ListDemandes = () => {
   const fetchData = async () => {
     try {
       // Make a request to your backend API endpoint for demandes
-      const response = await fetch('/Demandes'); // Replace with your actual API endpoint
+      const response = await fetch('/DemandeEtFormation/showDemande'); // Replace with your actual API endpoint
 
       if (response.ok) {
         const jsonData = await response.json();
@@ -51,14 +51,13 @@ const ListDemandes = () => {
   }, []);
 
   const columns = [
-    { field: 'id_demande', headerName: 'ID', width: 100 },
-    { field: 'nom', headerName: 'Nom Consultant', width: 150 },
-    { field: 'id_consultant', headerName: 'ID Consultant', width: 150 },
-    { field: 'date_demande', headerName: 'Date de Demande', width: 200 },
-    { field: 'type_demande', headerName: 'Type de demande', width: 200 },
-    { field: 'status', headerName: 'Status', width: 150 },
+    { field: 'id_d', headerName: 'ID', width: 100 },
+    { field: 'id_consultant', headerName: 'ID CONSULTANT', width: 150 },
+    { field: 'date_demande', headerName: 'DATE DEMANDE', width: 200 },
+    { field: 'typedemande', headerName: 'TYPE DEMANDE', width: 200 },
+    { field: 'status', headerName: 'STATUS', width: 150 },
     {
-      headerName: 'Actions',
+      headerName: 'ACTIONS',
       field: 'actions',
       flex: 1,
       renderCell: (params) => (
@@ -135,8 +134,8 @@ const ListDemandes = () => {
           <DataGrid
             rows={demandes}
             columns={columns}
-            sortModel={[{ field: 'id_demande', sort: 'desc' }]}
-            getRowId={(row) => row.id_demande}
+            sortModel={[{ field: 'id_d', sort: 'desc' }]}
+            getRowId={(row) => row.id_d}
             pagination
             pageSize={10}
           />
