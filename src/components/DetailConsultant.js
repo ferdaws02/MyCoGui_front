@@ -109,12 +109,12 @@ const DetailConsultant = ({ consultant, onClose }) => {
             <Typography gutterBottom variant="h6">
             <strong>Rôles:</strong> {consultant.roles}
             </Typography>
-            <Typography gutterBottom variant="h6">
+            {/* <Typography gutterBottom variant="h6">
             <strong> Mot de passe:</strong> {consultant.mdp_c}
-            </Typography>
-            <Typography gutterBottom variant="h6">
+            </Typography> */}
+            {/* <Typography gutterBottom variant="h6">
             <strong> Service Manager: </strong>{consultant.serviceManager}
-            </Typography>
+            </Typography> */}
             <Typography gutterBottom variant="h6">
             <strong> Poste:</strong> {consultant.post_c}
             </Typography>
@@ -124,7 +124,7 @@ const DetailConsultant = ({ consultant, onClose }) => {
             <Typography gutterBottom variant="h6">
             <strong>Status:</strong> {consultant.status}
             </Typography>
-            <Typography gutterBottom variant="h6">
+            {/* <Typography gutterBottom variant="h6">
             <strong> Date début d'affiliation au projet: </strong> {consultant.ddaff_projet}
             </Typography>
             <Typography gutterBottom variant="h6">
@@ -135,7 +135,7 @@ const DetailConsultant = ({ consultant, onClose }) => {
             </Typography>
             <Typography gutterBottom variant="h6">
             <strong> Projet Affecter: </strong>{consultant.projet.titre}
-            </Typography>
+            </Typography> */}
             
            </div>)}
       </DialogContent>

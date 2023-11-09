@@ -190,23 +190,7 @@ const Formadd = ({ url }) => {
         return '';
     }
   };
-  const handleNotification = () => {
-    // Show the toast notification
-    toast.success('le compte est ajouter avec succé', {
-      position: "top-right",
-      autoClose: false, // Disable auto close
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined, // Use the default progress bar
-    });
 
-    // Reload the page after a delay of 3 seconds (adjust as needed)
-    setTimeout(() => {
-    //  navigate('/Consultants'); 
-    }, 3000);
-  };
  
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -258,7 +242,7 @@ const Formadd = ({ url }) => {
   
       //const data = await response.json();
       //console.log(data);
-  
+      toast.success('le compte est ajouter avec succé');
       navigate('/Consultants');
     } catch (error) {
       console.error(error);

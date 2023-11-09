@@ -10,7 +10,8 @@ import {
 } from '@mui/material';
 import { Formik } from 'formik';
 import { postData } from '../Api';
-
+import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const AjoutDemande = () => {
   const [formData, setFormData] = useState({
     consultant_demande: {idc:""} , // Updated field names to match backend
@@ -20,6 +21,7 @@ const AjoutDemande = () => {
     typedemande: "",
     commentaire: "",
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUserData();
@@ -61,9 +63,11 @@ const AjoutDemande = () => {
 
       if (response.ok) {
         console.log('Demande submitted successfully');
-        //window.location.reload();
+        toast.success('Données enregistrées');
+       navigate('/Demandes')
       } else {
-        throw new Error('Error submitting data');
+           Error('Error submitting data');
+         toast.error('Données non enregistrées');
       }
     } catch (error) {
       console.error(error);

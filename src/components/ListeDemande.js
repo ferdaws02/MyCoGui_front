@@ -36,7 +36,9 @@ const ListDemandes = () => {
         const jsonData = await response.json();
         // Add a unique 'id' property to each row
         const rowsWithIds = jsonData.map((row, index) => ({ ...row, id: index + 1 }));
+       // console.log(rowsWithIds.consultant.idc)
         setDemandes(rowsWithIds);
+       // console.log(demandes.consultant_demande.idc);
       } else {
         console.error('Failed to fetch data');
       }
@@ -47,12 +49,17 @@ const ListDemandes = () => {
 
   useEffect(() => {
     // Fetch data from the backend and update the state
-    fetchData();
+    fetchData()//.then((demandes) => {
+     // console.log(demandes.consultant_demande.idc);})
   }, []);
 
   const columns = [
     { field: 'id_d', headerName: 'ID', width: 100 },
-    { field: 'id_consultant', headerName: 'ID CONSULTANT', width: 150 },
+    // {
+    //   field: 'consultant_demande.idc',
+    //   headerName: 'ID CONSULTANT',
+    //   width: 150,
+    // },
     { field: 'date_demande', headerName: 'DATE DEMANDE', width: 200 },
     { field: 'typedemande', headerName: 'TYPE DEMANDE', width: 200 },
     { field: 'status', headerName: 'STATUS', width: 150 },
