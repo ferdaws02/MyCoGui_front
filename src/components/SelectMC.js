@@ -42,7 +42,7 @@ const SelectMC = ({ selectedOption, handleOptionChange }) => {
         variant='outlined'
         label='Consultants'
         color="info"
-        id="simple-select"
+        id="select-client"
         sx={{ml:5,mt:2,mr:8}} 
         value={optionselected}
          onChange={handleChange}

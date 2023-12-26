@@ -34,6 +34,7 @@ const AffProjet=({url})=>{
       entreprise:{idc:""}
     
     });
+    const navigate = useNavigate();
       const [value, setValue] = useState('');
  
       const handleOptionChange = (event) =>{
@@ -100,7 +101,8 @@ console.log("****************** data "+ClientData)
     if (response.ok) {
       // Handle successful submission
       console.log('Data submitted successfully');
-      handleNotification();
+      toast.success('le compte est ajouter avec succé');
+      navigate('/Affectations');
     } else {
       throw new Error('Error submitting data');
     }

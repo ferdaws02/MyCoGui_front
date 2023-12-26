@@ -147,7 +147,7 @@ const ListODM = () => {
                 
             }
             return "-";},},
-            { field: 'statusODM	', headerName: 'STATUS', width: 150,
+            { field: 'statusODM	', headerName: 'STATUS', width: 250,
             valueGetter: (params) => {
               const con = params.row.statusODM // Get the "projet" object
              

@@ -156,6 +156,8 @@ return(
               variant="outlined"
               color="info"
               type="text"
+              multiline
+              rows={4}
               name="description_odm"
               value={formData.description_odm}
               onChange={handleInputChange}

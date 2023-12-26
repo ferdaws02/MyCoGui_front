@@ -17,6 +17,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import SelectConsultant from '../components/SelectConsultant'
 import SelectProjet from '../components/SelectProjets';
 import { Formik } from 'formik';
+
 import { useNavigate } from 'react-router-dom';
 import { putData } from '../Api';
 import { ToastContainer, toast } from 'react-toastify';
@@ -24,6 +25,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const AffMC=({url})=>{
+  const navigate = useNavigate();
   const [consultant, setConsultant] = useState('');
   const [projet, setProjet] = useState('');
   const [entreprise, setEntreprise] = useState('');
@@ -47,16 +49,8 @@ const AffMC=({url})=>{
       const handleNotification = () => {
         // Show the toast notification
 
-        toast.success('affectation valider', {
-
-          position: "top-right",
-          autoClose: false, // Disable auto close
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined, // Use the default progress bar
-        });
+        toast.success('le compte est ajouter avec succé');
+      navigate('/Affectations');
     
         // Reload the page after a delay of 3 seconds (adjust as needed)
         setTimeout(() => {

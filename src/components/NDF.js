@@ -134,7 +134,7 @@ const ListNDF= () => {
         { field: 'nbrJRSURsit', headerName: 'NBR JOUR', width: 100 },
        
         { field: 'somme', headerName: 'SOMME', width: 150},
-        { field: 'statusNdf', headerName: 'STATUS', width: 150},
+        { field: 'statusNdf', headerName: 'STATUS', width: 250},
            
         {
           headerName: "ACTION",

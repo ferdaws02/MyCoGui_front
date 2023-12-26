@@ -47,7 +47,7 @@ const SelectOptions = ({ selectedOption, handleOptionChange }) => {
         variant='outlined'
         label='Entreprise Client'
         color="info"
-        id="simple-select"
+        id="entreprise"
         sx={{ml:5,mt:2,mr:8}} 
         value={optionselected}
          onChange={handleChange}

@@ -31,7 +31,7 @@ const ValidationButtonODM = ({id_odm,onRefrech,etat}) => {
     // Check if the user is a Consultant or Manager_Client with status not validation_client
     if (roles === 'Consultant'&& etat !== 'En_cour_de_validation_SM') {
       return true; // Disable the button for Consultants
-    } else if (roles === 'Service_Manager' && etat !== "En_cour_de_validation_SM" ) {
+    } else if (roles === 'Service_Manager' && etat !== "En cour de validation SM" ) {
       return true; // Disable the button for Service_Manager with status not validation_SM
     } else if (roles === 'Comptable' && etat !== 'En_cour_de_validation_comptabilité') {
       return true; // Disable the button for RH with status not validation_RH

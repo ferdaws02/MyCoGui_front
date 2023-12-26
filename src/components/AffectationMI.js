@@ -26,7 +26,7 @@ import SelectMI from './SelectMI';
 const AffMI=()=>{
   const [consultant, setConsultant] = useState('');
   const [manager, setManager] = useState('');
-
+  const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
        id:{
@@ -102,7 +102,8 @@ const handleSubmit = async (event) => {
     if (response.ok) {
       // Handle successful submission
       console.log('Data submitted successfully');
-      toast.success('Données enregistrées avec succès');
+      toast.success('le compte est ajouter avec succé');
+      navigate('/Affectations');
     } else {
       throw new Error('Error submitting data');
       toast.error('Données non validées');

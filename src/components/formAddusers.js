@@ -406,6 +406,7 @@ const Formadd = ({ url }) => {
             {showTextField && (
               <div>
                 <TextField
+                id="post"
                   variant="outlined"
                   color="info"
                   type="text"
@@ -415,6 +416,7 @@ const Formadd = ({ url }) => {
                   label="Post"
                 />
                 <TextField
+                id='pole'
                   variant="outlined"
                   color="info"
                   type="text"

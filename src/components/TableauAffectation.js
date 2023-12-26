@@ -231,7 +231,7 @@ else{
   //AffectationMI
 
   const columnsaff = [
-    { field: 'status', headerName: 'Status', flex: 1 },
+    // { field: 'status', headerName: 'Status', flex: 1 },
   { field: 'id.manager_id', headerName: 'Manager ID', flex: 1 ,
   valueGetter: (params) => params.row.id.manager_id,},
   { field: 'id.consultant_id', headerName: 'Consultant ID', flex: 1 ,
